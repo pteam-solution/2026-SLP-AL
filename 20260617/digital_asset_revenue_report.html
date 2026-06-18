@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디지털자산 도입의 동기 — 신규 수익·비용 절감·방어의 구분</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16223D;
+    --navy-soft:#22324f;
+    --blue:#3E6FB0;
+    --blue-light:#e8eef7;
+    --gold:#E8B23A;
+    --gold-deep:#c8942a;
+    --cream:#F7F7F5;
+    --ink:#1c2230;
+    --ink-soft:#445064;
+    --line:#dfe3ea;
+    --paper:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Noto Sans KR',sans-serif;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:880px;
+    margin:0 auto;
+    background:var(--paper);
+    box-shadow:0 1px 40px rgba(22,34,61,0.07);
+  }
+
+  /* Cover */
+  .cover{
+    background:var(--navy);
+    color:#fff;
+    padding:62px 60px 54px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::after{
+    content:"";
+    position:absolute;
+    right:-80px;top:-80px;
+    width:280px;height:280px;
+    border:1px solid rgba(232,178,58,0.25);
+    border-radius:50%;
+  }
+  .cover::before{
+    content:"";
+    position:absolute;
+    right:-30px;top:-30px;
+    width:180px;height:180px;
+    border:1px solid rgba(232,178,58,0.18);
+    border-radius:50%;
+  }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.22em;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:18px;
+  }
+  .cover h1{
+    font-family:'Noto Serif KR',serif;
+    font-weight:700;
+    font-size:31px;
+    line-height:1.45;
+    margin:0 0 22px;
+    letter-spacing:-0.01em;
+  }
+  .cover .sub{
+    font-size:14.5px;
+    color:#c7d0e0;
+    font-weight:300;
+    line-height:1.8;
+    max-width:560px;
+    border-left:2px solid var(--gold);
+    padding-left:16px;
+  }
+
+  /* Body */
+  main{padding:48px 60px 64px;}
+  .lead{
+    font-size:15.5px;
+    color:var(--ink-soft);
+    line-height:1.9;
+    margin:0 0 40px;
+  }
+  h2{
+    font-family:'Noto Serif KR',serif;
+    font-weight:700;
+    font-size:21px;
+    color:var(--navy);
+    margin:52px 0 8px;
+    line-height:1.5;
+    letter-spacing:-0.01em;
+  }
+  h2 .num{
+    color:var(--gold-deep);
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.05em;
+    display:block;
+    margin-bottom:6px;
+    font-family:'Noto Sans KR',sans-serif;
+  }
+  .rule{
+    height:2px;
+    background:linear-gradient(90deg,var(--gold) 0%, var(--gold) 56px, var(--line) 56px, var(--line) 100%);
+    margin:0 0 26px;
+  }
+  h3{
+    font-size:16px;
+    font-weight:700;
+    color:var(--navy);
+    margin:34px 0 12px;
+    line-height:1.6;
+  }
+  p{margin:0 0 16px;}
+  .section-break{height:1px;background:var(--line);margin:46px 0;}
+
+  /* Table */
+  .tbl-scroll{overflow-x:auto;margin:24px 0 28px;}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+    line-height:1.7;
+    min-width:640px;
+  }
+  thead th{
+    background:var(--navy);
+    color:#fff;
+    font-weight:500;
+    text-align:left;
+    padding:13px 14px;
+    border-right:1px solid rgba(255,255,255,0.12);
+    vertical-align:middle;
+  }
+  thead th:first-child{width:90px;}
+  tbody td{
+    padding:13px 14px;
+    border-bottom:1px solid var(--line);
+    border-right:1px solid var(--line);
+    vertical-align:top;
+    color:var(--ink-soft);
+  }
+  tbody td:first-child{
+    font-weight:700;
+    color:var(--navy);
+    background:var(--blue-light);
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  .motive{
+    display:inline-block;
+    font-size:12px;
+    font-weight:700;
+    color:var(--gold-deep);
+    white-space:nowrap;
+  }
+
+  /* Callout */
+  .callout{
+    background:var(--blue-light);
+    border-left:4px solid var(--blue);
+    padding:18px 22px;
+    margin:24px 0 28px;
+    border-radius:0 6px 6px 0;
+  }
+  .callout strong{color:var(--navy);}
+
+  .keyline{
+    font-family:'Noto Serif KR',serif;
+    font-weight:700;
+    font-size:17px;
+    color:var(--navy);
+    line-height:1.65;
+    margin:30px 0 16px;
+    padding-left:16px;
+    border-left:3px solid var(--gold);
+  }
+
+  /* thesis question box */
+  .thesis{
+    margin:8px 0 30px;
+    padding:24px 28px;
+    background:#fbf6ea;
+    border:1px solid #ecd9a8;
+    border-left:5px solid var(--gold);
+    border-radius:0 8px 8px 0;
+  }
+  .thesis .qe{font-size:11px;letter-spacing:.2em;color:var(--gold-deep);font-weight:700;margin-bottom:12px;}
+  .thesis .q{
+    font-family:'Noto Serif KR',serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--navy);
+    line-height:1.5;
+    margin:0 0 14px;
+  }
+  .thesis p{font-size:14px;color:var(--ink-soft);line-height:1.85;margin:0;}
+  .thesis p + p{margin-top:12px;}
+  .thesis b{color:var(--navy);}
+
+  /* role table emphasis */
+  .roletbl td:first-child{white-space:nowrap;}
+
+  /* scenario card extras */
+  .card .typetag{
+    font-size:11px;font-weight:700;color:var(--gold-deep);
+    letter-spacing:.04em;margin-bottom:6px;
+  }
+  .card .part{
+    font-size:11.5px;color:#6d7585;line-height:1.6;
+    margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);
+  }
+  .mat{
+    display:inline-block;font-size:10px;font-weight:700;
+    padding:1px 7px;border-radius:10px;margin:0 2px;
+    vertical-align:middle;white-space:nowrap;
+  }
+  .mat.com{background:#e2f1e8;color:#2e8a5a;}
+  .mat.op{background:#e8eef7;color:#3E6FB0;}
+  .mat.demo{background:#fbf0d8;color:#c8942a;}
+  .mat.res{background:#eef0f3;color:#7a8294;}
+
+  /* Company motive cards */
+  .cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:22px 0 28px;
+  }
+  .card{
+    border:1px solid var(--line);
+    border-top:3px solid var(--blue);
+    border-radius:6px;
+    padding:16px 18px;
+    background:#fcfcfd;
+  }
+  .card .co{
+    font-weight:900;
+    font-size:15px;
+    color:var(--navy);
+    margin-bottom:2px;
+  }
+  .card .tag{
+    font-size:12px;
+    font-weight:700;
+    color:var(--gold-deep);
+    letter-spacing:.02em;
+    margin-bottom:10px;
+  }
+  .card p{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.75;
+    margin:0;
+  }
+
+  /* highlight numbers inline */
+  .hl{color:var(--navy);font-weight:700;}
+
+  /* footnote markers */
+  sup.fn{
+    color:var(--blue);
+    font-weight:700;
+    font-size:10px;
+    padding-left:1px;
+    cursor:default;
+  }
+  .notes{
+    margin:34px 0 8px;
+    padding:18px 20px;
+    background:#fbfbfa;
+    border:1px solid var(--line);
+    border-radius:6px;
+    font-size:12px;
+    line-height:1.7;
+    color:#6d7585;
+  }
+  .notes .nt{font-weight:700;color:var(--navy);font-size:12px;letter-spacing:.04em;margin-bottom:8px;}
+  .notes ol{margin:0;padding-left:20px;}
+  .notes li{margin-bottom:5px;}
+  .notes .vchk{color:#2e8a5a;font-weight:700;}
+  .notes .vone{color:var(--gold-deep);font-weight:700;}
+
+  /* sub-thesis lead inside dark box */
+  .bridge .vlist{margin:14px 0 4px;padding:0;list-style:none;}
+  .bridge .vlist li{
+    padding:10px 0 10px 0;
+    border-top:1px solid rgba(255,255,255,0.12);
+    font-size:13.5px;
+    color:#d4dce8;
+    line-height:1.7;
+  }
+  .bridge .vlist li b{color:var(--gold);font-weight:700;}
+
+  /* era evolution strip */
+  .evo{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    margin:26px 0 30px;
+    flex-wrap:nowrap;
+  }
+  .evo-step{
+    flex:1;
+    background:#fcfcfd;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:14px 12px 13px;
+    text-align:center;
+    position:relative;
+  }
+  .evo-step.now{
+    border-color:var(--gold);
+    border-width:2px;
+    background:#fffaf0;
+  }
+  .evo-arrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--blue);
+    font-size:18px;
+    font-weight:700;
+    padding:0 6px;
+    flex:0 0 auto;
+  }
+  .evo-step .stage{font-weight:900;font-size:14px;color:var(--navy);margin-bottom:3px;}
+  .evo-step .en{font-size:10px;letter-spacing:.05em;color:#9aa2b1;font-weight:700;margin-bottom:7px;}
+  .evo-step .cond{font-size:11.5px;color:var(--ink-soft);line-height:1.55;}
+  .evo-step.now .stage{color:var(--gold-deep);}
+
+  /* two-column contrast */
+  .vs2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:24px 0 26px;
+  }
+  .vs2 .col{
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .vs2 .col .hd{
+    padding:11px 16px;
+    font-weight:700;
+    font-size:14px;
+    color:#fff;
+  }
+  .vs2 .col.china .hd{background:#b3402f;}
+  .vs2 .col.korea .hd{background:var(--navy);}
+  .vs2 .col .bd{padding:14px 16px;}
+  .vs2 .col .bd ul{margin:0;padding-left:17px;}
+  .vs2 .col .bd li{font-size:13px;color:var(--ink-soft);line-height:1.6;margin-bottom:7px;}
+  .vs2 .col .bd li:last-child{margin-bottom:0;}
+  .vs2 .col .bd li b{color:var(--navy);font-weight:700;}
+
+  @media (max-width:720px){
+    .evo{flex-direction:column;}
+    .evo-arrow{transform:rotate(90deg);padding:4px 0;}
+    .vs2{grid-template-columns:1fr;}
+  }
+
+  /* Bridge box */
+  .bridge{
+    background:var(--navy);
+    color:#eef2f8;
+    padding:26px 30px;
+    border-radius:8px;
+    margin:38px 0 12px;
+  }
+  .bridge .eyebrow{margin-bottom:12px;}
+  .bridge h3{color:#fff;margin:0 0 12px;font-family:'Noto Serif KR',serif;font-size:17px;}
+  .bridge p{color:#c7d0e0;font-size:14px;line-height:1.85;margin:0;}
+  .bridge p + p{margin-top:12px;}
+
+  footer{
+    padding:26px 60px 40px;
+    border-top:1px solid var(--line);
+    font-size:12.5px;
+    color:#8a93a3;
+    line-height:1.7;
+  }
+  footer .gold{color:var(--gold-deep);font-weight:700;}
+
+  @media (max-width:720px){
+    .cover{padding:44px 28px 38px;}
+    .cover h1{font-size:24px;}
+    main{padding:36px 28px 48px;}
+    .cards{grid-template-columns:1fr;}
+    footer{padding:24px 28px 36px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="cover">
+    <div class="eyebrow">GLOBAL BENCHMARK · 디지털자산 도입 동기 분석</div>
+    <h1>디지털자산 도입을 각 사는 "왜" 하는가<br>— 신규 수익·비용 절감·방어적 락인의 구분</h1>
+    <div class="sub">
+      Visa · PayPal · JP모건 · Shopify 네 사례의 실제 수익 구조와 공시 수치를 확인하고,
+      QR·핀테크 성장이 기존 금융사 수익에 미친 영향과 핀테크의 수익 모델을 함께 정리한다.
+      결론을 미리 정하지 않고, 공시·보도에서 확인되는 사실만을 근거로 한다.
+    </div>
+  </header>
+
+  <main>
+    <p class="lead">
+      디지털자산 도입을 각 사가 "왜" 하는지 — 신규 수익인지, 비용 절감인지, 방어적 락인인지 — 를 구분하는 것이
+      이 분석의 핵심 논점이다. 결론을 미리 정하지 않고 각 사의 실제 수익 구조와 공시 수치를 확인한 결과,
+      흥미롭게도 네 곳 모두 "스테이블코인으로 돈을 새로 번다"고 보기는 어렵다. 동기가 서로 다르다.
+    </p>
+
+    <div class="thesis">
+      <div class="qe">핵심 질문</div>
+      <div class="q">왜 스테이블코인 전략을 수립해야 하는가</div>
+      <p>
+        흔한 답은 "새 수익원이 생기니까"이다. 그러나 이어지는 분석은 그 반대를 보여준다.
+        검증된 큰 수익은 발행자의 준비금 이자 한 곳뿐이고, 그마저 금리에 묶이며 유통 파트너에게 절반이 빠진다.
+        그리고 금산분리로 삼성은 그 발행 자리에 설 수 없다. 즉 삼성에게 "돈을 벌려고"는 정직한 답이 아니다.
+      </p>
+      <p>
+        정직한 답은 세 가지다 — <b>방어, 비용 절감, 그리고 빈 땅의 선도</b>다.
+        아래 분석은 이 답에 이르는 근거이며, 마지막에 세 이유와 관계사별 가치(금융사·비금융사)로 종합한다.
+      </p>
+    </div>
+
+    <!-- 1. 수익모델 비교 -->
+    <h2><span class="num">SECTION 01</span>네 사례의 수익 모델 비교</h2>
+    <div class="rule"></div>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>무엇을 하는가</th>
+            <th>직접 수익 발생 지점</th>
+            <th>동기의 무게중심</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Visa</td>
+            <td>카드 거래의 은행 간 정산(백엔드)을 USDC로 처리 (Solana·Ethereum)</td>
+            <td>없음에 가까움 — 기존 카드 수수료 모델 그대로, 정산 레일만 교체</td>
+            <td><span class="motive">비용절감(24/7 정산) + 방어</span></td>
+          </tr>
+          <tr>
+            <td>PayPal</td>
+            <td>PYUSD 발행·결제·크로스보더 송금</td>
+            <td>발행 준비금 이자는 PayPal이 아니라 Paxos가 수취. PayPal은 결제·환전·송금 수수료로 간접 수익</td>
+            <td><span class="motive">본업(결제) 활성화 + 방어</span></td>
+          </tr>
+          <tr>
+            <td>JP모건</td>
+            <td>예금을 토큰화한 예금 토큰(JPMD), 기관 전용</td>
+            <td>토큰 자체보다 기존 기관 결제·예금 프랜차이즈 유지</td>
+            <td><span class="motive">예금 이탈 방어 + 비용절감</span></td>
+          </tr>
+          <tr>
+            <td>Shopify</td>
+            <td>가맹점이 USDC 결제 수취 (Coinbase·Stripe 경유)</td>
+            <td>USDC 결제 1.5% 수수료(카드 2.9%+$0.30 대비), 단 리베이트로 상쇄</td>
+            <td><span class="motive">가맹점 락인 + 가맹점 비용절감</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 2. 실제로 얼마나 벌었나 -->
+    <h2><span class="num">SECTION 02</span>실제로 얼마나 벌었나</h2>
+    <div class="rule"></div>
+
+    <p class="keyline">핵심은 "별도로 공시할 만큼 벌지 못했다"이다.</p>
+
+    <p>
+      네 곳 모두 스테이블코인을 별도 수익 항목으로 분리 공시하지 않는다. 본업 대비 규모가 미미하기 때문이다.
+      자주 인용되는 큰 숫자들은 대부분 <em>수익</em>이 아니라 <em>거래량</em>이다.
+    </p>
+
+    <p>
+      <span class="hl">Visa</span>는 FY2025 순매출 400억 달러, 전년 대비 11% 성장인데, 스테이블코인 정산 프로그램은
+      2025년 11월 30일 기준 연환산 약 35억 달러 규모다. 이건 매출이 아니라 정산이 흘러간 거래량이고,
+      전체 매출의 약 0.01% 수준에 불과하다. 소비자 입장에서는 아무것도 바뀌지 않고,
+      스테이블코인 정산은 Visa와 제휴 은행 사이 백엔드에서만 일어난다.
+    </p>
+
+    <p>
+      <span class="hl">JP모건</span>도 마찬가지다. Kinexys 네트워크는 하루 약 30억 달러를 처리하는데,
+      이는 JP모건 전체 결제량인 하루 약 10조 달러의 극히 일부다. 연환산으로는 1조 달러 이상이지만
+      본업 결제량의 0.03% 수준이다.
+    </p>
+
+    <p>
+      <span class="hl">PayPal</span>은 더 분명하다. PayPal은 자사 사업이 결제에 있으므로 스테이블코인도
+      가치 이전·결제 기능에 집중해야 한다는 입장이고, 준비금 이자로 돈을 버는 Tether·Circle과는 모델이
+      다르다고 명시했다. 오히려 PYUSD를 PayPal 생태계 안에서 쓰게 하려고 보유자에게 연 3.7%를 지급하며
+      매입을 유도한다. 즉 발행 수익을 가져가기는커녕 도입 촉진 비용을 쓰고 있다.
+    </p>
+
+    <p>
+      <span class="hl">Shopify</span>도 USDC 결제는 여전히 얼리액세스 단계이고,
+      가맹점 리베이트(0.5%)·구매자 캐시백(1%)으로 수수료를 상쇄해 도입을 유도한다.
+    </p>
+
+    <!-- 3. 신규수익/비용절감/방어 -->
+    <h2><span class="num">SECTION 03</span>신규 수익인가, 비용 절감인가, 방어인가</h2>
+    <div class="rule"></div>
+
+    <p class="keyline">증거가 가리키는 방향은 압도적으로 "비용 절감 + 방어"이다.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="co">Visa</div>
+        <div class="tag">신규 수익 아님 · 방어 + 효율화</div>
+        <p>스테이블코인이 카드망을 우회할 수 있다는 위협에 대해, 정산 레일을 직접 USDC로 흡수해
+          24/7·즉시성을 확보하는 방어적·효율화 움직임이다. 수수료 구조는 그대로 둔다.</p>
+      </div>
+      <div class="card">
+        <div class="co">JP모건</div>
+        <div class="tag">가장 전형적인 방어 사례</div>
+        <p>공개형 스테이블코인으로 예금이 빠져나가면 은행의 예대마진 기반 자체가 흔들린다.
+          예금 토큰은 예금을 은행 안에 묶어둔 채 24/7 결제를 제공해 예금 베이스와 기관 결제 프랜차이즈를
+          지키는 수단이다. 토큰화 예금 vs 공개형 토큰화폐 공존 모델의 실물 사례다.</p>
+      </div>
+      <div class="card">
+        <div class="co">PayPal</div>
+        <div class="tag">본업 활성화 + 크로스보더 비용 절감</div>
+        <p>보도에 따르면 'Pay With Crypto' 수수료가 향후 1.5%로 올라도 전통적 국제 카드 결제 대비
+          최대 90% 저렴하다. 새 수익원이라기보다 송금·결제 단가를 낮춰 거래를 끌어오는 구조다.</p>
+      </div>
+      <div class="card">
+        <div class="co">Shopify</div>
+        <div class="tag">가맹점 락인 + 가맹점 비용 절감</div>
+        <p>USDC는 1.5%, 카드는 2.9%+$0.30로 1만 달러 규모 해외 거래에서 40~60% 절감되는데,
+          이 혜택은 Shopify가 아니라 가맹점이 가져간다. Shopify는 플랫폼 경쟁력 유지를 얻는다.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p style="margin:0;">정리하면, 네 곳 모두 "지금 새 매출이 나서" 한 게 아니라,
+        <strong>뒤처지지 않기 위해(방어) + 단가를 낮추기 위해(비용 절감)</strong> 움직였고,
+        신규 수익은 장기 옵션이거나 간접적이다. "이들이 스테이블코인으로 돈을 벌고 있다"고 단정하면
+        사실과 어긋난다. 정확한 프레이밍은 <strong>"현재는 방어·효율화 동기가 지배적이며,
+        신규 수익화는 아직 입증되지 않은 미래 옵션"</strong>이다.</p>
+    </div>
+
+    <div class="section-break"></div>
+
+    <!-- 4. 스테이블코인 자체의 수익 모델 -->
+    <h2><span class="num">SECTION 04</span>그렇다면 스테이블코인 자체의 수익은 어디에서 나는가</h2>
+    <div class="rule"></div>
+
+    <p>
+      네 사례가 스테이블코인으로 별도 공시할 만큼 벌지 못했다면, 이 생태계에서 돈은 도대체 어디에서 나는지가
+      다음 질문이 된다. 공시·보도가 가리키는 답은 한 곳으로 모인다.
+    </p>
+
+    <p class="keyline">가장 크고 유일하게 입증된 수익원은 발행자의 준비금 운용 수익(시뇨리지)이다.</p>
+
+    <p>
+      스테이블코인 발행자는 발행한 코인만큼 준비자산(주로 미국 단기국채·현금)을 보유하고, 그 이자를 가져간다.
+      반면 코인 보유자에게는 이자를 거의 주지 않는다. 이 차이가 발행자의 핵심 수익이다.
+      Tether는 2024년 약 130억 달러의 순이익을 냈고<sup class="fn">1</sup>, 이는 2023년 약 62억 달러의 두 배 수준이다.
+      Circle은 2024년 매출 약 16.8억 달러를 기록했는데 그중 99% 이상이 준비금 이자였고<sup class="fn">2</sup>,
+      2024년 준비금 실효수익률은 약 3.6% 수준이었다.<sup class="fn">2</sup>
+    </p>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>가치사슬 레이어</th>
+            <th>대표 수익</th>
+            <th>규모·성격</th>
+            <th>대표 사업자</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>발행</td>
+            <td>준비금 운용 이자(시뇨리지)</td>
+            <td>가장 큼 — 단, 금리에 강하게 의존</td>
+            <td>Tether, Circle, Paxos</td>
+          </tr>
+          <tr>
+            <td>인프라·레일</td>
+            <td>정산·facilitator 수수료</td>
+            <td>미미 — 거래당 수수료 자체가 매우 낮음</td>
+            <td>Visa(정산), x402 facilitator</td>
+          </tr>
+          <tr>
+            <td>수탁</td>
+            <td>보관 수수료(AUM 0.1~0.5%)</td>
+            <td>안정적이나 작음 — 운용 불가, 보관만</td>
+            <td>BitGo, Coinbase Custody</td>
+          </tr>
+          <tr>
+            <td>유통·접근</td>
+            <td>결제·환전·송금 수수료 + 그 위에 얹는 가치</td>
+            <td>결제 자체는 박리, 데이터·금융상품에서 발생</td>
+            <td>PayPal, Shopify, 페이 앱</td>
+          </tr>
+          <tr>
+            <td>온·오프램프</td>
+            <td>법정화폐 ↔ 코인 환전 스프레드</td>
+            <td>중간 — 진입·이탈 길목 통제 시</td>
+            <td>거래소, 환전 게이트웨이</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>발행 수익조차 온전히 가져가지 못한다 — 그리고 금리에 묶여 있다</h3>
+    <p>
+      발행이 가장 큰 수익원이라 해도 두 가지 단서가 붙는다. 첫째, 발행자도 유통 파트너에게 상당 부분을 떼어준다.
+      Circle은 Coinbase에 자기 플랫폼에 예치된 USDC의 준비금 이자 100%, 그 외 USDC의 이자 50%를 지급하는데,
+      2024년 Circle이 번 1달러 중 약 0.54달러가 Coinbase로 흘러갔다.<sup class="fn">3</sup>
+      발행자가 가장 큰 풀을 쥐고도, 유통 레이어가 그 절반을 다시 가져가는 구조다.
+    </p>
+    <p>
+      둘째, 이 모델은 고금리 환경에 강하게 의존한다. Circle은 SEC 제출 서류에서 금리가 1%포인트 내리면
+      준비금 이자가 약 4.41억 달러 줄어든다고 밝혔다.<sup class="fn">4</sup>
+      2026년 6월 현재 미국 기준금리는 3.50~3.75%로 동결돼 있어<sup class="fn">5</sup> 모델이 아직 작동하지만,
+      금리가 내려가면 발행 수익 자체가 약해진다. "준비금 이자가 핵심"이라는 명제에는 "금리가 받쳐줄 때만"이라는
+      조건이 항상 붙는다.
+    </p>
+
+    <h3>네 사례를 이 지도 위에 다시 놓으면</h3>
+    <p>
+      앞 표가 왜 그렇게 생겼는지가 여기서 설명된다. Visa·PayPal·Shopify는 발행 레이어가 아니라
+      유통·인프라 레이어에 서 있어, 가장 큰 풀인 준비금 이자를 구조적으로 잡지 못한다.
+      PayPal이 PYUSD 준비금 이자를 자신이 아니라 Paxos에 넘기는 것이 그 증거다.
+      JP모건의 예금 토큰은 애초에 이자 수익 모델이 아니라 예금을 은행 안에 묶어두는 유지 모델이다.
+      즉 네 곳 모두 "가장 큰 수익이 나는 자리"에 있지 않거나, 그 자리를 노리지 않는다.
+    </p>
+
+    <div class="callout">
+      <p style="margin:0;">정리하면, 스테이블코인에서 검증된 큰 수익은 <strong>발행자의 준비금 이자</strong> 한 곳뿐이고,
+        그마저 <strong>유통 파트너에게 절반이 빠지며 금리에 묶여 있다</strong>. 발행 자리에 서지 못하는 플레이어에게
+        스테이블코인 자체는 수익원이 아니라 비용 절감·방어의 도구다.</p>
+    </div>
+
+    <div class="section-break"></div>
+
+    <!-- 5. QR·핀테크 -->
+    <h2><span class="num">SECTION 05</span>QR·핀테크 성장과 기존 금융사 수익, 그리고 핀테크 수익 모델</h2>
+    <div class="rule"></div>
+
+    <p>
+      여기서 한국과 해외(특히 미국)의 구조가 크게 다르다는 점이 중요하다.
+    </p>
+
+    <h3>해외 — 인터체인지 중심</h3>
+    <p>
+      해외 핀테크의 주 수익원은 인터체인지(카드 발급 수수료 분배)다. 한 추정에 따르면 핀테크의 75% 이상이
+      인터체인지 수수료에서 대부분의 매출을 얻으며, 이것이 업계에서 가장 중요한 수익 동력이다.
+      Chime 같은 무료 네오뱅크가 유지되는 것도 사용자 카드 결제마다 발생하는 인터체인지 수익 덕분이다.
+      즉 미국에서는 핀테크가 카드망 위에 올라타 그 수수료의 일부를 나눠 갖는 모델이 성립한다.
+    </p>
+
+    <h3>한국 — 정반대 구조</h3>
+    <p>
+      한국은 정반대 구조다. 한국은 카드 수수료가 규제로 매우 낮게 묶여 있어, 결제 자체가 박리 사업이다.
+      간편결제 사업자가 거두는 수수료수익의 대부분이 도로 카드사·PG사로 빠져나간다. 보도에 따르면
+      카카오페이는 수수료수익의 약 95%를, 네이버페이는 약 70%를 카드사·PG사에 지급망 이용료로 다시 지불했고,
+      카드 기반 방식은 중간 사업자에게 줄 비용이 많아 구조상 큰 이익을 내기 어려운 구조다.
+      금융당국의 카드 수수료율 인하(0.8~1.6% → 0.5~1.5%)로 압박이 더 커졌다.
+    </p>
+
+    <h3>한국 핀테크의 진짜 수익 모델</h3>
+    <p>
+      그래서 한국 핀테크의 진짜 수익 모델은 결제 수수료가 아니라,
+      <span class="hl">결제로 모은 트래픽을 다른 데서 돈으로 바꾸는 것</span>이다.
+      선불충전(포인트)으로 카드망 비용을 우회하고, 그 위에 금융 플랫폼(대출·보험·증권 비교·중개),
+      광고, 멤버십, 데이터를 얹는다. 전략도 갈린다 — 카카오페이·토스는 증권사·보험사를 직접 설립하는
+      '직접 금융' 모델, 네이버페이는 외부 금융사와 제휴하는 모델이다. 결제는 미끼이고 수익은
+      그다음 층에서 난다.
+    </p>
+
+    <h3>기존 금융사의 수익 변화</h3>
+    <p>
+      기존 금융사 입장에서의 수익 변화는 두 갈래다. 결제망을 여전히 카드사가 깔고 있는 한
+      인터체인지·할부 수수료는 유지되지만(즉 카드사가 페이사로부터 망 이용료를 받음),
+      <span class="hl">고객 접점과 데이터를 페이사에 빼앗기는 것</span>이 본질적 손실이다.
+      전통적 결제 가치사슬에서 이익은 발행사(은행)·카드망·가맹점 매입사에 명확히 집중돼 있었지만,
+      핀테크는 이 분배를 바꿔 수많은 사용자·가맹점을 모아 각자에게서 작은 수익 여러 갈래를 뽑아내는
+      방향으로 이동한다. 즉 단일한 큰 수수료 풀이 여러 작은 수익원으로 쪼개지고,
+      그 통제권이 플랫폼으로 넘어간다.
+    </p>
+
+    <div class="section-break"></div>
+
+    <!-- 6. 시대 변화: 현금→카드→QR→스테이블코인 -->
+    <h2><span class="num">SECTION 06</span>현금 → 카드 → QR → 스테이블코인 — 시대 변화에 어떻게 적응하고 선도할 것인가</h2>
+    <div class="rule"></div>
+
+    <p>
+      결제 수단은 한 세대마다 한 번씩 바뀌어 왔다. 각 단계는 그 시대에만 가능했던 조건 위에서 자리를 잡았고,
+      다음 수단이 자리 잡는 방식은 그 나라가 직전 단계를 얼마나 촘촘하게 깔아두었는지에 따라 정반대로 갈렸다.
+    </p>
+
+    <div class="evo">
+      <div class="evo-step">
+        <div class="stage">현금</div>
+        <div class="en">CASH</div>
+        <div class="cond">물리적 신뢰<br>익명·즉시</div>
+      </div>
+      <div class="evo-arrow">→</div>
+      <div class="evo-step">
+        <div class="stage">신용 · 카드</div>
+        <div class="en">CARD</div>
+        <div class="cond">신용 인프라<br>단말·가맹점망</div>
+      </div>
+      <div class="evo-arrow">→</div>
+      <div class="evo-step">
+        <div class="stage">QR · 간편결제</div>
+        <div class="en">QR / PAY</div>
+        <div class="cond">스마트폰 보급<br>슈퍼앱 트래픽</div>
+      </div>
+      <div class="evo-arrow">→</div>
+      <div class="evo-step now">
+        <div class="stage">스테이블코인</div>
+        <div class="en">STABLECOIN</div>
+        <div class="cond">프로그래머블<br>기계·크로스보더</div>
+      </div>
+    </div>
+
+    <h3>중국 — 빈 땅이었기에 QR로 단번에 슈퍼앱 생태계를 세웠다</h3>
+    <p>
+      중국이 카드 단계를 건너뛰고 QR로 직행한 것은 기술이 앞서서가 아니라, 막아설 기존 결제망이 없었기 때문이다.
+      신용카드 침투율이 낮았고 카드망은 느리고 비효율적이었으며, 가맹점은 1.5~3.5%의 카드 수수료를 꺼렸다.<sup class="fn">9</sup>
+      현금 사회였지만 위조지폐가 만연했고, 모르는 사람 사이의 거래 신뢰가 약했다. 알리페이는 바로 그 신뢰 문제를
+      풀기 위해 타오바오의 에스크로로 출발했다.<sup class="fn">10</sup> QR은 종이 한 장만 붙이면 되니 가맹점 도입 비용이 거의 없었고,
+      위챗페이는 소셜·홍바오(送錢) 트래픽 위에 결제를 얹었다. 결과적으로 두 슈퍼앱이 결제·송금·금융·생활서비스를
+      하나로 묶었고, 2025년 기준 중국 디지털결제의 약 93%를 이 둘이 처리한다.<sup class="fn">11</sup>
+    </p>
+
+    <h3>한국 — 카드 인프라가 너무 촘촘해 하나로 합쳐지지 못했다</h3>
+    <p>
+      한국은 정반대였다. 카드 결제망이 세계 최고 수준으로 촘촘하게 깔려 있어, 새 결제 수단도 이 망을 깨는 게 아니라
+      그 위에 올라타야 했다. 그래서 어느 플레이어도 카드망을 우회하지 못한 채 접점만 나눠 가졌다.
+      직접결제(삼성·애플·구글)·QR·앱카드 세 방식이 동시에 산발적으로 추진됐고, 정부의 NFC 표준화 시범사업도
+      투자비 문제로 인프라 조성에 실패했다.<sup class="fn">12</sup> 각 사는 표준 협업 대신 자기 플랫폼 확장에만 힘을 쏟았고,
+      삼성페이(오프라인 MST 강점)·네이버페이(이커머스)·카카오페이(메신저)·토스(송금)가 각자의 기원 위에서
+      성을 쌓았다. 하나의 통합 생태계 대신 여러 진영이 병립하는, 말하자면 오호십육국의 구도가 됐다.<sup class="fn">13</sup>
+    </p>
+
+    <div class="vs2">
+      <div class="col china">
+        <div class="hd">중국 — Leapfrog</div>
+        <div class="bd">
+          <ul>
+            <li><b>기존 결제망 빈약</b> — 막아설 카드 인프라가 없어 빈 땅에 새 표준을 깔 수 있었다</li>
+            <li><b>신뢰·위폐 문제</b>가 에스크로·디지털결제 수요를 만들었다</li>
+            <li><b>슈퍼앱 기반</b>(타오바오·위챗) 위에 결제를 얹어 단번에 통합</li>
+            <li>결과 — <b>두 슈퍼앱이 생태계 장악</b>, 카드·은행을 결제에서 배제</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col korea">
+        <div class="hd">한국 — 분열(오호십육국)</div>
+        <div class="bd">
+          <ul>
+            <li><b>카드 인프라가 촘촘</b> — 새 수단도 카드망 위에 올라타야 했다</li>
+            <li><b>표준화 협업 실패</b> — NFC 시범사업이 투자비로 좌초</li>
+            <li><b>각자 자기 플랫폼만 확장</b> — 삼성·네이버·카카오·토스 병립</li>
+            <li>결과 — <b>통합 생태계 부재</b>, 접점만 분점·카드망 의존 지속</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>스테이블코인 시대 — 어떻게 적응하고 선도할 것인가</h3>
+    <p>
+      여기서 한 가지 원리가 드러난다. 새 결제 수단은 기존 망이 닿지 않는 빈 땅에서 단번에 자리를 잡고,
+      기존 망이 촘촘한 곳에서는 그 위에 올라타며 분열한다. 한국에서 간편결제가 하나로 합쳐지지 못한 것은
+      카드라는 기존 망이 너무 강했기 때문이다. 그렇다면 스테이블코인 시대의 핵심 질문은,
+      이번에도 기존 카드망 위의 소매결제에서 같은 분열을 반복할 것인가, 아니면
+      <span class="hl">카드망이 닿지 않는 빈 땅</span>을 먼저 잡을 것인가이다.
+    </p>
+    <p>
+      카드망이 구조적으로 닿지 못하는 영역이 스테이블코인의 빈 땅이다. 기계 간 결제(M2M),
+      건당 1센트 미만의 마이크로·나노페이먼트, 계좌 없는 크로스보더 송금, AI 에이전트의 자동결제가 그것이다.
+      이곳은 카드 인터체인지 구조상 수익이 나지 않아 기존 강자의 락인이 약하고, 그래서 중국식 leapfrog가
+      다시 가능한 자리다. 국내 소매결제에서 다섯 번째 페이를 더 만드는 것은 오호십육국을 한 번 더 반복하는 일이지만,
+      이 빈 땅에서 표준과 생태계를 먼저 세우는 것은 선도의 기회다.
+    </p>
+    <p>
+      삼성에 적용하면 방향은 분명해진다. 금산분리로 발행 레이어에는 들어갈 수 없으니 화폐를 새로 찍는 경쟁이
+      아니라, 갤럭시와 Knox라는 기기·보안 접점을 빈 땅의 결제 표준에 연결하는 길이다. 즉
+      <span class="hl">기존 카드망 위 소매결제의 분열에 합류하는 것이 아니라, 카드가 닿지 않는 기계·크로스보더·에이전트
+      결제에서 접점과 표준을 선점하는 것</span>이 적응이자 선도다.
+    </p>
+
+    <div class="section-break"></div>
+
+    <!-- 7. 빈 땅의 구체적 모습 — A2A·M2M -->
+    <h2><span class="num">SECTION 07</span>빈 땅의 구체적 모습 — A2A·M2M 미래 시나리오</h2>
+    <div class="rule"></div>
+
+    <p>
+      앞에서 카드가 닿지 않는 영역을 "빈 땅"이라 했다. 그곳이 구체적으로 어떤 모습일 수 있는지를 상상해 본다.
+      모두 자율 에이전트와 자율 기계가 본격화된 이후를 전제한 미래 시나리오이며, 현재의 현실이 아니다.
+    </p>
+
+    <div class="callout">
+      <p style="margin:0;">먼저 경계부터 분명히 한다. <strong>정액 구독·종량제로 처리되는 결제에는 스테이블코인이 불필요하다.</strong>
+        종량제는 수많은 소액을 합산해 월말에 한 번 카드로 청구하므로, "금액이 작다"는 것 자체는 차별점이 아니다.
+        스테이블코인이 카드가 못 하는 일을 하는 건 세 조건이 겹칠 때뿐이다 — <strong>사전 관계 없는 낯선 상대,
+        외상·후불이 불가능해 그 자리에서 원자적으로 끝나야 하는 정산, 계정을 유지할 수 없는 일회성·휘발성 상대</strong>다.
+        아래 시나리오는 모두 이 세 조건을 만족하는 경우다.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="typetag">A2A · 연산 스팟 마켓</div>
+        <div class="co">초 단위 연산 즉석 거래</div>
+        <p>에이전트가 다음 몇 초의 연산이 급해, 한 번도 거래한 적 없는 전 세계 유휴 GPU에 입찰하고 결과 증명과 동시에 0.003달러를 원자적으로 지불한다.</p>
+        <div class="part">실재 부품 — 분산 GPU 마켓의 온체인 입찰·에스크로(Akash·io.net 등)<span class="mat op">운영 중</span><sup class="fn">14</sup> 단, 현재는 자체 토큰 결제가 일반적이고 스테이블코인 정산은 초기</div>
+      </div>
+      <div class="card">
+        <div class="typetag">A2A · 에이전트 분업</div>
+        <div class="co">낯선 에이전트 즉석 고용</div>
+        <p>기획 에이전트가 작업을 쪼개 번역·이미지·법률조회 전문 에이전트들을 오픈 마켓에서 즉석 고용하고, 결과가 검증을 통과해야만 대금이 풀린다.</p>
+        <div class="part">실재 부품 — 에이전트 간 통신·결제 표준(Google A2A 2025.4, AP2 2025.9)<span class="mat demo">공개 스펙·시연</span><sup class="fn">15</sup></div>
+      </div>
+      <div class="card">
+        <div class="typetag">A2A · 조건부 자동집행</div>
+        <div class="co">사람 없는 조건부 결제</div>
+        <p>"300달러 이하 항공권을 예약하라"는 위임이 프로그래머블 에스크로에 묶이고, 예약 확인이라는 검증 조건이 충족되면 자동 집행, 실패하면 차감된다.</p>
+        <div class="part">실재 부품 — AP2의 서명된 Mandate + 사람 없는 x402 자율거래 샘플<span class="mat demo">공개 스펙·시연</span><sup class="fn">15</sup></div>
+      </div>
+      <div class="card">
+        <div class="typetag">M2M · 물리 자원·에너지</div>
+        <div class="co">기계 간 자원 실시간 거래</div>
+        <p>자율 트럭이 앞 차량에 충전 순서 양보 대가를 즉석 지불하고, 가정용 배터리가 이웃 EV에 전력을 초 단위로 판다.</p>
+        <div class="part">실재 부품 — 충전·결제 표준 ISO 15118 Plug & Charge<span class="mat com">상용</span>, MOBI EVGI(V2G·P2P)<span class="mat res">연구·컨소시엄</span><sup class="fn">16</sup> 단, 충전·톨은 기존 카드로 충분</div>
+      </div>
+      <div class="card">
+        <div class="typetag">M2M · 기계 경제 주체</div>
+        <div class="co">스스로 벌고 쓰는 기계</div>
+        <p>로봇의 지갑이 곧 신원이 되어, 낯선 요청자의 일을 하고 대금을 받아 스스로 전기·수리·부품을 사며 운영자본을 굴린다.</p>
+        <div class="part">실재 부품 — Circle·OpenMind 로봇개 Bits의 USDC 자가충전 시연(2026.2), Fetch.ai 에이전트 결제<span class="mat demo">시연</span><sup class="fn">17</sup></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p style="margin:0;">선을 분명히 둔다. <strong>부품은 실재하지만 조합은 상상이다.</strong> 결제 표준(x402·AP2·A2A)과
+        차량 충전 표준(ISO 15118)은 공개 스펙·상용 단계이고, 분산 연산 마켓은 운영 중이며, 기계 결제는 시연까지 왔다.
+        그러나 초 단위 스테이블코인 정산, 낯선 기계 간 즉석 협상, 기계의 독립 경제 주체화라는
+        <strong>조합이 실제로·언제·경제성 있게 일어날지는 입증되지 않았다</strong>. 특히 로봇개 시연은 사전 제휴된 충전소를 쓴
+        상징적 시연에 가깝다. 이 영역은 "기계가 결제한다"가 아니라 <strong>"사전 관계 없는 기계·에이전트가 외상 없이
+        그 자리에서 조건부로 정산해야 할 때"</strong>로 좁혀 보아야 정확하다.</p>
+    </div>
+
+    <div class="section-break"></div>
+
+    <!-- 8. 왜 스테이블코인 전략인가 -->
+    <h2><span class="num">SECTION 08</span>왜 스테이블코인 전략을 수립해야 하는가 — 세 가지 이유</h2>
+    <div class="rule"></div>
+
+    <p>
+      앞의 분석을 종합하면, 삼성이 스테이블코인 전략을 세워야 하는 이유는 신규 수익이 아니다.
+      검증된 큰 수익은 발행자의 준비금 이자뿐이고, 금산분리로 삼성은 그 자리에 서지 못한다.
+      정직한 이유는 다음 세 가지다.
+    </p>
+
+    <h3>① 방어 — 레일이 바뀌면 그 위 가치의 주인도 바뀐다</h3>
+    <p>
+      결제 레일은 현금에서 카드로, 카드에서 QR·간편결제로, 다시 스테이블코인으로 한 세대마다 바뀌어 왔다.
+      레일이 바뀔 때 그 위에 얹힌 가치 — 고객 접점, 기기 차별화, 데이터 — 의 주인도 바뀐다.
+      기계·에이전트·크로스보더 결제라는 새 레일이 누군가의 표준으로 굳으면, 삼성의 기기·접점 우위는 그 표준에
+      연결되지 못한 채 평범한 부품으로 내려앉는다. 카카오페이는 이미 x402 창립 테이블에 앉았고 삼성 계열사는 없다.
+      가만히 있는 것의 비용이 이 지점이다.
+    </p>
+
+    <h3>② 비용 절감 — 새 매출이 아니라 그룹이 쓰는 입장의 절감</h3>
+    <p>
+      글로벌 제조사가 본사-해외법인 정산을 스테이블코인 레일로 처리하면 환비용·정산지연·노스트로 유휴자금이 줄어든다.
+      이것은 어느 계열사가 파는 새 매출이 아니라, 그룹 전체가 쓰는 입장에서 얻는 비용 절감이다.
+    </p>
+
+    <h3>③ 빈 땅의 선도 — 카드가 닿지 않는 곳에서 표준을 먼저 잡는다</h3>
+    <p>
+      한국에서 간편결제가 오호십육국으로 분열한 것은 카드망이 너무 촘촘했기 때문이다. 반대로 카드가 닿지 않는
+      기계 간 결제·나노페이먼트·계좌 없는 크로스보더·에이전트 자동결제는 기존 강자의 락인이 약한 빈 땅이고,
+      중국식 leapfrog가 다시 가능한 자리다. 국내 소매결제에 다섯 번째 페이를 더하는 것은 분열의 반복이지만,
+      이 빈 땅에서 표준과 접점을 먼저 잡는 것은 선도다.
+    </p>
+
+    <div class="section-break"></div>
+
+    <!-- 9. 관계사별 가치 모델 -->
+    <h2><span class="num">SECTION 09</span>관계사별 가치 모델 — 금융사와 비금융사는 다르다</h2>
+    <div class="rule"></div>
+
+    <p>
+      "결제 접점을 지켜 가치를 얹는다"고 할 때 그 가치는 관계사 성격에 따라 다르다.
+      앞서 정리한 네 가지는 금융사 중심의 가치이고, 비금융 관계사의 가치는 성격이 다르다.
+    </p>
+
+    <h3>금융사 중심 가치 — 금융 관계를 수익화한다</h3>
+    <p>
+      네 갈래다. <span class="hl">금융상품 중개·마진</span>(대출·보험·증권·자산관리를 결제 접점 위에 연결 —
+      카카오페이 금융서비스 매출 비중이 2018년 0.2%에서 최근 40% 안팎까지 상승<sup class="fn">6</sup>),
+      <span class="hl">데이터 수익화</span>(거래 데이터로 추천·광고·마케팅 — 업계에서 결제 수수료는 이미 주 수익원에서
+      밀려나고 데이터·금융서비스 마진·플랫폼 수수료가 그 자리를 차지<sup class="fn">7</sup>),
+      <span class="hl">생태계 락인·구독</span>(Apple은 Apple Pay를 고객 획득 도구로 쓰고 서비스 매출은 FY2025 약 1,090억 달러<sup class="fn">8</sup>),
+      <span class="hl">고객 접점·관계의 통제</span>(접점을 쥐면 그 위 가치를 누구에게 연결할지 통제 — 전통 금융사가 페이사에 빼앗긴 본질)이다.
+      이 가운데 금융상품 중개·마진은 금융 라이선스가 있어야 하는 금융사 전용이고, 나머지도 금융 관계의 수익화라는 한 렌즈에 묶여 있다.
+    </p>
+
+    <h3>비금융 관계사 가치 — 파는 입장과 쓰는 입장</h3>
+    <p>
+      비금융사는 금융 관계를 수익화하지 않는다. 대신 인프라·기기를 파는 입장과, 자기 거래비용을 줄이는 쓰는 입장으로 갈린다.
+      파는 입장은 네 갈래다. <span class="hl">기기 차별화·판매·락인</span>(결제·지갑이 좋으면 단말을 더 사고 덜 떠난다 — 결제는 수익센터가 아니라 기기 사업의 부속),
+      <span class="hl">보안 부품·IP 라이선스</span>(결제가 차량·가전·기계로 내려갈수록 신뢰 앵커인 보안칩·TEE의 값이 오른다),
+      <span class="hl">B2B 인프라·SI·클라우드 매출</span>(정산 인프라·수탁 백엔드·facilitator를 기업에 파는 곡괭이 장사),
+      <span class="hl">새 결제 단말 카테고리</span>(차량·가전·로봇이 결제 엔드포인트가 되며 생기는 부착 매출과 표준 자리)이다.
+      쓰는 입장은 두 갈래로, <span class="hl">운전자본·정산비용 절감</span>과 <span class="hl">공급망 통제·운영 데이터</span>다.
+    </p>
+
+    <div class="tbl-scroll">
+      <table class="roletbl">
+        <thead>
+          <tr>
+            <th>관계사</th>
+            <th>입장</th>
+            <th>가치</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>삼성전자 모바일</td>
+            <td>파는 — 기기</td>
+            <td>갤럭시를 더 안전한 결제·지갑 단말로 만들어 판매·락인. 결제 수수료가 아니라 기기 사업이 본질</td>
+          </tr>
+          <tr>
+            <td>삼성전자 반도체·데이터센터</td>
+            <td>파는 — 부품·인프라</td>
+            <td>보안칩 수요 증가 + 에이전트·기계결제 확대 시 연산·데이터센터 수요 수혜</td>
+          </tr>
+          <tr>
+            <td>삼성SDS</td>
+            <td>파는 — B2B</td>
+            <td>Nexledger·정산 인프라·수탁 백엔드·facilitator를 기업 고객에 파는 SI·클라우드 매출</td>
+          </tr>
+          <tr>
+            <td>Harman</td>
+            <td>파는 — 단말</td>
+            <td>차량을 M2M 결제 단말로(충전·톨·주차 자동결제, robotaxi 자율결제) + 인포테인먼트 부착</td>
+          </tr>
+          <tr>
+            <td>삼성SDI</td>
+            <td>간접</td>
+            <td>결제와 대체로 무관. V2G 정산과 엮이는 정도의 간접 연결</td>
+          </tr>
+          <tr>
+            <td>삼성그룹 전체</td>
+            <td>쓰는</td>
+            <td>본사-해외법인 정산비용 절감(환비용·정산지연·노스트로 유휴자금). 파는 가치가 아닌 쓰는 입장의 절감</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 종합 -->
+    <div class="bridge">
+      <div class="eyebrow">종합 · 삼성에의 시사점</div>
+      <h3>전략의 본질은 금융업 진입이 아니라 비금융 가치의 방어·확장이다</h3>
+      <p>
+        삼성이 스테이블코인 전략을 세워야 하는 이유는 화폐를 새로 찍어 금융 마진을 벌기 위해서가 아니다.
+        그것은 금산분리가 막고, 삼성의 강점이 있는 자리도 아니다. 이유는 결제 레일이 바뀌는 국면에서
+        삼성의 진짜 자산 — 기기 판매·보안 IP·B2B 인프라·정산비용 — 이 새 레일에 연결돼 있는지에
+        그 가치가 달려 있기 때문이다.
+      </p>
+      <p>
+        그래서 전략의 본질은 <strong style="color:var(--gold);">금융업 진입이 아니라, 카드가 닿지 않는 빈 땅에서
+        접점과 표준을 지키고 선점해 비금융 사업의 가치를 방어·확장하는 것</strong>이다.
+        금융사는 그 위에 금융상품을 얹고, 비금융사는 기기·부품·인프라·비용절감을 얹는다.
+      </p>
+    </div>
+
+    <!-- Notes -->
+    <div class="notes">
+      <div class="nt">주석 · 수치 출처 및 검증</div>
+      <ol>
+        <li><span class="vchk">복수 확인</span> — Tether 2024년 순이익 약 130억 달러(2023년 62억): The Block, CoinMarketCap, Tether 분기 attestation(BDO), Bloomberg(PYMNTS 인용), DL News 등 다수 보도 일치.</li>
+        <li><span class="vchk">복수 확인</span> — Circle 2024년 매출 약 16.8억 달러·준비금 이자 99%↑·실효수익률 약 3.6%: Circle SEC S-1, Decrypt, Sacra, CoinMetrics 등 일치. 2024년 순이익 약 1.56억 달러는 유통비(주로 Coinbase) 차감 후 수치.</li>
+        <li><span class="vchk">복수 확인</span> — Coinbase가 Circle 준비금 이자의 자기 플랫폼분 100%·그 외 50% 수취, 2024년 1달러 중 약 0.54달러 유출: Decrypt(S-1 인용), CoinMetrics, insights4vc 일치.</li>
+        <li><span class="vone">단일(1차) 출처</span> — 금리 1%p 인하 시 준비금 이자 약 4.41억 달러 감소: Circle SEC S-1 자체 추정치. 회사 공시 1차 자료이나 단일 출처.</li>
+        <li><span class="vchk">복수 확인</span> — 2026년 6월 미국 기준금리 3.50~3.75% 동결: 연준 H.15, CME FedWatch, 시장 보도 일치(2026.6.17 FOMC 동결 전망).</li>
+        <li><span class="vone">출처 시점 혼재</span> — 카카오페이 금융서비스 매출 비중 0.2%(2018)→32%대(2021 상반기, 한국경제)→40% 안팎(최근, THE VC). 정확한 최신 비중은 분기 공시로 재확인 권장.</li>
+        <li><span class="vchk">복수 확인</span> — 결제 수수료가 데이터 수익화·금융서비스 마진·플랫폼 수수료에 자리를 내줌: FinTech Magazine 등 업계 분석.</li>
+        <li><span class="vone">단일 2차 출처</span> — Apple Pay를 고객 획득 도구로 활용, FY2025 서비스 매출 약 1,090억 달러: PaymentsJournal, TechLila 등 2차 보도. Apple 공식 10-K로 재확인 권장.</li>
+        <li><span class="vchk">복수 확인</span> — 중국 신용카드 침투율 낮음·카드망 비효율·카드 수수료 1.5~3.5%·"막아설 결제망 부재": Brookings, Wikipedia(Mobile payments in China), American Banker, ACM 등 일치.</li>
+        <li><span class="vchk">복수 확인</span> — 위폐 만연·사회적 신뢰 부족이 알리페이 에스크로(타오바오) 출발 동기: American Banker, NPR(Ant Financial 인터뷰) 등.</li>
+        <li><span class="vchk">복수 확인</span> — 2025년 중국 디지털결제의 약 93%를 알리페이·위챗페이가 처리: ACM 등. 수치는 추정 포함이라 시점·정의에 따라 변동 가능.</li>
+        <li><span class="vone">시점 혼재 출처</span> — 한국 NFC 표준화 시범사업의 인프라 조성 실패·세 방식 산발 추진: 전자신문(2018) 등. 이후 토스·네이버의 자체 NFC 단말 보급으로 일부 상황 변화(아주경제 2026).</li>
+        <li><span class="vone">정성 평가</span> — 삼성페이·네이버페이·카카오페이·토스의 기원별 병립·통합 생태계 부재: 나무위키·업계 보도 종합. "오호십육국"은 분열 구도를 가리키는 비유적 표현.</li>
+        <li><span class="vchk">복수 확인</span> — 분산 GPU 마켓의 온체인 입찰·에스크로: Akash(공급자 입찰·최저낙찰·온체인 리스), io.net(30만+ GPU, 약 90% 비용절감 표방) 등 운영 사례. 단 대부분 자체 토큰(AKT 등) 결제이며 스테이블코인 정산은 초기 단계.</li>
+        <li><span class="vchk">복수 확인 · 공개 스펙</span> — 에이전트 결제 표준: x402(Coinbase·Cloudflare, 2025), Google A2A(2025.4)·AP2(2025.9.16, 60+ 파트너, Intent·Cart·Payment Mandate), Stripe·OpenAI ACP. AP2 공식 문서에 사람 없는 x402 자율거래 샘플 포함. 표준은 공개됐으나 대규모 운영은 미입증.</li>
+        <li><span class="vchk">복수 확인 · 성숙도 혼재</span> — ISO 15118 Plug & Charge는 자동 신원·결제·V2G의 상용 표준(Monta 등), MOBI EVGI(GM·Honda)는 V2G·탄소배출권·P2P 표준, P2P 에너지·V2G 블록체인 인증은 학술·컨소시엄 단계(arXiv 등). 충전·톨 결제 자체는 기존 카드로 충분.</li>
+        <li><span class="vone">시연·초기</span> — 기계 결제 시연: Circle·OpenMind 로봇개 Bits의 USDC M2M 나노페이먼트 자가충전(2026.2.17, x402), Fetch.ai USDC·FET 에이전트 결제 인프라(2025.12). 사전 제휴 환경의 상징적 시연에 가까우며 상용 운영 아님.</li>
+      </ol>
+    </div>
+
+  </main>
+
+  <footer>
+    <span class="gold">디지털자산 도입 동기 분석</span> · Visa · PayPal · JP모건 · Shopify · 한국 간편결제<br>
+    공개 정보 기반. 인용된 거래량·수수료·수익률 수치는 각 사 공시 및 보도에 근거하며, 추가 1차 출처 대조를 권장한다.
+  </footer>
+
+</div>
+</body>
+</html>
