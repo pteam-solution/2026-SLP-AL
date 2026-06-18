@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>삼성, 스스로를 해체하라 — 디지털자산·스테이블코인 시대의 삼성그룹 전략</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+  :root {
+    --black: #0e0e0e;
+    --white: #f8f7f4;
+    --off-white: #f0ede8;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --purple-dark: #26215C;
+    --teal: #1D9E75;
+    --teal-light: #E1F5EE;
+    --teal-dark: #04342C;
+    --coral: #D85A30;
+    --coral-light: #FAECE7;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --gray: #888780;
+    --gray-light: #f0ede8;
+    --border: rgba(14,14,14,0.1);
+    --serif: 'Noto Serif KR', Georgia, serif;
+    --sans: 'Noto Sans KR', -apple-system, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.7;
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(248,247,244,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--purple); }
+  .nav-acts {
+    display: flex;
+    gap: 2px;
+    list-style: none;
+  }
+  .nav-acts a {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--gray);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .nav-acts a:hover { background: var(--off-white); color: var(--black); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--gray);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 0.5px;
+    background: var(--gray);
+  }
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    color: var(--black);
+  }
+  .hero-headline .strike {
+    color: var(--gray);
+    text-decoration: line-through;
+    text-decoration-color: var(--coral);
+    text-decoration-thickness: 3px;
+  }
+  .hero-headline .accent { color: var(--purple); }
+  .hero-sub {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--gray);
+    max-width: 560px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .meta-item .label { font-size: 10px; letter-spacing: 0.08em; color: var(--gray); text-transform: uppercase; }
+  .meta-item .val { font-size: 14px; font-weight: 500; color: var(--black); }
+  .hero-scroll {
+    margin-top: 4rem;
+    font-size: 11px;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: float 2.5s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* ─── ACT CONTAINERS ─── */
+  .act {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .act-divider {
+    width: 100%;
+    height: 0.5px;
+    background: var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .act-header {
+    margin-bottom: 3rem;
+  }
+  .act-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 1.25rem;
+  }
+  .act-tag.shock { background: var(--coral-light); color: #712B13; border: 0.5px solid #F0997B; }
+  .act-tag.diagnose { background: var(--purple-light); color: var(--purple-dark); border: 0.5px solid #AFA9EC; }
+  .act-tag.vision { background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid #5DCAA5; }
+  .act-tag.execute { background: var(--amber-light); color: #412402; border: 0.5px solid #EF9F27; }
+
+  .act-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+  }
+  .act-sub {
+    font-size: 0.95rem;
+    color: var(--gray);
+    max-width: 560px;
+    line-height: 1.75;
+  }
+
+  /* ─── SLIDE CARDS ─── */
+  .slide-card {
+    background: #fff;
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .slide-card::before {
+    content: attr(data-slide);
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 10px;
+    color: var(--gray);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+  .slide-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .slide-title {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+    line-height: 1.35;
+  }
+  .slide-desc {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    line-height: 1.65;
+  }
+
+  /* ─── STAT TRIO ─── */
+  .stat-trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .stat-box {
+    background: var(--off-white);
+    border-radius: 10px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+  .stat-box .n {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+  .stat-box .l {
+    font-size: 0.78rem;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+  .stat-box .l .threat { color: var(--coral); font-weight: 500; }
+
+  /* ─── DISRUPTION GRID ─── */
+  .disruption-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .dis-card {
+    background: var(--off-white);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .dis-card h4 {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .dis-row {
+    display: grid;
+    grid-template-columns: 1fr 14px 1fr;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .dis-row:last-child { margin-bottom: 0; }
+  .dis-from {
+    font-size: 0.75rem;
+    color: var(--gray);
+    padding: 5px 8px;
+    background: #fff;
+    border-radius: 6px;
+    line-height: 1.4;
+    text-decoration: line-through;
+    text-decoration-color: var(--border);
+  }
+  .dis-arr { font-size: 10px; color: var(--gray); text-align: center; }
+  .dis-to {
+    font-size: 0.75rem;
+    color: #712B13;
+    padding: 5px 8px;
+    background: var(--coral-light);
+    border-radius: 6px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  /* ─── ANALOGY ROW ─── */
+  .analogy-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .analogy-card {
+    border-radius: 10px;
+    padding: 1.25rem;
+    border: 0.5px solid var(--border);
+  }
+  .analogy-card.dead { background: var(--off-white); }
+  .analogy-card.won { background: var(--teal-light); border-color: #5DCAA5; }
+  .analogy-card h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .dead h4 { color: var(--gray); }
+  .won h4 { color: var(--teal-dark); }
+  .analogy-card p {
+    font-size: 0.78rem;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+  .dead p { color: var(--gray); }
+  .won p { color: #0F6E56; }
+  .verdict-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .dead .verdict-badge { background: #fff; color: var(--gray); border: 0.5px solid var(--border); }
+  .won .verdict-badge { background: #9FE1CB; color: var(--teal-dark); }
+
+  /* ─── PIVOT BOX ─── */
+  .pivot-box {
+    background: var(--purple-light);
+    border: 1.5px solid var(--purple);
+    border-radius: 14px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .pivot-box blockquote {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 700;
+    color: var(--purple-dark);
+    line-height: 1.4;
+    margin-bottom: 1rem;
+  }
+  .pivot-box p { font-size: 0.88rem; color: var(--purple); line-height: 1.75; }
+
+  /* ─── TWO COL ─── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .col-box { padding: 1.25rem; border-radius: 10px; border: 0.5px solid var(--border); }
+  .col-box.left { background: var(--off-white); }
+  .col-box.right { background: var(--teal-light); border-color: #5DCAA5; }
+  .col-box h4 { font-size: 0.82rem; font-weight: 500; margin-bottom: 8px; }
+  .left h4 { color: var(--gray); }
+  .right h4 { color: var(--teal-dark); }
+  .col-box p { font-size: 0.8rem; color: var(--gray); line-height: 1.7; }
+  .right p { color: #0F6E56; }
+
+  /* ─── DATA GRID ─── */
+  .data-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+  .data-card {
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+    background: var(--off-white);
+  }
+  .data-card .n {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .data-card.hot .n { color: var(--purple); }
+  .data-card.grow .n { color: var(--teal); }
+  .data-card.warn .n { color: var(--coral); }
+  .data-card .ctx { font-size: 0.76rem; color: var(--gray); line-height: 1.55; }
+
+  /* ─── TIMELINE ─── */
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .t-item { padding: 1rem; border-radius: 8px; border: 0.5px solid var(--border); background: var(--off-white); }
+  .t-item.now { background: var(--purple-light); border-color: var(--purple); }
+  .t-item .yr { font-size: 0.72rem; font-weight: 500; color: var(--gray); margin-bottom: 6px; }
+  .t-item.now .yr { color: var(--purple-dark); }
+  .t-item .ev { font-size: 0.76rem; color: var(--black); line-height: 1.55; }
+
+  /* ─── POSITION GRID ─── */
+  .pos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pos-card { border-radius: 10px; padding: 1.25rem; border: 0.5px solid var(--border); }
+  .pos-card.have { background: var(--teal-light); border-color: #5DCAA5; }
+  .pos-card.lack { background: var(--coral-light); border-color: #F0997B; }
+  .pos-card h4 { font-size: 0.82rem; font-weight: 500; margin-bottom: 12px; }
+  .have h4 { color: var(--teal-dark); }
+  .lack h4 { color: #712B13; }
+  .pos-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 0.78rem; }
+  .pos-row:last-child { margin-bottom: 0; }
+  .pos-row .item { color: var(--gray); }
+  .pos-row .val { font-weight: 500; }
+  .val.strong { color: var(--teal); }
+  .val.weak { color: var(--coral); }
+
+  /* ─── TRI GRID ─── */
+  .tri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.25rem; }
+  .tri-card { border-radius: 10px; padding: 1.5rem; text-align: center; border: 0.5px solid var(--border); }
+  .tri-card.d { background: var(--purple-light); border-color: #AFA9EC; }
+  .tri-card.t { background: var(--teal-light); border-color: #5DCAA5; }
+  .tri-card.s { background: #E6F1FB; border-color: #85B7EB; }
+  .tri-card .icon { font-size: 1.5rem; margin-bottom: 10px; }
+  .tri-card h4 { font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
+  .d h4 { color: var(--purple-dark); }
+  .t h4 { color: var(--teal-dark); }
+  .s h4 { color: #042C53; }
+  .tri-card p { font-size: 0.76rem; line-height: 1.7; }
+  .d p { color: var(--purple); }
+  .t p { color: #0F6E56; }
+  .s p { color: #185FA5; }
+  .center-claim {
+    background: var(--off-white);
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+    border: 0.5px solid var(--border);
+    margin-bottom: 1.25rem;
+  }
+  .center-claim p { font-size: 0.88rem; color: var(--black); line-height: 1.7; }
+  .center-claim strong { color: var(--purple); }
+
+  /* ─── BM GRID ─── */
+  .bm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .bm-item { background: var(--off-white); border-radius: 10px; padding: 1.25rem; border: 0.5px solid var(--border); }
+  .bm-item h4 { font-size: 0.82rem; font-weight: 500; color: var(--black); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 0.5px solid var(--border); }
+  .bm-row { display: grid; grid-template-columns: 1fr 16px 1fr; gap: 4px; align-items: center; margin-bottom: 5px; }
+  .bm-row:last-child { margin-bottom: 0; }
+  .bm-from { font-size: 0.72rem; color: var(--gray); text-decoration: line-through; line-height: 1.4; }
+  .bm-arr { font-size: 10px; color: var(--gray); text-align: center; }
+  .bm-to { font-size: 0.72rem; color: #085041; font-weight: 500; line-height: 1.4; }
+
+  /* ─── ECONOMY ─── */
+  .econ-quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1rem; }
+  .econ-card { border-radius: 8px; padding: 1rem; text-align: center; background: var(--off-white); border: 0.5px solid var(--border); }
+  .econ-card .lbl { font-size: 0.7rem; color: var(--gray); margin-bottom: 4px; }
+  .econ-card .val { font-size: 0.82rem; font-weight: 500; color: var(--black); }
+  .econ-center {
+    background: var(--purple-light);
+    border: 1px solid #AFA9EC;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .econ-center h4 { font-size: 0.95rem; font-weight: 500; color: var(--purple-dark); margin-bottom: 8px; }
+  .econ-center p { font-size: 0.82rem; color: var(--purple); line-height: 1.75; }
+  .econ-center strong { color: var(--purple-dark); }
+
+  /* ─── MULT ─── */
+  .mult-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mult-card { border-radius: 10px; padding: 1.25rem; border: 0.5px solid var(--border); }
+  .mult-card.before { background: var(--off-white); }
+  .mult-card.after { background: var(--teal-light); border-color: #5DCAA5; }
+  .mult-card h4 { font-size: 0.82rem; font-weight: 500; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 0.5px solid var(--border); }
+  .before h4 { color: var(--gray); }
+  .after h4 { color: var(--teal-dark); border-color: #9FE1CB; }
+  .mult-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 0.78rem; }
+  .mult-item .co { color: var(--gray); }
+  .mult-item .pe { font-weight: 500; }
+  .pe.low { color: var(--coral); }
+  .pe.high { color: var(--teal); }
+  .mult-foot { margin-top: 10px; padding-top: 10px; border-top: 0.5px solid var(--border); font-size: 0.78rem; display: flex; justify-content: space-between; }
+  .after .mult-foot { border-color: #9FE1CB; }
+  .mult-foot .co { color: var(--gray); }
+  .mult-foot .pe { font-weight: 500; }
+
+  /* ─── AXIS ─── */
+  .axis-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.25rem; }
+  .axis-card { border-radius: 10px; padding: 1.25rem; border: 0.5px solid var(--border); }
+  .axis-card.ax1 { background: var(--purple-light); border-color: #AFA9EC; }
+  .axis-card.ax2 { background: var(--teal-light); border-color: #5DCAA5; }
+  .axis-card.ax3 { background: var(--amber-light); border-color: #EF9F27; }
+  .axis-card h4 { font-size: 0.82rem; font-weight: 500; margin-bottom: 10px; }
+  .ax1 h4 { color: var(--purple-dark); }
+  .ax2 h4 { color: var(--teal-dark); }
+  .ax3 h4 { color: #412402; }
+  .axis-card ul { list-style: none; padding: 0; }
+  .axis-card ul li { font-size: 0.76rem; line-height: 1.8; padding-left: 14px; position: relative; }
+  .ax1 ul li { color: var(--purple); }
+  .ax2 ul li { color: #0F6E56; }
+  .ax3 ul li { color: #633806; }
+  .axis-card ul li::before { content: "·"; position: absolute; left: 0; }
+
+  /* ─── ORG ─── */
+  .org-box { background: var(--off-white); border-radius: 10px; padding: 1.25rem; margin-top: 1rem; border: 0.5px solid var(--border); }
+  .org-box h4 { font-size: 0.82rem; font-weight: 500; color: var(--black); margin-bottom: 10px; }
+  .org-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .org-item { background: #fff; border-radius: 8px; padding: 10px; text-align: center; border: 0.5px solid var(--border); }
+  .org-item .t { font-size: 0.82rem; font-weight: 500; color: var(--black); }
+  .org-item .s { font-size: 0.72rem; color: var(--gray); margin-top: 4px; line-height: 1.5; }
+
+  /* ─── ROADMAP ─── */
+  .road-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .road-card { border-radius: 10px; padding: 1.25rem; background: var(--off-white); border: 0.5px solid var(--border); }
+  .road-card .phase { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+  .road-card .yr { font-size: 0.9rem; font-weight: 500; color: var(--black); margin-bottom: 10px; }
+  .road-card ul { list-style: none; padding: 0; }
+  .road-card ul li { font-size: 0.76rem; color: var(--gray); line-height: 1.8; padding-left: 16px; position: relative; }
+  .road-card ul li::before { content: "→"; position: absolute; left: 0; font-size: 0.7rem; }
+  .r1 .phase { color: #993C1D; }
+  .r2 .phase { color: #085041; }
+  .r3 .phase { color: #633806; }
+
+  /* ─── CLOSING ─── */
+  .closing-section {
+    background: var(--purple-dark);
+    color: #fff;
+    padding: 8rem 2rem;
+    text-align: center;
+  }
+  .closing-inner { max-width: 700px; margin: 0 auto; }
+  .closing-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 2rem;
+  }
+  .closing-headline {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    color: #fff;
+  }
+  .closing-headline .accent { color: #AFA9EC; }
+  .choice-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 2.5rem 0; }
+  .choice-box { padding: 1.5rem; border-radius: 12px; text-align: left; }
+  .choice-box.lose { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); }
+  .choice-box.win { background: rgba(175,169,236,0.2); border: 1px solid #AFA9EC; }
+  .choice-box .c-label { font-size: 0.78rem; font-weight: 500; margin-bottom: 8px; }
+  .lose .c-label { color: rgba(255,255,255,0.5); }
+  .win .c-label { color: #AFA9EC; }
+  .choice-box p { font-size: 0.82rem; line-height: 1.7; }
+  .lose p { color: rgba(255,255,255,0.45); }
+  .win p { color: rgba(255,255,255,0.8); }
+  .final-statement {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 1.75rem;
+    border: 0.5px solid rgba(255,255,255,0.1);
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.65);
+  }
+  .final-statement strong { color: #fff; font-weight: 500; }
+
+  /* ─── SPEAKER NOTES ─── */
+  .speaker-note {
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: var(--off-white);
+    border-radius: 8px;
+    border-left: 2px solid var(--gray);
+  }
+  .speaker-note p { font-size: 0.78rem; color: var(--gray); line-height: 1.7; }
+  .speaker-note strong { color: var(--black); font-weight: 500; }
+  .shock .speaker-note { border-left-color: var(--coral); }
+  .diagnose .speaker-note { border-left-color: var(--purple); }
+  .vision .speaker-note { border-left-color: var(--teal); }
+  .execute .speaker-note { border-left-color: var(--amber); }
+
+  /* ─── Q&A ─── */
+  .qa-list { display: flex; flex-direction: column; gap: 10px; }
+  .qa-item { border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+  .qa-q { padding: 12px 16px; background: var(--off-white); font-size: 0.85rem; font-weight: 500; color: var(--black); }
+  .qa-a { padding: 12px 16px; background: #fff; font-size: 0.82rem; color: var(--gray); line-height: 1.75; }
+
+  /* ─── DOS DONTS ─── */
+  .dos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .dos-card { padding: 1.25rem; border-radius: 10px; }
+  .dos-card.do { background: var(--teal-light); border: 0.5px solid #5DCAA5; }
+  .dos-card.dont { background: var(--coral-light); border: 0.5px solid #F0997B; }
+  .dos-card h4 { font-size: 0.82rem; font-weight: 500; margin-bottom: 10px; }
+  .do h4 { color: var(--teal-dark); }
+  .dont h4 { color: #712B13; }
+  .dos-card ul { list-style: none; padding: 0; }
+  .dos-card ul li { font-size: 0.78rem; line-height: 1.85; padding-left: 16px; position: relative; }
+  .do ul li { color: #0F6E56; }
+  .dont ul li { color: #993C1D; }
+  .do ul li::before { content: "✓"; position: absolute; left: 0; font-size: 0.7rem; }
+  .dont ul li::before { content: "✗"; position: absolute; left: 0; font-size: 0.7rem; }
+
+  /* ─── TONE GRID ─── */
+  .tone-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+  .tone-card { padding: 1rem; border-radius: 8px; background: var(--off-white); border: 0.5px solid var(--border); }
+  .tone-card .act-lbl { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.05em; color: var(--gray); text-transform: uppercase; margin-bottom: 4px; }
+  .tone-card .tone-name { font-size: 0.82rem; font-weight: 500; color: var(--black); margin-bottom: 6px; }
+  .tone-card .tone-desc { font-size: 0.74rem; color: var(--gray); line-height: 1.6; }
+
+  /* ─── SECTION LABEL ─── */
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin: 2.5rem 0 1rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2rem;
+    text-align: center;
+    border-top: 0.5px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--gray);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .stat-trio, .disruption-grid, .analogy-row, .two-col, .data-grid,
+    .timeline, .pos-grid, .tri-grid, .bm-grid, .econ-quad, .mult-row,
+    .axis-grid, .road-grid, .choice-row, .dos-grid, .tone-grid {
+      grid-template-columns: 1fr;
+    }
+    nav .nav-acts { display: none; }
+    .hero-headline { font-size: 2.2rem; }
+  }
+</style>
+<style id="analyst-redline">
+/* ===== 분석가 교정 마크업 (클로드) ===== */
+del.rl{ color:#8A8A8A; text-decoration:line-through; text-decoration-color:#C0392B; text-decoration-thickness:1.5px; }
+ins.rl{ color:#C0392B; text-decoration:none; font-weight:600; }
+ins.rl::before{ content:"✎ "; font-weight:700; }
+.rl-note{
+  display:block; margin:10px 0; padding:10px 14px;
+  background:#FDECEA; border-left:4px solid #C0392B; border-radius:4px;
+  color:#922; font-size:13.5px; line-height:1.7; font-weight:400;
+}
+.rl-note b{ color:#7A1A12; }
+.rl-tag{
+  display:inline-block; background:#C0392B; color:#fff; font-size:10.5px; font-weight:700;
+  letter-spacing:0.04em; padding:1px 7px; border-radius:3px; margin-right:6px; vertical-align:middle;
+}
+.rl-banner{
+  position:sticky; top:0; z-index:999; background:#C0392B; color:#fff;
+  text-align:center; padding:8px 16px; font-size:13px; font-weight:600; letter-spacing:0.02em;
+}
+</style>
+
+</head>
+<body>
+<div class="rl-banner">🔴 분석가 교정본 — 취소선=원문 / 빨간 ✎=수정 제안 / 빨간 박스=교정 사유 · by 클로드</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">삼성 <span>×</span> 디지털자산 전략</div>
+  <ul class="nav-acts">
+    <li><a href="#act1">Act 1 · 충격</a></li>
+    <li><a href="#act2">Act 2 · 진단</a></li>
+    <li><a href="#act3">Act 3 · 비전</a></li>
+    <li><a href="#act4">Act 4 · 실행</a></li>
+    <li><a href="#guide">발표 가이드</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Samsung Group Digital Asset Strategy</div>
+  <h1 class="hero-headline">
+    삼성,<br>
+    <span class="strike">현상 유지</span>하거나<br>
+    <span class="accent">스스로를 해체하라</span>
+  </h1>
+  <p class="hero-sub">블록체인·스테이블코인이 삼성의 수익 구조를 해체한다.<br>해체를 먼저 설계하는 자가 새 판의 룰을 쓴다.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><span class="label">발표 구조</span><span class="val">4막 13슬라이드</span></div>
+    <div class="meta-item"><span class="label">발표 시간</span><span class="val">25분 권장</span></div>
+    <div class="meta-item"><span class="label">핵심 전략</span><span class="val">BM 해체 → 인프라 장악</span></div>
+    <div class="meta-item"><span class="label">목표 청중</span><span class="val">삼성그룹 사장·부사장급</span></div>
+  </div>
+  <div class="hero-scroll">↓ &nbsp;스크롤하여 발표 전체 구성 보기</div>
+</section>
+
+<div class="act-divider"></div>
+
+<!-- ACT 1 -->
+<section class="act shock" id="act1">
+  <div class="act-header">
+    <span class="act-tag shock">ACT 1 · 충격 &nbsp;|&nbsp; 슬라이드 1–3 &nbsp;|&nbsp; 5분</span>
+    <h2 class="act-title">삼성이 해체된다</h2>
+    <p class="act-sub">청중을 불편하게 만드는 것이 목표. 위기감 없이는 비전도 없다. 팩트만으로 말한다.</p>
+  </div>
+
+  <!-- Slide 01 -->
+  <div class="slide-card" data-slide="01 / 13">
+    <div class="slide-label">오프닝 충격</div>
+    <h3 class="slide-title">삼성의 수익 구조가 해체되고 있다</h3>
+    <p class="slide-desc">블록체인은 새로운 경쟁자가 아니다. 삼성이 돈을 버는 방식 자체를 지우는 기술이다.</p>
+    <div class="stat-trio">
+      <div class="stat-box">
+        <div class="n">3–8%</div>
+        <div class="l">삼성물산 건설 시공 마진<br><span class="threat">→ <del class="rl">스마트컨트랙트가 대체</del> <ins class="rl">1회성 마진 → 자산 수명 운용 수수료로 재배치</ins></span></div>
+      </div>
+      <div class="stat-box">
+        <div class="n">1회</div>
+        <div class="l">갤럭시 판매 후 수익 관계 종료<br><span class="threat">→ 토큰이 관계를 영속화</span></div>
+      </div>
+      <div class="stat-box">
+        <div class="n">PER 12배</div>
+        <div class="l">제조업 멀티플의 구조적 저평가<br><span class="threat">→ Visa는 30배</span></div>
+      </div>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> 첫 문장에서 결론을 말하지 않는다. "오늘 저는 삼성이 해야 할 새 사업을 말씀드리러 온 게 아닙니다. 삼성이 지금 하는 사업이 사라지는 이야기를 먼저 드리려 합니다." 3초 침묵 후 다음 슬라이드로 이동한다.</p>
+    </div>
+  </div>
+
+  <!-- Slide 02 -->
+  <div class="slide-card" data-slide="02 / 13">
+    <div class="slide-label">4대 사업 해체 지도</div>
+    <h3 class="slide-title">4대 사업, 4개의 해체 시나리오</h3>
+    <p class="slide-desc">블록체인은 각 사업부가 돈을 버는 전제를 하나씩 제거한다</p>
+    <div class="disruption-grid">
+      <div class="dis-card">
+        <h4>삼성전자 MX — 갤럭시</h4>
+        <div class="dis-row">
+          <div class="dis-from">1회성 하드웨어 판매</div>
+          <div class="dis-arr">→</div>
+          <div class="dis-to">판매 후 수익 관계 소멸</div>
+        </div>
+        <div class="dis-row">
+          <div class="dis-from">중고폰 거래: 삼성 무관</div>
+          <div class="dis-arr">→</div>
+          <div class="dis-to">2차 시장 커질수록 손해</div>
+        </div>
+      </div>
+      <div class="dis-card">
+        <h4>삼성전자 DS — 반도체</h4>
+        <div class="dis-row">
+          <div class="dis-from">수탁생산 → 웨이퍼 판매</div>
+          <div class="dis-arr">→</div>
+          <div class="dis-to"><del class="rl">온체인 컴퓨팅 거래로 대체</del> <ins class="rl">제조는 유지, 가치는 연산력 거래·정산 레이어로 이동</ins></div>
+        </div>
+        <div class="dis-row">
+          <div class="dis-from">Fab 유휴 = 매몰 비용</div>
+          <div class="dis-arr">→</div>
+          <div class="dis-to">경쟁사가 실시간 경매 선점</div>
+        </div>
+      </div>
+      <div class="dis-card">
+        <h4>삼성물산 — 건설·부동산</h4>
+        <div class="dis-row">
+          <div class="dis-from">시공 납품 후 관계 종료</div>
+          <div class="dis-arr">→</div>
+          <div class="dis-to">자산 수명 가치를 1회로 교환</div>
+        </div>
+        <div class="dis-row">
+          <div class="dis-from">글로벌 투자자 접근 불가</div>
+          <div class="dis-arr">→</div>
+          <div class="dis-to">토큰화 플랫폼이 시장 선점</div>
+        </div>
+      </div>
+      <div class="dis-card">
+        <h4>삼성생명·카드 — 금융</h4>
+        <div class="dis-row">
+          <div class="dis-from">보험료 - 보험금 = 이익</div>
+          <div class="dis-arr">→</div>
+          <div class="dis-to">파라메트릭+스마트컨트랙트</div>
+        </div>
+        <div class="dis-row">
+          <div class="dis-from">카드 수수료 1.5~2%</div>
+          <div class="dis-arr">→</div>
+          <div class="dis-to"><del class="rl">스테이블코인 직접 결제 0%</del> <ins class="rl">소액·기계 결제에서 비용 역전 (카드 1.5~2% vs 건당 약 2원)</ins></div>
+        </div>
+      </div>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> 각 칸을 왼쪽(현재)에서 오른쪽(위협)으로 하나씩 짚는다. "이것은 먼 미래 이야기가 아닙니다. 지금 이 순간 경쟁자들이 준비하고 있는 것입니다." 청중이 고개를 끄덕이게 만드는 것이 목표.</p>
+    </div>
+  </div>
+
+  <!-- Slide 03 -->
+  <div class="slide-card" data-slide="03 / 13">
+    <div class="slide-label">역사적 유추</div>
+    <h3 class="slide-title">이 장면은 역사에 전례가 있다</h3>
+    <p class="slide-desc">기술 전환에서 "적응하려 한 자"와 "판을 바꾼 자"의 결말은 언제나 달랐다</p>
+    <div class="analogy-row">
+      <div class="analogy-card dead">
+        <h4>Kodak</h4>
+        <p>디지털 카메라 기술을 자체 개발했으나 필름 수익 보호를 위해 출시를 늦춤. 디지털 시대에 적응하려 했으나 이미 늦었다.</p>
+        <span class="verdict-badge">적응을 시도 → 파산</span>
+      </div>
+      <div class="analogy-card dead">
+        <h4>Nokia</h4>
+        <p>피처폰 최강자였으나 스마트폰을 "일시적 유행"으로 봤다. OS 전환에 실패하고 기존 강점이 오히려 족쇄가 됨.</p>
+        <span class="verdict-badge">강점에 집착 → 매각</span>
+      </div>
+      <div class="analogy-card won">
+        <h4>Amazon</h4>
+        <p>서점이 자신의 유통 인프라를 외부에 팔기 시작했다. AWS는 Amazon 내부 인프라를 해체해 세계에 판 것. 자기 파괴가 새 사업이 됐다.</p>
+        <span class="verdict-badge">자기 해체 설계 → 지배</span>
+      </div>
+    </div>
+    <div style="background:var(--off-white);border-radius:10px;padding:1.25rem;text-align:center;border:0.5px solid var(--border)">
+      <p style="font-size:0.9rem;font-weight:500;color:var(--black);line-height:1.7">삼성은 지금 이 세 갈림길 앞에 서 있다.<br>
+      <span style="color:var(--coral)">해체당하거나, 해체하거나.</span><br>
+      그리고 해체를 설계하는 자만이 새 판의 룰을 쓴다.</p>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> "Kodak은 디지털 카메라를 발명한 회사입니다. 그런데 망했습니다." 여기서 잠깐 멈춘다. 청중이 삼성을 Kodak에 대입하는 순간을 만들어야 한다. 그 다음 Amazon 사례로 반전을 줘서 ACT2로 자연스럽게 이어진다.</p>
+    </div>
+  </div>
+</section>
+
+<div class="act-divider"></div>
+
+<!-- ACT 2 -->
+<section class="act diagnose" id="act2">
+  <div class="act-header">
+    <span class="act-tag diagnose">ACT 2 · 진단 &nbsp;|&nbsp; 슬라이드 4–6 &nbsp;|&nbsp; 5분</span>
+    <h2 class="act-title">왜 지금인가</h2>
+    <p class="act-sub">위기를 추상에서 구체로. 숫자와 데이터로 "이미 시작됐다"를 증명한다. 의견이 아니라 팩트.</p>
+  </div>
+
+  <!-- Slide 04 -->
+  <div class="slide-card" data-slide="04 / 13">
+    <div class="slide-label">시장 데이터</div>
+    <h3 class="slide-title">단층은 이미 열렸다 — 숫자로 본 현실</h3>
+    <p class="slide-desc">스테이블코인·디지털자산 시장은 "올 것인가"의 문제가 아니라 "얼마나 빠른가"의 문제다</p>
+    <div class="data-grid">
+      <div class="data-card hot">
+        <div class="n"><del class="rl">$2,400억</del> <ins class="rl">$27.6조</ins></div>
+        <div class="ctx"><del class="rl">2024년 글로벌 스테이블코인 결제 규모<br>(Visa 규모에 근접)</del> <ins class="rl">2024년 스테이블코인 총 이전량(Visa·MC 합산 상회). 단 약 70%는 봇·트레이딩이며 실결제는 수천억$ 수준</ins></div>
+        <span class="rl-note"><span class="rl-tag">사실</span>$240B는 결제량이 아니라 시중 공급량(시총)에 가까움. "Visa 근접"은 부정확 — 양면을 정직하게 제시하는 편이 반박 불가.</span>
+      </div>
+      <div class="data-card grow">
+        <div class="n"><del class="rl">$30조</del> <ins class="rl">$16조</ins></div>
+        <div class="ctx">2030년 RWA 토크나이제이션<br>예상 시장 (BCG 추정)</div>
+        <span class="rl-note"><span class="rl-tag">사실</span>BCG 기본 시나리오는 2030년 약 $16T. $30T는 BCG가 아니라 타 기관의 2034년 추정에 가까움 — 출처·수치 오기.</span>
+      </div>
+      <div class="data-card warn">
+        <div class="n">73개국</div>
+        <div class="ctx">CBDC 개발 진행 중 국가<br>(BIS 2024 기준)</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="yr">2020–21</div>
+        <div class="ev">DeFi 1.0 실험. 스테이블코인 $100억 → $1,500억으로 폭증</div>
+      </div>
+      <div class="t-item">
+        <div class="yr">2022–23</div>
+        <div class="ev">기관 진입. BlackRock·JPMorgan 온체인 펀드 출시</div>
+      </div>
+      <div class="t-item now">
+        <div class="yr">2024–25 ← 지금</div>
+        <div class="ev">규제 정비 완료 (<del class="rl">MiCA·FIT21</del> <ins class="rl">MiCA·GENIUS Act(2025.7 서명)</ins>). 기업 스테이블코인 발행 허용
+        <span class="rl-note"><span class="rl-tag">규제·사실</span>FIT21은 하원만 통과·상원 미통과로 미입법이며 스테이블코인법도 아님(결제형은 FIT21에서 제외). 실제 미국 스테이블코인법은 GENIUS Act.</span></div>
+      </div>
+      <div class="t-item">
+        <div class="yr">2026–28</div>
+        <div class="ev">대규모 B2B 정산 전환. 선점자가 표준 장악</div>
+      </div>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> "지금이 2024~25년입니다. 규제가 정비됐고, 기관이 들어왔고, 표준 전쟁이 시작됩니다. 창이 열리는 시간은 2~3년입니다. 이 창을 먼저 통과하는 자가 인프라를 장악합니다."</p>
+    </div>
+  </div>
+
+  <!-- Slide 05 -->
+  <div class="slide-card" data-slide="05 / 13">
+    <div class="slide-label">삼성의 현재 좌표</div>
+    <h3 class="slide-title">삼성의 현재 좌표 — 강점과 공백</h3>
+    <p class="slide-desc">삼성이 이미 가진 것과, 아직 연결되지 않은 것을 냉정하게 본다</p>
+    <div class="pos-grid">
+      <div class="pos-card have">
+        <h4>보유 자산 — 이미 있다</h4>
+        <div class="pos-row"><span class="item">Galaxy 디바이스 출하량</span><span class="val strong">연 2.4억대</span></div>
+        <div class="pos-row"><span class="item">Knox 보안 칩 탑재 기기</span><span class="val strong">누적 23억대<ins class="rl"> [출처·복수검증 필요]</ins></span></div>
+        <div class="pos-row"><span class="item">삼성페이 서비스 국가</span><span class="val strong">50개국+</span></div>
+        <div class="pos-row"><span class="item">삼성생명 운용 자산</span><span class="val strong">약 340조원<ins class="rl"> [출처 표기 필요]</ins></span></div>
+        <div class="pos-row"><span class="item">삼성SDS 블록체인 특허</span><span class="val strong">글로벌 상위권</span></div>
+      </div>
+      <div class="pos-card lack">
+        <h4>구조적 공백 — 아직 없다</h4>
+        <div class="pos-row"><span class="item">그룹 통합 디지털 월렛</span><span class="val weak">없음</span></div>
+        <div class="pos-row"><span class="item">자체 스테이블코인</span><span class="val weak">없음</span></div>
+        <div class="pos-row"><span class="item">전용 L2 블록체인</span><span class="val weak">없음</span></div>
+        <div class="pos-row"><span class="item">온체인 RWA 플랫폼</span><span class="val weak">없음</span></div>
+        <div class="pos-row"><span class="item">그룹 차원 디지털자산 전략</span><span class="val weak">분산·미통합</span></div>
+      </div>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> "재료는 다 있습니다. 없는 것은 연결하려는 의지와 조직뿐입니다." 이 한 문장으로 슬라이드를 닫고 ACT3로 전환.</p>
+    </div>
+  </div>
+
+  <!-- Slide 06 -->
+  <div class="slide-card" data-slide="06 / 13">
+    <div class="slide-label">전환점</div>
+    <div class="pivot-box">
+      <blockquote>"해체를 막을 수는 없다.<br>그렇다면 누가 먼저 해체를 설계하는가."</blockquote>
+      <p>질문이 바뀌면 전략이 바뀐다.<br>이제부터는 삼성이 해체를 당하는 이야기가 아니라,<br>삼성이 해체를 설계하는 이야기를 합니다.</p>
+    </div>
+    <div class="two-col">
+      <div class="col-box left">
+        <h4>지금까지 — 위기의 프레임</h4>
+        <p>블록체인이 각 사업부의 수익 구조를 무너뜨리는 방식. 창이 열리는 속도와 삼성의 현재 공백. "이미 시작됐다"는 긴박감.</p>
+      </div>
+      <div class="col-box right">
+        <h4>지금부터 — 전략의 프레임</h4>
+        <p>삼성만이 가진 역량으로 해체를 역이용하는 포지셔닝. Device × Trust × Settlement의 삼각 독점. 삼성 경제권이 탄생하는 비전.</p>
+      </div>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> 이 슬라이드는 말 없이 10초 보여준다. "자, 이제 해법을 이야기하겠습니다"가 아니라 — "삼성이라는 회사가 역사상 가장 유리한 위치에 있다는 이야기를 하겠습니다"로 전환. 자신감의 톤으로 바뀌는 것이 핵심.</p>
+    </div>
+  </div>
+</section>
+
+<div class="act-divider"></div>
+
+<!-- ACT 3 -->
+<section class="act vision" id="act3">
+  <div class="act-header">
+    <span class="act-tag vision">ACT 3 · 비전 &nbsp;|&nbsp; 슬라이드 7–10 &nbsp;|&nbsp; 8분</span>
+    <h2 class="act-title">해체를 설계하라</h2>
+    <p class="act-sub">발표의 톤이 완전히 바뀐다. 위기에서 제국의 언어로. "우리만이 할 수 있다"를 당연하게 말한다.</p>
+  </div>
+
+  <!-- Slide 07 -->
+  <div class="slide-card" data-slide="07 / 13">
+    <div class="slide-label">삼성만의 독점 포지션</div>
+    <h3 class="slide-title">삼성만이 가능한 이유 — 3각 독점</h3>
+    <p class="slide-desc">Apple은 금융 면허가 없다. Google은 하드웨어 점유율이 부족하다. 은행은 디바이스가 없다. 블록체인 기업은 신뢰 자산이 없다.</p>
+    <div class="tri-grid">
+      <div class="tri-card d">
+        <div class="icon">□</div>
+        <h4>Device</h4>
+        <p>23억 Knox 탑재 기기<br>연 2.4억대 출하<br>하드웨어 보안 엔클레이브<br>IoT 생태계 전체</p>
+      </div>
+      <div class="tri-card t">
+        <div class="icon">◇</div>
+        <h4>Trust</h4>
+        <p>글로벌 브랜드 신뢰<br>KYC·DID 인프라<br><del class="rl">금융 규제 면허 보유</del> <ins class="rl">금융 면허는 삼성카드·생명 보유(삼성전자 아님)</ins><br>30년 고객 관계 자산</p>
+      </div>
+      <div class="tri-card s">
+        <div class="icon">○</div>
+        <h4>Settlement</h4>
+        <p>삼성페이 50개국<br>삼성카드·생명·증권<br>그룹 내부 거래 300조<br>협력사 2만곳 네트워크</p>
+      </div>
+    </div>
+    <div class="center-claim">
+      <p>세 역량이 교차하는 자리에 삼성만의 독점 포지션이 있다<br>
+      <strong>Device × Trust × Settlement = 디지털 경제의 신뢰 인프라</strong></p>
+      <span class="rl-note"><span class="rl-tag">규제·Kill switch</span>세 역량은 <b>서로 다른 법인</b>에 흩어져 있음(Device=삼성전자, 면허·정산=삼성카드·생명). 금산분리상 이를 하나로 합치는 것은 위법. 과제는 "합치기"가 아니라 <b>법적 분리를 유지한 채 표준으로 연결</b>하기.</span>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> "이 세 가지를 동시에 가진 회사가 지구상에 몇이나 됩니까?" 청중에게 직접 묻는다. 손가락으로 꼽으면 삼성이 반드시 들어간다. 그 사실을 청중 스스로 발견하게 한다.</p>
+    </div>
+  </div>
+
+  <!-- Slide 08 -->
+  <div class="slide-card" data-slide="08 / 13">
+    <div class="slide-label">4대 사업 BM 재구성</div>
+    <h3 class="slide-title">4대 사업 비즈니스 모델 재구성</h3>
+    <p class="slide-desc">해체를 먼저 설계하면, 해체 이후의 새 수익 구조를 삼성이 소유한다</p>
+    <div class="bm-grid">
+      <div class="bm-item">
+        <h4>갤럭시 — Galaxy DePIN</h4>
+        <div class="bm-row"><span class="bm-from">1회 판매 마진</span><span class="bm-arr">→</span><span class="bm-to">디바이스 수명 내내 수익</span></div>
+        <div class="bm-row"><span class="bm-from">중고 거래 무관</span><span class="bm-arr">→</span><span class="bm-to"><del class="rl">2차 거래 로열티 자동 수취</del> <ins class="rl">외부 발행 토큰 기반 거래의 정산 수수료</ins></span></div>
+        <div class="bm-row"><span class="bm-from">데이터 무단 활용</span><span class="bm-arr">→</span><span class="bm-to"><del class="rl">사용자 동의 데이터 토큰 보상</del> <ins class="rl">동의 기반 데이터 정산 (삼성은 토큰 발행자 아님)</ins></span></div>
+      </div>
+      <div class="bm-item">
+        <h4>반도체 — Samsung Compute X</h4>
+        <div class="bm-row"><span class="bm-from">수탁생산 웨이퍼 판매</span><span class="bm-arr">→</span><span class="bm-to">AI 연산력 온체인 거래소</span></div>
+        <div class="bm-row"><span class="bm-from">Fab 유휴 = 손실</span><span class="bm-arr">→</span><span class="bm-to">실시간 스팟 경매 수익</span></div>
+        <div class="bm-row"><span class="bm-from">고객 이탈 리스크</span><span class="bm-arr">→</span><span class="bm-to">거래소 운영 = 경쟁사 포함</span></div>
+      </div>
+      <div class="bm-item">
+        <h4>삼성물산 — 도시 인프라 토큰</h4>
+        <div class="bm-row"><span class="bm-from">시공 납품 후 종료</span><span class="bm-arr">→</span><span class="bm-to">자산 수명 30년 수수료</span></div>
+        <div class="bm-row"><span class="bm-from">시공 마진 3~8%</span><span class="bm-arr">→</span><span class="bm-to">RWA 운용사 AUM 수익</span></div>
+        <div class="bm-row"><span class="bm-from">국내 투자자만 접근</span><span class="bm-arr">→</span><span class="bm-to">글로벌 소액 투자자 개방</span></div>
+      </div>
+      <div class="bm-item">
+        <h4>삼성생명·카드 — 리스크 마켓</h4>
+        <div class="bm-row"><span class="bm-from">손해율에 종속된 이익</span><span class="bm-arr">→</span><span class="bm-to"><del class="rl">플랫폼 수수료 (손해율 무관)</del> <ins class="rl">파라메트릭 보험 — 인수위험 주체 명시 필요</ins></span></div>
+        <div class="bm-row"><span class="bm-from">카드 수수료 1.5~2%</span><span class="bm-arr">→</span><span class="bm-to"><del class="rl">스테이블코인 결제 레일 수익</del> <ins class="rl">결제 레일은 삼성카드(금융 인가) 또는 외부 발행자가 운영</ins></span></div>
+        <div class="bm-row"><span class="bm-from">국내 저성장 한계</span><span class="bm-arr">→</span><span class="bm-to">글로벌 리스크 거래 시장</span></div>
+      </div>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> 슬라이드 2(해체 지도)와 이 슬라이드를 명시적으로 연결한다. "아까 보셨던 해체 시나리오 기억하십니까? 그 해체를 삼성이 먼저 설계하면 이렇게 됩니다." 같은 구조, 반전된 결론.</p>
+    </div>
+  </div>
+
+  <!-- Slide 09 -->
+  <div class="slide-card" data-slide="09 / 13">
+    <div class="slide-label">삼성 경제권</div>
+    <h3 class="slide-title">수렴의 비전 — 삼성 경제권의 탄생</h3>
+    <p class="slide-desc">4개 사업의 전환이 하나의 생태계로 수렴할 때, 네트워크 효과가 폭발한다</p>
+    <div class="econ-quad">
+      <div class="econ-card"><div class="lbl">갤럭시 DePIN</div><div class="val">23억 노드</div></div>
+      <div class="econ-card"><div class="lbl">Compute X</div><div class="val">AI 연산 거래소</div></div>
+      <div class="econ-card"><div class="lbl">도시 인프라 토큰</div><div class="val">글로벌 RWA 운용</div></div>
+      <div class="econ-card"><div class="lbl">리스크 마켓</div><div class="val">온체인 보험·결제</div></div>
+    </div>
+    <div class="econ-center">
+      <h4><del class="rl">Samsung Economy — 단일 통화 생태계</del> <ins class="rl">Samsung 멀티월렛 표준 — 외부 발행 토큰 기반</ins></h4>
+      <p><del class="rl">Galaxy Token(GXT) + Samsung Stablecoin이 모든 사업의 결제 레일</del> <ins class="rl">삼성은 자체 통화를 발행하지 않는다. 외부 인가 발행 토큰(원화·달러)을 담는 멀티월렛 표준을 제공</ins><br>
+      <del class="rl">각 사업에서 벌어들인 토큰이 다른 사업으로 순환 — 경제권의 GDP가 커질수록</del> <ins class="rl">레일 위를 지나는 모든 거래에서</ins> 삼성의 인프라 수수료도 커진다<br>
+      <strong>고속도로를 파는 것이 아니라, 고속도로 위에서 통행료를 받는다</strong></p>
+      <span class="rl-note"><span class="rl-tag">Kill switch</span>삼성전자의 자체 토큰(GXT)·스테이블코인 발행은 금산분리 위반이며, "토큰이 사업 간 순환"은 가치 원천이 순환논리. 통화 소유를 버리고 통행료(레일) 모델만 남길 것 — 이 비유는 §XII 통행료 모델과 정확히 일치.</span>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> "갤럭시 사용자가 디바이스 참여로 받은 토큰으로 삼성물산 부동산 토큰을 삽니다. 삼성 스테이블코인이 그 거래의 결제 레일이 됩니다. 이 순환이 만들어지면, 삼성은 모든 거래에서 수수료를 받습니다."</p>
+    </div>
+  </div>
+
+  <!-- Slide 10 -->
+  <div class="slide-card" data-slide="10 / 13">
+    <div class="slide-label">밸류에이션 재정의</div>
+    <h3 class="slide-title">밸류에이션의 재정의 — 이것이 전략의 진짜 목표</h3>
+    <p class="slide-desc">더 많이 버는 것이 아니라, 버는 돈의 성격을 바꾼다. 시장이 삼성을 다시 평가하게 만든다.</p>
+    <div class="mult-row">
+      <div class="mult-card before">
+        <h4>현재 — 제조업 멀티플</h4>
+        <div class="mult-item"><span class="co">삼성전자 (현재)</span><span class="pe low">PER 12~15배</span></div>
+        <div class="mult-item"><span class="co">삼성물산 (현재)</span><span class="pe low">PER 10~12배</span></div>
+        <div class="mult-item"><span class="co">삼성생명 (현재)</span><span class="pe low">PBR 0.4배</span></div>
+        <div class="mult-foot"><span class="co">결론</span><span class="pe low">삼성 디스카운트 지속</span></div>
+      </div>
+      <div class="mult-card after">
+        <h4>전환 후 — 인프라 플랫폼 멀티플</h4>
+        <div class="mult-item"><span class="co">Visa / Mastercard</span><span class="pe high">PER 30~35배</span></div>
+        <div class="mult-item"><span class="co">AWS (Amazon)</span><span class="pe high">EV/EBITDA 25배+</span></div>
+        <div class="mult-item"><span class="co">Blackstone</span><span class="pe high">P/FRE 25배+</span></div>
+        <div class="mult-foot" style="border-color:#9FE1CB"><span class="co" style="color:#085041"><del class="rl">목표</del> <ins class="rl">결과(목표 아님)</ins></span><span class="pe high">삼성 디스카운트 해소</span></div>
+      </div>
+    </div>
+    <span class="rl-note"><span class="rl-tag">밸류에이션</span>재평가는 통제 불가 변수라 KPI로 부적합. Visa 멀티플은 실증된 양면 네트워크·$13T 볼륨·수십년 해자의 결과이며, 복합기업 구조상 순수 인프라 멀티플 전체를 받기는 어렵다는 점도 함께 인정할 것. 재평가는 목표가 아니라 수수료가 실제로 쌓인 뒤의 부산물.</span>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> "삼성이 이익을 두 배 늘리는 것보다, 이익의 성격을 바꾸는 것이 시장에 더 강하게 작동합니다. 제조업 PER에서 인프라 플랫폼 멀티플로 — 이것이 이 전략이 존재하는 이유입니다."</p>
+    </div>
+  </div>
+</section>
+
+<div class="act-divider"></div>
+
+<!-- ACT 4 -->
+<section class="act execute" id="act4">
+  <div class="act-header">
+    <span class="act-tag execute">ACT 4 · 실행 &nbsp;|&nbsp; 슬라이드 11–13 &nbsp;|&nbsp; 7분</span>
+    <h2 class="act-title">지금 무엇을 결정하나</h2>
+    <p class="act-sub">비전에서 착지로. 청중이 "그래서 우리가 오늘 무엇을 해야 하는가"를 들고 나가게 한다.</p>
+  </div>
+
+  <!-- Slide 11 -->
+  <div class="slide-card" data-slide="11 / 13">
+    <div class="slide-label">3대 실행 축</div>
+    <h3 class="slide-title">3대 실행 축 — Samsung Digital Asset Group</h3>
+    <p class="slide-desc">그룹 직할 단일 조직. 계열사 협의체가 아닌 사령탑. 5년 이상 전담.</p>
+    <div class="axis-grid">
+      <div class="axis-card ax1">
+        <h4>Axis 1. Wallet OS 표준화</h4>
+        <ul>
+          <li>Samsung Trust Wallet 전 기기 탑재</li>
+          <li>Knox 기반 하드웨어 키 관리</li>
+          <li>Samsung DID — 탈중앙 신원</li>
+          <li>Wallet API 개발자 개방</li>
+          <li>IoT 자율결제 상용화</li>
+        </ul>
+      </div>
+      <div class="axis-card ax2">
+        <h4>Axis 2. 스테이블코인 <del class="rl">발행·운영</del> <ins class="rl">연동·정산 (발행은 외부)</ins></h4>
+        <ul>
+          <li><del class="rl">sKRW 그룹 내부 정산 시범</del> <ins class="rl">외부 발행 원화토큰 연동 정산 시범</ins></li>
+          <li>협력사 2만곳 파일럿 확대</li>
+          <li>글로벌 공급망 B2B 정산화</li>
+          <li><del class="rl">준비금 운용 — 이자 수익</del> <ins class="rl">준비금 운용 수익은 발행 주체(삼성카드/외부 은행)에 귀속</ins></li>
+          <li>삼성페이 온체인 전환</li>
+        </ul>
+        <span class="rl-note"><span class="rl-tag">Kill switch</span>발행·준비금 운용·수신은 금산분리상 삼성전자 불가. 발행=삼성카드(금융위 인가) 또는 외부 은행 컨소시엄, 삼성전자=facilitator·정산 백엔드(삼성SDS Nexledger).</span>
+      </div>
+      <div class="axis-card ax3">
+        <h4>Axis 3. 가치 네트워크 인프라</h4>
+        <ul>
+          <li>Samsung Chain (L2) 메인넷</li>
+          <li>RWA 토크나이제이션 1호 발행</li>
+          <li>B2B 정산 SaaS — 외부 개방</li>
+          <li>기관 커스터디 사업 출범</li>
+          <li>CBDC 브릿지 파트너 협상</li>
+        </ul>
+      </div>
+    </div>
+    <div class="org-box">
+      <h4>조직 설계 원칙 — 3불(不)</h4>
+      <div class="org-grid">
+        <div class="org-item"><div class="t">不분산</div><div class="s">계열사 타협 없는<br><del class="rl">그룹 직할 단일 P&L</del> <ins class="rl">그룹 직할 조정 사령탑 (P&L·법인격은 분리)</ins></div></div>
+        <div class="org-item"><div class="t">不순환</div><div class="s">순환 보직 금지<br>5년 이상 전담 인력</div></div>
+        <div class="org-item"><div class="t">不타협</div><div class="s">단기 이익 우선 논리에<br>전략 목표 타협 불가</div></div>
+      </div>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> "이 전략의 최대 적은 기술이 아닙니다. 분산된 의사결정입니다. 삼성SDS, MX, 생명, 카드가 각자 움직이면 각자 실패합니다. 단일 사령탑이 없으면 이 전략은 없습니다."</p>
+    </div>
+  </div>
+
+  <!-- Slide 12 -->
+  <div class="slide-card" data-slide="12 / 13">
+    <div class="slide-label">실행 로드맵</div>
+    <h3 class="slide-title">실행 로드맵 — 3단계 진화</h3>
+    <p class="slide-desc">Phase 1은 기술 문제가 아니다. 의지의 문제다. 필요한 재료는 이미 있다.</p>
+    <div class="road-grid">
+      <div class="road-card r1">
+        <div class="phase">Phase 1 · Foundation</div>
+        <div class="yr">2025 — 2027</div>
+        <ul>
+          <li>Samsung Wallet OS 전 기기 탑재</li>
+          <li><del class="rl">sKRW 그룹 내부 시범 발행</del> <ins class="rl">외부 발행 원화토큰 내부 정산 시범</ins></li>
+          <li>금융당국 샌드박스 진입</li>
+          <li>협력사 50곳 파일럿 정산</li>
+          <li>Samsung DID 표준 국제 제안</li>
+          <li>SDAG 조직 신설 및 CDO 선임</li>
+        </ul>
+      </div>
+      <div class="road-card r2">
+        <div class="phase">Phase 2 · Expansion</div>
+        <div class="yr">2027 — 2030</div>
+        <ul>
+          <li>Samsung Chain L2 메인넷 런칭</li>
+          <li>sKRW 외부 가맹점·거래소 개방</li>
+          <li>RWA 1호 토크나이제이션 (채권)</li>
+          <li>B2B 정산 SaaS 외부 공급 개시</li>
+          <li>IoT 자율결제 상용화 전 라인</li>
+          <li>Galaxy DePIN 공식 런칭</li>
+        </ul>
+      </div>
+      <div class="road-card r3">
+        <div class="phase">Phase 3 · Dominance</div>
+        <div class="yr">2030 — 2032+</div>
+        <ul>
+          <li>CBDC 브릿지 파트너 10개국+</li>
+          <li>Samsung Wallet 글로벌 표준화</li>
+          <li><del class="rl">sUSD 글로벌 무역 정산 통화</del> <ins class="rl">외부 발행 달러토큰(USDC 등)을 삼성 레일에 얹어 무역 정산 점유</ins></li>
+          <li>기관 커스터디 AUM 100조원</li>
+          <li>인프라 수익 연 20조원 목표</li>
+          <li>밸류에이션 멀티플 재평가</li>
+        </ul>
+      </div>
+    </div>
+    <div class="speaker-note">
+      <p><strong>발표자 노트 —</strong> Phase 1만 집중해서 이야기한다. "2025~2027년, 3년입니다. 이 3년이 창이 열리는 시간입니다. Phase 1을 시작하지 않으면 Phase 3는 없습니다."</p>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing-section" id="closing">
+  <div class="closing-inner">
+    <div class="closing-eyebrow">Slide 13 / 13 &nbsp;·&nbsp; 클로징</div>
+    <h2 class="closing-headline">
+      삼성은 <span class="accent">해체당하는 쪽</span>이 될 것인가,<br>
+      <span class="accent">해체를 설계하는 쪽</span>이 될 것인가.
+    </h2>
+    <div class="choice-row">
+      <div class="choice-box lose">
+        <div class="c-label">해체당하는 쪽</div>
+        <p>블록체인의 전개를 지켜보다가 기존 수익 구조가 잠식된 후, 후발주자로 진입한다. 삼성 디스카운트가 고착된다.</p>
+      </div>
+      <div class="choice-box win">
+        <div class="c-label">해체를 설계하는 쪽</div>
+        <p>삼성이 자신의 사업 모델을 먼저 해체하고, 새 인프라의 룰을 쓴다. 23억 디바이스가 경제권의 노드가 된다.</p>
+      </div>
+    </div>
+    <div class="final-statement">
+      삼성은 이 전략에 필요한 모든 것을 이미 갖고 있다.<br>
+      <strong>Knox 보안 칩, 삼성페이, 금융 면허, 글로벌 브랜드, 2만 협력사 네트워크.</strong><br>
+      새로 발명할 것은 없다. 연결하면 된다.<br><br>
+      질문은 "할 수 있는가"가 아니다. <strong>"할 것인가"다.</strong>
+    </div>
+    <p style="margin-top:2rem;font-size:0.78rem;color:rgba(255,255,255,0.3)">발표자 노트 — 마지막 문장 "할 것인가"를 말한 후, 슬라이드를 끄고 청중을 직접 본다. 아무 말도 하지 않는다. 10초. 그 침묵이 가장 강한 메시지다.</p>
+  </div>
+</section>
+
+<!-- GUIDE -->
+<section class="act" id="guide" style="padding-bottom:4rem">
+  <div class="act-header" style="margin-bottom:2rem">
+    <h2 class="act-title" style="font-size:1.8rem">발표 실전 가이드</h2>
+    <p class="act-sub">톤 컨트롤, 예상 Q&A, 해야 할 것과 하지 말아야 할 것.</p>
+  </div>
+
+  <div class="section-label">ACT별 톤 컨트롤</div>
+  <div class="tone-grid">
+    <div class="tone-card">
+      <div class="act-lbl">ACT 1</div>
+      <div class="tone-name">냉정한 진단자</div>
+      <div class="tone-desc">감정 없이 팩트만. "이것이 현실입니다"의 톤. 두려움을 만들되 패닉은 만들지 않는다.</div>
+    </div>
+    <div class="tone-card">
+      <div class="act-lbl">ACT 2</div>
+      <div class="tone-name">긴박한 전략가</div>
+      <div class="tone-desc">"창이 닫히고 있다"의 긴박감. 숫자로 말한다. 의견이 아니라 데이터.</div>
+    </div>
+    <div class="tone-card">
+      <div class="act-lbl">ACT 3</div>
+      <div class="tone-name">제국의 설계자</div>
+      <div class="tone-desc">자신감이 넘치는 톤으로 완전 전환. "우리만이 할 수 있다"를 당연하게 말한다.</div>
+    </div>
+    <div class="tone-card">
+      <div class="act-lbl">ACT 4</div>
+      <div class="tone-name">결단을 촉구하는 자</div>
+      <div class="tone-desc">비전이 아니라 행동. "지금 이 자리에서 결정해야 한다"를 직접적으로 말한다.</div>
+    </div>
+  </div>
+
+  <div class="section-label">예상 Q&A — 강한 반론과 답변</div>
+  <div class="qa-list">
+    <div class="qa-item">
+      <div class="qa-q">Q. "규제가 너무 불확실하다. 지금 시작하면 리스크가 크지 않나?"</div>
+      <div class="qa-a">A. 규제 불확실성은 이 전략의 리스크가 아니라 기회입니다. <del class="rl">MiCA(유럽)·FIT21(미국)이 이미 통과됐고</del> <ins class="rl">MiCA(유럽)·GENIUS Act(미국, 2025.7 서명)가 스테이블코인 발행 틀을 확정했고</ins>, 한국도 가상자산법이 시행됐습니다<ins class="rl">(단, 발행자 자격을 정할 디지털자산기본법은 아직 입법 중)</ins>. 규제가 정비되는 지금이 인프라를 장악할 마지막 창입니다. 규제가 완전히 정비된 후 진입하면 이미 선점자가 표준을 장악한 뒤입니다.</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">Q. "삼성이 금융업자가 되려는 것인가? 본업과 충돌하지 않나?"</div>
+      <div class="qa-a">A. 이 전략은 삼성이 금융업자가 되는 것이 아닙니다. 인프라 사업자가 되는 것입니다. AWS는 인터넷 서비스 기업이 아닙니다. 인프라 기업입니다. <del class="rl">삼성도 디바이스·자산·리스크가 거래되는 인프라를 운영할 뿐, 금융 리스크를 직접 지는 구조가 아닙니다.</del> <ins class="rl">발행·수신·준비금 운용은 금융 계열(삼성카드) 또는 외부 발행자가 맡고, 삼성전자는 지갑·전송·정산 인프라에 한정합니다. Apple Wallet이 카드를 발행하지 않는 것과 같은 구조이며, 이 분리가 곧 금산분리 적법성의 핵심입니다.</ins></div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">Q. "Phase 1에 얼마나 투자해야 하나? ROI가 보이지 않는다."</div>
+      <div class="qa-a">A. Phase 1의 투자 대부분은 이미 삼성이 하고 있는 사업 위에 레이어를 올리는 것입니다. Knox 칩·삼성페이·금융 면허는 이미 있습니다. 추가 투자보다 연결 비용이 훨씬 큽니다. ROI 측면에서, 그룹 내부 정산만 스테이블코인으로 전환해도 연간 수백억원의 수수료 절감이 발생합니다.</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">Q. "Apple도 못한 것을 삼성이 할 수 있나?"</div>
+      <div class="qa-a">A. Apple이 못 한 이유가 삼성의 기회입니다. Apple은 금융 면허를 갖지 못했고, Apple Card 철수에서 보듯 금융 규제 환경에 취약합니다. 반면 삼성은 삼성생명·삼성카드·삼성증권을 통해 이미 금융 인프라를 보유합니다. 삼성만이 하드웨어와 금융을 동시에 소유한 기업입니다.</div>
+    </div>
+  </div>
+
+  <div class="section-label">발표 시 해야 할 것과 하지 말아야 할 것</div>
+  <div class="dos-grid">
+    <div class="dos-card do">
+      <h4>해야 할 것</h4>
+      <ul>
+        <li>슬라이드 2(해체 지도)와 슬라이드 8(재구성)을 명시적으로 연결한다</li>
+        <li>슬라이드 6 전환 지점에서 톤을 의도적으로 바꾼다</li>
+        <li>클로징 후 10초 침묵을 지킨다</li>
+        <li>청중에게 직접 질문을 던진다 (슬라이드 7)</li>
+        <li>Phase 1 실행 항목을 구체적 날짜로 말한다</li>
+      </ul>
+    </div>
+    <div class="dos-card dont">
+      <h4>하지 말아야 할 것</h4>
+      <ul>
+        <li>블록체인 기술 설명에 시간을 쓰지 않는다</li>
+        <li>"검토해 보겠다"는 표현을 쓰지 않는다</li>
+        <li>경쟁사 분석을 길게 하지 않는다</li>
+        <li>위기 파트에서 해법을 미리 흘리지 않는다</li>
+        <li>슬라이드를 읽지 않는다 — 발표자가 슬라이드보다 많이 알아야 한다</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>삼성그룹 디지털자산·스테이블코인 전략 발표 &nbsp;·&nbsp; 통합 시나리오 (B 프레임 + A 실행) &nbsp;·&nbsp; 13 슬라이드 · 25분</p>
+</footer>
+
+</body>
+</html>
