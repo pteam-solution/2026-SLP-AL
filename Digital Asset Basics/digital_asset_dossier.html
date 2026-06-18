@@ -1,0 +1,2665 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디지털자산 기초조사 — 교정 검토본</title>
+<style>
+  :root{
+    --ink:#0d1b2e;          /* deep navy */
+    --ink-2:#1d3354;
+    --paper:#fbfaf6;        /* warm paper */
+    --card:#ffffff;
+    --gold:#b08923;         /* restrained gold */
+    --gold-soft:#e9dcb6;
+    --teal:#1f6f68;
+    --rule:#e7e2d6;
+    --muted:#6b7280;
+    --cut:#a8a39a;          /* struck text */
+    --red:#bf2f25;          /* red pen */
+    --red-bg:#fbeeec;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,-apple-system,sans-serif;
+    font-size:16.5px;line-height:1.78;letter-spacing:-0.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* ---------- Cover ---------- */
+  .cover{
+    background:linear-gradient(160deg,#0a1626 0%,#0d1b2e 55%,#16294a 100%);
+    color:#f4efe2;padding:64px 24px 56px;position:relative;overflow:hidden;
+  }
+  .cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+    background:linear-gradient(90deg,var(--gold) 0%,var(--gold-soft) 50%,var(--gold) 100%);}
+  .cover-inner{max-width:1180px;margin:0 auto;}
+  .eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-soft);
+    font-weight:700;margin:0 0 14px;}
+  .cover h1{font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.18;margin:0;font-weight:800;letter-spacing:-0.02em;}
+  .cover h1 .accent{color:#e7c66a;}
+  .cover .sub{margin:18px 0 0;color:#c9d2e0;font-size:1.02rem;max-width:760px;}
+  .cover .meta{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{font-size:.78rem;border:1px solid rgba(231,198,106,.45);color:#e7c66a;
+    border-radius:999px;padding:5px 13px;letter-spacing:.02em;}
+  /* ---------- Review banner ---------- */
+  .review-note{max-width:1180px;margin:22px auto 0;padding:0 24px;}
+  .review-card{background:var(--red-bg);border:1px solid #e8c4bf;border-left:5px solid var(--red);
+    border-radius:10px;padding:16px 20px;font-size:.93rem;color:#5b1d18;}
+  .review-card b{color:var(--red);}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:12px;font-size:.86rem;color:#5b1d18;}
+  .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .swatch-cut{text-decoration:line-through;color:var(--cut);}
+  .lbl{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.06em;border-radius:4px;
+    padding:2px 7px;vertical-align:middle;}
+  .lbl.fix{background:var(--red);color:#fff;}
+  .lbl.supp{background:#fff;color:var(--red);border:1.5px solid var(--red);}
+  /* ---------- Layout ---------- */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;
+    display:grid;grid-template-columns:288px 1fr;gap:48px;align-items:start;}
+  /* ---------- TOC ---------- */
+  .toc{position:sticky;top:0;max-height:100vh;overflow-y:auto;padding:34px 12px 60px 0;
+    font-size:.86rem;border-right:1px solid var(--rule);}
+  .toc h2{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);
+    margin:0 0 14px;font-weight:800;}
+  .toc details{margin-bottom:6px;}
+  .toc summary{cursor:pointer;list-style:none;font-weight:700;color:var(--ink);
+    padding:7px 8px;border-radius:7px;display:flex;gap:8px;align-items:baseline;}
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary:hover{background:#f1ede2;}
+  .toc summary .pno{color:var(--gold);font-weight:800;font-size:.8rem;min-width:1.1em;}
+  .toc .sub-h{font-size:.74rem;color:var(--teal);font-weight:700;margin:9px 0 3px 10px;letter-spacing:.01em;}
+  .toc ul{list-style:none;margin:0 0 4px;padding:0 0 0 10px;}
+  .toc li a{display:block;color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:6px;
+    line-height:1.4;border-left:2px solid transparent;}
+  .toc li a:hover{color:var(--ink);background:#f4f0e6;border-left-color:var(--gold);}
+  .toc li a .qn{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums;}
+  /* ---------- Content ---------- */
+  main{padding:34px 0 80px;min-width:0;}
+  .intro{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:24px 26px;margin-bottom:40px;}
+  .intro p{margin:0;color:var(--ink-2);}
+  .part{margin:64px 0 0;scroll-margin-top:20px;}
+  .part:first-of-type{margin-top:8px;}
+  .part-head{display:flex;align-items:flex-start;gap:18px;padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:8px;}
+  .part-num{font-family:"Iowan Old Style",Georgia,"Times New Roman",serif;font-size:2.4rem;line-height:1;
+    color:var(--gold);font-weight:700;font-style:italic;}
+  .part-title{font-size:1.5rem;font-weight:800;margin:4px 0 0;letter-spacing:-0.02em;}
+  .subsec{margin:40px 0 0;}
+  .subsec-title{font-size:1.05rem;font-weight:800;color:var(--teal);margin:0 0 4px;
+    padding-left:13px;border-left:4px solid var(--teal);}
+  /* QA */
+  .qa{background:var(--card);border:1px solid var(--rule);border-radius:14px;
+    padding:26px 28px;margin:22px 0;scroll-margin-top:16px;box-shadow:0 1px 2px rgba(13,27,46,.03);}
+  .q{display:flex;gap:14px;align-items:baseline;margin:0 0 4px;}
+  .q .qmark{font-family:Georgia,serif;font-weight:700;color:var(--gold);font-size:1.15rem;
+    background:#fbf4df;border:1px solid var(--gold-soft);border-radius:8px;padding:2px 10px;
+    flex-shrink:0;font-variant-numeric:tabular-nums;}
+  .q h4{font-size:1.16rem;font-weight:800;margin:0;line-height:1.45;color:var(--ink);letter-spacing:-0.015em;}
+  .a{margin-top:14px;}
+  .a > p:first-child{margin-top:0;}
+  .a p{margin:.7em 0;}
+  .a h5{font-size:1rem;font-weight:800;color:var(--ink-2);margin:1.5em 0 .4em;
+    padding-left:11px;border-left:3px solid var(--gold);}
+  .a h6{font-size:.95rem;font-weight:700;color:var(--ink-2);margin:1.1em 0 .3em;}
+  .a ul,.a ol{margin:.5em 0;padding-left:1.3em;}
+  .a li{margin:.32em 0;}
+  .a strong{color:var(--ink);font-weight:700;}
+  .a em{color:var(--teal);font-style:normal;font-weight:600;}
+  /* tables */
+  .a table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.9rem;
+    border:1px solid var(--rule);border-radius:8px;overflow:hidden;}
+  .a thead th{background:var(--ink);color:#f4efe2;font-weight:700;text-align:left;padding:9px 12px;font-size:.86rem;}
+  .a tbody td{border-top:1px solid var(--rule);padding:9px 12px;vertical-align:top;}
+  .a tbody tr:nth-child(even){background:#faf8f1;}
+  .a tbody td:first-child{font-weight:700;color:var(--ink-2);}
+  /* annotations */
+  .cut{text-decoration:line-through;text-decoration-color:#cc6b62;color:var(--cut);}
+  .redpen{display:block;background:var(--red-bg);border:1px solid #ecccc7;border-left:4px solid var(--red);
+    border-radius:8px;padding:11px 14px;margin:8px 0;font-size:.92rem;color:#4a1813;line-height:1.7;}
+  .redpen .lbl{margin-right:8px;position:relative;top:-1px;}
+  .redpen b{color:var(--red);}
+  .redpen .src{color:#8a5650;font-size:.82rem;}
+  .note-inline{color:var(--red);font-weight:600;}
+  /* misc */
+  .top-link{display:inline-block;margin-top:12px;font-size:.8rem;color:var(--gold);text-decoration:none;font-weight:700;}
+  .top-link:hover{text-decoration:underline;}
+  footer{background:var(--ink);color:#b9c2d2;padding:34px 24px;font-size:.85rem;}
+  footer .fi{max-width:1180px;margin:0 auto;}
+  footer b{color:#e7c66a;}
+  /* responsive */
+  @media(max-width:920px){
+    .wrap{grid-template-columns:1fr;gap:0;}
+    .toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--rule);
+      padding:18px 0;margin-bottom:10px;}
+    .toc-wrap > summary{cursor:pointer;font-weight:800;color:var(--ink);padding:10px 0;
+      font-size:.95rem;list-style:none;}
+    .toc-wrap > summary::-webkit-details-marker{display:none;}
+  }
+  @media(min-width:921px){ .toc-wrap{display:block!important;} .toc-wrap>summary{display:none;} }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="cover-inner">
+    <p class="eyebrow">Digital Asset Foundational Research · 교정 검토본</p>
+    <h1>디지털자산 기초조사<br><span class="accent">스테이블코인 · RWA · 온체인 인프라</span> 종합 Q&amp;A</h1>
+    <p class="sub">스테이블코인 시장과 통화 주권, 자산 토큰화, 블록체인 인프라, 결제·컴플라이언스, 그리고 한·베트남 B2B 결제 플랫폼까지 — 8개 파트 95개 문답으로 정리한 기초조사 자료입니다. 본 검토본은 원문의 사실관계를 점검해 오류는 <span class="swatch-cut">취소선</span>으로 표시하고, 붉은 첨삭으로 교정·보완했습니다.</p>
+    <div class="meta">
+      <span class="chip">Ⅰ–Ⅷ · 95 Q&amp;A</span>
+      <span class="chip">사실검토 기준일 2026.06.17</span>
+      <span class="chip">원문 기준일 2026.04.22</span>
+    </div>
+  </div>
+</header>
+
+<div class="review-note">
+  <div class="review-card">
+    <b>편집 검토 안내.</b> 원문은 톤을 유지한 채 다듬었으며, 웹 검색으로 확인 가능한 핵심 사실을 점검했습니다. 사실과 다른 부분은 <span class="cut">원문에 취소선</span>을 긋고 붉은 박스로 교정했습니다. 다만 모든 수치·전망을 전수 검증한 것은 아니며, 시장 데이터와 규제는 빠르게 바뀌므로 인용 시 1차 출처를 재확인하시기 바랍니다.
+    <div class="legend">
+      <span><span class="lbl fix">교정</span> 사실과 다른 내용 정정</span>
+      <span><span class="lbl supp">보완</span> 최신 상황·맥락 추가</span>
+      <span><span class="swatch-cut">취소선</span> 원문의 오류 부분</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+<details class="toc-wrap" open>
+<summary>목차 열기 / 닫기</summary>
+<nav class="toc" aria-label="목차">
+  <h2>목차 · Contents</h2>
+
+  <details open>
+    <summary><span class="pno">Ⅰ</span> 스테이블코인 시장 개요와 통화 주권</summary>
+    <div class="sub-h">Ⅰ-A. 기본 개념과 통화 구조</div>
+    <ul>
+      <li><a href="#q1"><span class="qn">Q1</span> 가상자산에서 fiat의 의미</a></li>
+      <li><a href="#q2"><span class="qn">Q2</span> CBDC와 스테이블코인의 차이</a></li>
+      <li><a href="#q3"><span class="qn">Q3</span> 비기축통화 연동 코인의 사업성</a></li>
+      <li><a href="#q4"><span class="qn">Q4</span> 로컬화폐 코인 B2B 거래의 장점</a></li>
+    </ul>
+    <div class="sub-h">Ⅰ-B. 시장 규모와 주요 코인 현황</div>
+    <ul>
+      <li><a href="#q5"><span class="qn">Q5</span> 비기축통화 직거래 저해 요인</a></li>
+      <li><a href="#q6"><span class="qn">Q6</span> SWIFT 비기축통화 거래의 한계</a></li>
+      <li><a href="#q7"><span class="qn">Q7</span> 온체인에서도 동일한 한계인가</a></li>
+      <li><a href="#q8"><span class="qn">Q8</span> 중국 위안화 결제 환율 결정</a></li>
+      <li><a href="#q9"><span class="qn">Q9</span> B2C·B2B 시장 규모 전망</a></li>
+      <li><a href="#q10"><span class="qn">Q10</span> B2C·B2B·B2G 3축 비교</a></li>
+      <li><a href="#q11"><span class="qn">Q11</span> 부문별 규모 전망</a></li>
+      <li><a href="#q12"><span class="qn">Q12</span> USDC·USDT 준비금 투명성</a></li>
+      <li><a href="#q13"><span class="qn">Q13</span> USDC 시장 지표·거래소</a></li>
+      <li><a href="#q14"><span class="qn">Q14</span> USDT 시장 지표·거래소</a></li>
+      <li><a href="#q15"><span class="qn">Q15</span> USDT·USDC 영업이익 차이</a></li>
+    </ul>
+    <div class="sub-h">Ⅰ-C. 통화 주권과 제도권 디지털 화폐</div>
+    <ul>
+      <li><a href="#q16"><span class="qn">Q16</span> 준비금 국채 수요 효과</a></li>
+      <li><a href="#q17"><span class="qn">Q17</span> 빅테크 직접 발행의 영향</a></li>
+      <li><a href="#q18"><span class="qn">Q18</span> 비달러 통화국의 대응</a></li>
+      <li><a href="#q19"><span class="qn">Q19</span> 한은 CBDC·EU MiCA 사례</a></li>
+      <li><a href="#q20"><span class="qn">Q20</span> 한은이 유보적인 이유</a></li>
+      <li><a href="#q21"><span class="qn">Q21</span> CBDC 시장의 비즈니스 모델</a></li>
+      <li><a href="#q22"><span class="qn">Q22</span> CBDC 테스트 참여 기업 사례</a></li>
+    </ul>
+  </details>
+
+  <details>
+    <summary><span class="pno">Ⅱ</span> 자산 토큰화와 디지털 금융시장</summary>
+    <div class="sub-h">Ⅱ-A. 자산 토큰화와 RWA</div>
+    <ul>
+      <li><a href="#q23"><span class="qn">Q23</span> RWA란 무엇인가</a></li>
+      <li><a href="#q24"><span class="qn">Q24</span> ERC-3643 표준의 의미</a></li>
+      <li><a href="#q25"><span class="qn">Q25</span> 분야별 RWA 서비스 사례</a></li>
+      <li><a href="#q26"><span class="qn">Q26</span> RWA 리스크와 법적 보호</a></li>
+      <li><a href="#q27"><span class="qn">Q27</span> 증권사 STO 플랫폼 경쟁</a></li>
+      <li><a href="#q28"><span class="qn">Q28</span> 토큰화 주식이란</a></li>
+    </ul>
+    <div class="sub-h">Ⅱ-B. DeFi와 디지털 금융 메커니즘</div>
+    <ul>
+      <li><a href="#q29"><span class="qn">Q29</span> DeFi란 무엇인가</a></li>
+      <li><a href="#q30"><span class="qn">Q30</span> 유형별 대표 프로토콜·기업</a></li>
+      <li><a href="#q31"><span class="qn">Q31</span> 유니스왑 AMM 작동 원리</a></li>
+      <li><a href="#q32"><span class="qn">Q32</span> 비영구적 손실이란</a></li>
+      <li><a href="#q33"><span class="qn">Q33</span> 수익 최적화 도구</a></li>
+      <li><a href="#q34"><span class="qn">Q34</span> 이자·수익형 스테이블코인</a></li>
+      <li><a href="#q35"><span class="qn">Q35</span> DeFi 고수익의 근거</a></li>
+      <li><a href="#q36"><span class="qn">Q36</span> 주식·펀드보다 항상 높은가</a></li>
+      <li><a href="#q37"><span class="qn">Q37</span> 스테이블코인 보유 이유</a></li>
+      <li><a href="#q38"><span class="qn">Q38</span> 리스크가 더 큰 것 아닌가</a></li>
+    </ul>
+  </details>
+
+  <details>
+    <summary><span class="pno">Ⅲ</span> 블록체인 기술 인프라와 온체인 서비스</summary>
+    <div class="sub-h">Ⅲ-A. 스마트컨트랙트·오라클·L1/L2</div>
+    <ul>
+      <li><a href="#q39"><span class="qn">Q39</span> 오라클의 의미</a></li>
+      <li><a href="#q40"><span class="qn">Q40</span> 스마트컨트랙트 부정 방어</a></li>
+      <li><a href="#q41"><span class="qn">Q41</span> 승인망 vs L2 처리</a></li>
+      <li><a href="#q42"><span class="qn">Q42</span> 프라이빗 메인넷 사업성</a></li>
+      <li><a href="#q43"><span class="qn">Q43</span> L1·L2 역할과 솔루션</a></li>
+      <li><a href="#q44"><span class="qn">Q44</span> L1 시장 경쟁 구도</a></li>
+    </ul>
+    <div class="sub-h">Ⅲ-B. L2 확장성·인터체인·체인 추상화</div>
+    <ul>
+      <li><a href="#q45"><span class="qn">Q45</span> L2 한계와 개선 방향</a></li>
+      <li><a href="#q46"><span class="qn">Q46</span> 아비트럼·옵티미즘 기술</a></li>
+      <li><a href="#q47"><span class="qn">Q47</span> 주목받는 고성능 DApp</a></li>
+      <li><a href="#q48"><span class="qn">Q48</span> 사이드체인 vs L2</a></li>
+      <li><a href="#q49"><span class="qn">Q49</span> 롤업이 대세가 된 이유</a></li>
+      <li><a href="#q50"><span class="qn">Q50</span> 인터체인 개념·사례</a></li>
+      <li><a href="#q51"><span class="qn">Q51</span> 체인 추상화와 UX</a></li>
+    </ul>
+    <div class="sub-h">Ⅲ-C. 온체인 서비스: Polymarket</div>
+    <ul>
+      <li><a href="#q52"><span class="qn">Q52</span> Polymarket 모델·기술</a></li>
+      <li><a href="#q53"><span class="qn">Q53</span> 타협한 블록체인 사상</a></li>
+      <li><a href="#q54"><span class="qn">Q54</span> UMA 오라클·규제 대응</a></li>
+    </ul>
+  </details>
+
+  <details>
+    <summary><span class="pno">Ⅳ</span> 신뢰·보안·컴플라이언스 인프라</summary>
+    <div class="sub-h">Ⅳ-A. 제도권 규제와 컴플라이언스</div>
+    <ul>
+      <li><a href="#q55"><span class="qn">Q55</span> GENIUS Act·MiCA의 영향</a></li>
+      <li><a href="#q56"><span class="qn">Q56</span> 트래블룰 작동 방식</a></li>
+    </ul>
+    <div class="sub-h">Ⅳ-B. 장기 보안과 암호 체계</div>
+    <ul>
+      <li><a href="#q57"><span class="qn">Q57</span> 양자내성암호 도입 분야</a></li>
+    </ul>
+  </details>
+
+  <details>
+    <summary><span class="pno">Ⅴ</span> 결제 시스템과 소비자 보호 모델</summary>
+    <div class="sub-h">Ⅴ-A. 신용카드망과 스테이블코인 결제</div>
+    <ul>
+      <li><a href="#q58"><span class="qn">Q58</span> 신용카드 대체 가능성</a></li>
+      <li><a href="#q59"><span class="qn">Q59</span> 카드 결제망의 특수성</a></li>
+      <li><a href="#q60"><span class="qn">Q60</span> 차지백의 스마트컨트랙트 구현</a></li>
+    </ul>
+    <div class="sub-h">Ⅴ-B. 소비자 보호와 결제 플랫폼</div>
+    <ul>
+      <li><a href="#q61"><span class="qn">Q61</span> 환불·소비자 보호 기술</a></li>
+      <li><a href="#q62"><span class="qn">Q62</span> 보호 내장 결제 API 사업</a></li>
+      <li><a href="#q63"><span class="qn">Q63</span> 직접 운영 시 구조·리스크</a></li>
+    </ul>
+  </details>
+
+  <details>
+    <summary><span class="pno">Ⅵ</span> 적용 사례: B2B 원자재·한-베트남 결제</summary>
+    <div class="sub-h">Ⅵ-A. 사업성·결제 구조·FX 인프라</div>
+    <ul>
+      <li><a href="#q64"><span class="qn">Q64</span> B2B 원자재 결제의 효용</a></li>
+      <li><a href="#q65"><span class="qn">Q65</span> 한-베트남 플랫폼 설계</a></li>
+      <li><a href="#q66"><span class="qn">Q66</span> 국가 간 코인 환전 처리</a></li>
+      <li><a href="#q67"><span class="qn">Q67</span> On-chain FX 사업자·진출</a></li>
+      <li><a href="#q68"><span class="qn">Q68</span> 도매형 On-chain FX</a></li>
+      <li><a href="#q69"><span class="qn">Q69</span> 유동성 공급·슬리피지</a></li>
+      <li><a href="#q70"><span class="qn">Q70</span> 베트남 파트너·보안 인증</a></li>
+    </ul>
+    <div class="sub-h">Ⅵ-B. 기술 아키텍처와 운영 모델</div>
+    <ul>
+      <li><a href="#q71"><span class="qn">Q71</span> 오라클·물류 시스템 연동</a></li>
+      <li><a href="#q72"><span class="qn">Q72</span> 법적 책임과 비용 쟁점</a></li>
+      <li><a href="#q73"><span class="qn">Q73</span> KYC/AML 운영 체계</a></li>
+      <li><a href="#q74"><span class="qn">Q74</span> Fabric·Besu·Corda 비교</a></li>
+    </ul>
+  </details>
+
+  <details>
+    <summary><span class="pno">Ⅶ</span> 사업 기회와 수익 모델</summary>
+    <div class="sub-h">Ⅶ-A. IT·플랫폼 기업의 수익 모델</div>
+    <ul>
+      <li><a href="#q75"><span class="qn">Q75</span> IT 기업의 수익 모델</a></li>
+      <li><a href="#q76"><span class="qn">Q76</span> 모델별 대표 기업·솔루션</a></li>
+      <li><a href="#q77"><span class="qn">Q77</span> Coinbase의 역할·수익</a></li>
+      <li><a href="#q78"><span class="qn">Q78</span> RegTech·RWA·계정추상화 기회</a></li>
+    </ul>
+    <div class="sub-h">Ⅶ-B. 스마트컨트랙트와 금융권 모델</div>
+    <ul>
+      <li><a href="#q79"><span class="qn">Q79</span> 스마트컨트랙트 기업 수익</a></li>
+      <li><a href="#q80"><span class="qn">Q80</span> 과열 속 경쟁력</a></li>
+      <li><a href="#q81"><span class="qn">Q81</span> 금융권의 블록체인 전략</a></li>
+    </ul>
+  </details>
+
+  <details>
+    <summary><span class="pno">Ⅷ</span> 한국 이용 실무·지갑·생태계</summary>
+    <div class="sub-h">Ⅷ-A. 한국 이용 실무</div>
+    <ul>
+      <li><a href="#q82"><span class="qn">Q82</span> 달러 코인 구매 방법</a></li>
+      <li><a href="#q83"><span class="qn">Q83</span> 외국환거래법 적용 여부</a></li>
+      <li><a href="#q84"><span class="qn">Q84</span> 해외 송금 절차</a></li>
+      <li><a href="#q85"><span class="qn">Q85</span> 국내 결제 가능 여부</a></li>
+      <li><a href="#q86"><span class="qn">Q86</span> 미국 가상자산 카드</a></li>
+      <li><a href="#q87"><span class="qn">Q87</span> Coinbase Card 수수료</a></li>
+    </ul>
+    <div class="sub-h">Ⅷ-B. 지갑과 사용자 접점</div>
+    <ul>
+      <li><a href="#q88"><span class="qn">Q88</span> 지갑의 분류</a></li>
+      <li><a href="#q89"><span class="qn">Q89</span> 유형별 사업자·경쟁력</a></li>
+      <li><a href="#q90"><span class="qn">Q90</span> 계정 추상화의 영향</a></li>
+      <li><a href="#q91"><span class="qn">Q91</span> 삼성·애플 지갑 경쟁력</a></li>
+      <li><a href="#q92"><span class="qn">Q92</span> 삼성 vs Ledger·디센트</a></li>
+    </ul>
+    <div class="sub-h">Ⅷ-C. 한국 생태계 경쟁 구도</div>
+    <ul>
+      <li><a href="#q93"><span class="qn">Q93</span> 한국 블록체인 생태계</a></li>
+      <li><a href="#q94"><span class="qn">Q94</span> 한국 스테이블코인 경쟁</a></li>
+      <li><a href="#q95"><span class="qn">Q95</span> B2B 핵심 프로젝트</a></li>
+    </ul>
+  </details>
+</nav>
+</details>
+
+<main>
+<div class="intro">
+  <p>기존 문서와 추가 내용을 8개 파트 구조로 재배치한 Q&amp;A 자료입니다. 각 문항은 목차에서 클릭하면 해당 위치로 이동합니다. 톤은 원문을 유지했으며, 사실 검토 결과는 본문 안에 교정·보완으로 표시했습니다.</p>
+</div>
+<!-- CONTENT START -->
+
+<section class="part" id="part1">
+  <div class="part-head"><div class="part-num">Ⅰ</div><h2 class="part-title">스테이블코인 시장 개요와 통화 주권</h2></div>
+
+<div class="subsec"><h3 class="subsec-title">Ⅰ-A. 기본 개념과 통화 구조</h3></div>
+
+<article class="qa" id="q1">
+  <div class="q"><span class="qmark">Q1</span><h4>가상자산에서 fiat는 무엇을 의미하는가?</h4></div>
+  <div class="a">
+    <p>가상자산에서 fiat는 USD, EUR, KRW처럼 정부가 발행한 전통적인 법정화폐를 의미합니다. 스테이블코인과 달리 fiat는 블록체인상의 디지털 토큰이 아니라, 중앙정부의 권위와 신뢰를 기반으로 법적 지급 수단으로 인정되는 화폐입니다. 금과 같은 실물 상품에 직접 뒷받침되는 게 아니라 국가의 신용에 기반합니다.</p>
+    <h5>가상자산에서 fiat의 주요 역할</h5>
+    <p><strong>온램프와 오프램프</strong> — fiat는 가상자산 시장에 진입하고 빠져나오는 기본 관문입니다. 사용자는 fiat로 디지털 자산을 구매하고, 반대로 디지털 자산을 매도해 fiat로 전환한 뒤 기존 은행 계좌로 출금합니다.</p>
+    <p><strong>가치 기준</strong> — 가상자산 가격은 변동성이 크기 때문에 fiat가 공통 기준점 역할을 합니다. 예를 들어 Bitcoin 가격이 올랐다고 할 때, 보통 USD 같은 법정화폐 대비 가치가 상승했다는 의미입니다.</p>
+    <p><strong>준비자산</strong> — USDT나 USDC 같은 주요 스테이블코인은 대부분 fiat-backed 구조입니다. 발행사는 발행한 토큰만큼의 fiat 또는 현금성 자산(미국 국채 등)을 보유해 1:1 상환 가능성을 보장합니다.</p>
+    <h5>Fiat와 스테이블코인의 차이 (2026년 관점)</h5>
+    <p>2025년 미국 GENIUS Act 통과 이후 fiat와 스테이블코인의 경계는 점점 흐려지고 있습니다.</p>
+    <ul>
+      <li><strong>전통 fiat</strong> — 국경 간 이동이 느리고, 기존 은행 영업시간과 SWIFT 같은 중개망에 의존합니다.</li>
+      <li><strong>토큰화된 fiat(스테이블코인)</strong> — 블록체인 위에서 24시간 작동하고 수초 내 정산이 가능하며, 규제기관도 점차 국가 통화의 디지털 확장 형태로 바라보고 있습니다.</li>
+    </ul>
+    <h5>가상자산 시장에서 중요한 fiat 통화</h5>
+    <ul>
+      <li><strong>USD</strong> — 글로벌 기축통화이며, 스테이블코인 시장의 99% 이상이 USD에 연동되어 있습니다.</li>
+      <li><strong>EUR</strong> — EU MiCA 규제로 인해 중요성이 커지고 있습니다.</li>
+      <li><strong>KRW</strong> — 한국 시장에서 거래가 활발하며, Upbit와 Bithumb 같은 거래소에서 주요 기준 통화로 사용됩니다.</li>
+    </ul>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q2">
+  <div class="q"><span class="qmark">Q2</span><h4>CBDC와 스테이블코인은 어떻게 다른가?</h4></div>
+  <div class="a">
+    <p>CBDC(중앙은행 디지털 화폐)와 스테이블코인은 가치 변동성을 최소화한 디지털 자산이라는 공통점이 있지만, 발행 주체와 법적 지위, 리스크 구조에서 근본적인 차이가 있습니다.</p>
+    <h5>주요 차이점 비교</h5>
+    <table>
+      <thead><tr><th>구분</th><th>CBDC (중앙은행 디지털 화폐)</th><th>스테이블코인 (Stablecoin)</th></tr></thead>
+      <tbody>
+        <tr><td>발행 주체</td><td>중앙은행 (국가 기관)</td><td>민간 기업 또는 재단</td></tr>
+        <tr><td>법적 지위</td><td>법정 통화 (현금과 동일)</td><td>민간이 발행한 가상자산</td></tr>
+        <tr><td>가치 담보</td><td>국가의 신용 및 통화 주권</td><td>법정화폐, 국채, 금 등 준비자산</td></tr>
+        <tr><td>주요 목적</td><td>금융 안정성, 통화정책 효율화</td><td>결제 효율성, 가상자산 거래 매개</td></tr>
+        <tr><td>주요 위험</td><td>중앙 집중화로 인한 프라이버시 우려</td><td>발행사 파산·디페그(De-peg) 위험</td></tr>
+      </tbody>
+    </table>
+    <h5>핵심 차이 상세</h5>
+    <p><strong>신뢰와 안전성</strong> — CBDC는 중앙은행이 보증하므로 신용 리스크가 사실상 0에 가깝습니다. 반면 스테이블코인은 발행사가 담보 자산을 실제로 보유하고 투명하게 관리하는지에 따라 신뢰도가 달라집니다.</p>
+    <p><strong>운영 체계</strong> — CBDC는 주로 국가 내부 결제와 금융기관 간 정산에 최적화되어 설계되는 경우가 많습니다(예: 한국은행의 프로젝트 한강). 스테이블코인은 국경 없는 거래나 DeFi 생태계에서 더 활발히 사용됩니다.</p>
+    <p><strong>통제권 vs 자율성</strong> — CBDC는 정부의 감시나 특정 정책(예: 바우처 사용처 제한)이 개입될 수 있는 반면, 스테이블코인은 시장 기반으로 작동해 유연한 사용이 가능합니다.</p>
+    <h5>한국에서의 전개 양상</h5>
+    <p>한국은 중앙은행이 발행하는 CBDC, 이를 기반으로 은행이 발행하는 예금 토큰, 그리고 민간 주도의 원화 스테이블코인이 상호 보완적인 계층 구조를 형성하며 경쟁하고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q3">
+  <div class="q"><span class="qmark">Q3</span><h4>기축통화가 아닌 통화연동 스테이블코인이 사업성이 있을까?</h4></div>
+  <div class="a">
+    <p>비기축통화(KRW, VND 등) 연동 스테이블코인은 B2B 원자재 시장에서 높은 사업성을 가질 수 있습니다. 기축통화(USD) 중심 생태계의 한계를 명확히 파고들 수 있기 때문입니다.</p>
+    <h5>1. 환전 비용 및 이중 환전 리스크 제거</h5>
+    <p>기축통화(USDC, USDT)를 사용하면 [현지 화폐 → USD → 현지 화폐]로 두 번의 환전이 발생하며, 그때마다 수수료와 환차손이 생깁니다. 원화(KRW)·동(VND) 스테이블코인을 직접 사용하면 이런 이중 환전 비용을 즉각 절감할 수 있어, 마진율이 중요한 원자재 거래 기업에게 강력한 유인이 됩니다.</p>
+    <h5>2. 현지 통화 기반의 회계·세무 편의성</h5>
+    <p>기업은 최종적으로 자국 통화로 재무제표를 작성합니다. 달러 기반 코인은 거래 시점마다 환율을 계산해 장부에 기록해야 하지만, 현지 통화 연동 코인은 전통 회계 시스템과 1:1로 대응되어 디지털 영수증 발행과 세무 관리가 훨씬 용이합니다.</p>
+    <h5>3. 규제 준수 및 제도권 편입의 용이성</h5>
+    <p>2026년 EU MiCA와 미국 GENIUS 법안 시행으로 규제 환경이 강화되었습니다. 각국 중앙은행은 통화 주권 보호를 위해 자국 화폐 연동 스테이블코인을 선호합니다. 한국·베트남 정부의 샌드박스 면허를 취득할 때, 달러 기반 코인보다 현지 통화 기반 모델의 승인 가능성이 더 높습니다.</p>
+    <h5>4. 시장 현황: 99%의 달러 독점 속 틈새 시장</h5>
+    <p>스테이블코인 시장의 99%는 달러가 점유하고 있으나, 비기축통화 코인은 '결제·유틸리티' 용도로 빠르게 성장 중입니다. 2026년 3월 기준 비기축통화 스테이블코인 공급량은 약 12억 달러로, 3년 전보다 지갑 수가 30배 이상 증가하며 실사용자 층을 넓혀가고 있습니다.</p>
+    <h5>요약</h5>
+    <table>
+      <thead><tr><th>구분</th><th>달러 기반 (USDT/USDC)</th><th>현지 통화 기반 (KRW/VND)</th></tr></thead>
+      <tbody>
+        <tr><td>유동성</td><td>높음 (글로벌 표준)</td><td>낮음 (로컬 특화)</td></tr>
+        <tr><td>비용 효율</td><td>이중 환전 수수료 발생</td><td>환전 수수료 최소화</td></tr>
+        <tr><td>회계 처리</td><td>복잡 (환율 재계산)</td><td>단순 (장부 통화와 일치)</td></tr>
+        <tr><td>정부 선호도</td><td>낮음 (달러화 우려)</td><td>높음 (통화 주권 유지)</td></tr>
+      </tbody>
+    </table>
+    <p>한-베트남 B2B 플랫폼에서는 "빠른 결제"에는 달러를, "비용 절감·세무 편의"에는 현지 통화 스테이블코인을 쓰는 하이브리드 전략이 가장 사업성이 높습니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q4">
+  <div class="q"><span class="qmark">Q4</span><h4>달러가 아닌 로컬화폐 연동 스테이블코인으로 국제 B2B 거래를 하는 게 장점이 있는가?</h4></div>
+  <div class="a">
+    <p>달러 페그 스테이블코인(USDT, USDC)이 지배적인 상황에서, 로컬화폐 연동 스테이블코인(KRW-stable, EUR-stable 등)으로 B2B 국제거래를 할 때의 장단점은 다음과 같습니다.</p>
+    <h5>✅ 장점</h5>
+    <p><strong>1. 환율 리스크 제거(양측 모두)</strong> — 달러 스테이블코인을 쓰면 거래 당사자 중 최소 한쪽은 달러 환전 리스크를 부담합니다. 한국 기업과 일본 기업이 USDT를 쓰면 양측 모두 자국 통화↔달러 환노출이 생기지만, KRW-stable ↔ JPY-stable 구조라면 각자 자국 통화로 정산하고 스마트컨트랙트가 환산을 처리해 환차손 리스크가 줄어듭니다.</p>
+    <p><strong>2. 미국 금융시스템 의존도 탈피</strong> — USDT/USDC는 미국의 제재, OFAC 규정, 달러 유동성 상황에 간접 노출됩니다. 로컬화폐 스테이블코인은 미국 통화정책·지정학 리스크로부터 독립적인 결제 레일을 제공합니다.</p>
+    <p><strong>3. 회계·세무 처리 단순화</strong> — 거래가 자국 통화로 표시되면 외화환산 회계처리(K-IFRS, GAAP 등)가 단순해집니다.</p>
+    <p><strong>4. 규제 친화성(특정 국가)</strong> — 일부 국가는 외화 결제에 외환거래법 규제를 적용합니다. 로컬화폐 스테이블코인은 자국 통화로 간주될 가능성이 있어 규제 허들이 낮을 수 있습니다(국가별로 다름).</p>
+    <p><strong>5. 신흥국 간 거래의 달러 마찰 비용 제거</strong> — 예컨대 브라질↔인도네시아 거래 시 BRL-stable↔IDR-stable 직접 연결이 가능하면 달러 경유의 이중 환전 비용(약 1~3%)을 절감할 수 있습니다.</p>
+    <h5>❌ 단점 및 현실적 한계</h5>
+    <ol>
+      <li><strong>유동성 부족</strong> — KRW·JPY 등 스테이블코인은 시장이 작아 대규모 B2B 거래 시 슬리피지·유동성 위험.</li>
+      <li><strong>양측 동의 필요</strong> — 거래 상대방이 해당 로컬 코인을 수용해야 하는 네트워크 효과 문제.</li>
+      <li><strong>발행자 신뢰 리스크</strong> — 대형 감사기관이 뒷받침하는 로컬화폐 스테이블코인이 드물어 신뢰 문제.</li>
+      <li><strong>규제 불확실성</strong> — 각국 중앙은행이 민간 로컬화폐 스테이블코인에 적대적일 수 있음(특히 한국, 중국).</li>
+      <li><strong>CBDC와의 경쟁</strong> — 각국 CBDC 추진으로 민간 로컬 코인의 장기 생존이 불확실.</li>
+    </ol>
+    <h5>💡 현실적 전망</h5>
+    <p>가장 현실적인 구현 형태는 ① 결제 레이어에서만 사용(수취 즉시 자국 통화로 환전, 보유 최소화), ② 양자 무역협정 국가 간 특화 스테이블코인(예: 한-UAE 원유 결제), ③ CBDC 브릿지 프로젝트(BIS mBridge 등)입니다. 달러 의존도를 줄이거나, 양측 모두 달러권 밖 기업이거나, 반복적인 대규모 양자 거래가 있는 경우 로컬화폐 스테이블코인은 구조적 장점이 있습니다. 다만 현재는 유동성과 생태계 미성숙이 가장 큰 실질적 장벽입니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅰ-B. 시장 규모와 주요 스테이블코인 현황</h3></div>
+
+<article class="qa" id="q5">
+  <div class="q"><span class="qmark">Q5</span><h4>비기축통화 간 직거래(Direct Pair) 활성화를 저해하는 시장 구조적·경제적 요인은 무엇인가?</h4></div>
+  <div class="a">
+    <p>비기축통화 국가 간 거래에서 자국 화폐로 직접 거래하지 않고 '달러'라는 중간 단계를 거치는 이유는 크게 세 가지 경제적 효율성 때문입니다.</p>
+    <h5>1. 유동성 부족과 높은 거래 비용</h5>
+    <p>원화(KRW)와 브라질 헤알화(BRL)를 직접 바꾸려 하면 이를 취급하는 은행이나 시장 참여자가 거의 없습니다. 수요·공급이 적으면 매수-매도 호가 차이(Bid-Ask Spread)가 크게 벌어져 환전 비용이 비싸집니다. 반면 '원화-달러', '달러-헤알화' 시장은 전 세계 어디에나 있고 거래량이 막대해, 두 번 환전하더라도 훨씬 저렴합니다.</p>
+    <h5>2. 가치 변동 리스크</h5>
+    <p>비기축통화는 달러 대비 변동성이 큽니다. 한국 수출업자가 헤알화로 대금을 받으면 입금되는 몇 주 사이 헤알화 급락 위험을 떠안습니다. 달러는 가치가 안정적이고 전 세계에서 통용되므로 양측 모두의 '중립적 기준점'이 됩니다.</p>
+    <h5>3. 결제 인프라와 네트워크 효과</h5>
+    <p>SWIFT는 달러 결제에 최적화되어 있습니다. 비기축통화 간 직접 결제를 하려면 양국 은행이 상대국 화폐 계좌(Nostro Account)를 개설하고 복잡한 정산 체계를 갖춰야 하는데, 거래량이 적은 국가끼리는 이 인프라 유지 비용이 더 큽니다. 모두가 달러를 쓰기 때문에 나도 달러를 쓰는 것이 가장 편한 상태(Network Effect)가 고착화된 것입니다.</p>
+    <p>이런 한계 때문에 최근에는 도매형 온체인 FX나 CBDC 프로젝트가 주목받고 있습니다. 중개 은행 없이 블록체인 상에서 알고리즘(AMM 등)을 통해 비기축통화 간 직접 교환을 저렴하고 빠르게 구현하려는 시도입니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q6">
+  <div class="q"><span class="qmark">Q6</span><h4>SWIFT 기반 국제송금에서 비기축통화 간 거래 시 발생하는 비용 및 유동성 리스크의 한계는?</h4></div>
+  <div class="a">
+    <p>SWIFT 시스템 자체는 달러 외 통화로도 거래 가능하도록 설계되어 있습니다. 유로(EUR), 파운드(GBP), 엔(JPY), 위안(CNY) 등 주요 통화는 지금도 SWIFT망에서 활발히 거래됩니다. 그럼에도 현장에서 달러 사용이 사실상 강제되는 이유는 기술적 결함이 아니라 금융 시스템의 구조적 특성 때문입니다.</p>
+    <h5>1. SWIFT는 '돈'이 아닌 '메시지'만 보낸다</h5>
+    <p>SWIFT는 현금을 옮기는 파이프라인이 아니라 "A 은행에서 B 은행으로 얼마를 보내라"는 지시서를 전달하는 통신망입니다. 실제 돈의 이동은 각 은행이 서로 상대방 화폐 계좌(환거래 계좌)를 가지고 있어야 가능합니다. 거의 모든 은행이 달러 계좌는 갖고 있지만 비주류 통화 계좌는 없는 경우가 많아 직접 송금이 어렵습니다.</p>
+    <h5>2. 대리은행(Correspondent Banking)의 존재</h5>
+    <p>한국 은행과 브라질 은행이 서로의 화폐 계좌가 없다면, 두 은행 모두와 거래 관계가 있는 제3의 대형 은행(주로 미국 은행)을 거칩니다. 이 중개 은행이 결제 기준점으로 달러를 사용하기 때문에 결국 모든 거래가 달러로 수렴합니다.</p>
+    <h5>3. 유동성과 환전 비용의 압도적 차이</h5>
+    <p>비주류 통화끼리 직접 바꾸는 시장은 작아 수수료가 비쌉니다. 반면 달러는 전 세계 거래량의 절반 이상을 차지할 만큼 유동성이 풍부해, [자국 화폐 → 달러 → 상대국 화폐]로 두 번 환전하는 것이 더 저렴하고 빠릅니다.</p>
+    <h5>4. 미국의 영향력과 보안</h5>
+    <p>전 세계 석유 무역의 85% 이상이 달러로 이뤄지는 등 달러 패권이 강력합니다. 미국은 테러 자금 추적 등을 이유로 SWIFT 데이터 접근 권한을 가지며, 달러 거래가 미국 은행 시스템을 거치는 구조를 통해 글로벌 금융 흐름을 통제합니다.</p>
+    <p>결론적으로 SWIFT에서 달러만 써야 하는 법적 제약은 없으나, 경제적 효율성·은행 간 네트워크·달러 중심 관습 때문에 사실상 달러 중심으로 운영되고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q7">
+  <div class="q"><span class="qmark">Q7</span><h4>SWIFT의 구조적 한계는 온체인 기반 비기축통화 스테이블코인 거래에서도 동일한 것 아닌가?</h4></div>
+  <div class="a">
+    <p>동일한 문제(유동성·리스크)가 존재하지만 해결 방식이 근본적으로 다릅니다.</p>
+    <h5>1. SWIFT vs 스테이블코인</h5>
+    <table>
+      <thead><tr><th>구분</th><th>SWIFT (전통 금융)</th><th>온체인 (스테이블코인)</th></tr></thead>
+      <tbody>
+        <tr><td>중계 구조</td><td>다수 중개 은행 경유, 계좌 없으면 불가</td><td>중개자 없이 P2P 직접 전송</td></tr>
+        <tr><td>정산 시간</td><td>2~5일, 그사이 환율 변동 위험</td><td>실시간 정산(수 초~수 분)</td></tr>
+        <tr><td>비용</td><td>중개 수수료 + 메시징 + 높은 스프레드</td><td>가스비 + AMM 환전 수수료(저렴)</td></tr>
+      </tbody>
+    </table>
+    <h5>2. 동일하게 적용되는 난제: 유동성</h5>
+    <p>비기축통화 간의 '유동성 부족'은 스테이블코인 세계에서도 동일합니다. 원화 스테이블코인과 헤알화 스테이블코인을 직접 바꿔도, 둘을 묶은 유동성 풀(Liquidity Pool)이 크지 않으면 슬리피지(Slippage)가 발생합니다. 결국 온체인에서도 유동성이 풍부한 USDC·USDT를 매개체로 환전하는 것이 효율적인 상황이 반복될 수 있습니다.</p>
+    <h5>3. 온체인이 갖는 차별점</h5>
+    <ul>
+      <li><strong>AMM의 힘</strong> — 사람이 호가를 부르는 대신 수학적 알고리즘(Uniswap, Curve)이 24시간 유동성을 공급해, 거래량이 적은 통화라도 언제든 교환 가능합니다.</li>
+      <li><strong>프로그래밍 가능한 돈</strong> — "환율이 특정 범위일 때만 정산" 같은 조건을 걸어 변동성 리스크를 기술적으로 제어할 수 있습니다.</li>
+      <li><strong>자산의 토큰화</strong> — 국채 등을 담보로 한 합성 자산으로 유동성을 보강하는 금융공학적 설계가 자유롭습니다.</li>
+    </ul>
+    <p>요약하면, '경제적 유동성 부족'은 여전히 숙제이지만 '중계 은행 인프라'라는 물리적 장벽을 제거하므로, 유동성 문제만 해결되면(대형 기관의 마켓 메이킹 참여 등) SWIFT보다 강력한 도구가 됩니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q8">
+  <div class="q"><span class="qmark">Q8</span><h4>중국이 위안화로 국제 무역 결제를 할 때 환율은 어떻게 결정되는가?</h4></div>
+  <div class="a">
+    <p>중국이 위안화(역내 CNY, 국제시장에서는 CNH)로 국제 무역 결제를 할 때 적용되는 환율은 거래 구조와 시장에 따라 다르게 결정됩니다. 핵심은 "중국 정부가 정한 기준환율"과 "시장 환율"이 함께 작동한다는 점입니다.</p>
+    <h5>1. 인민은행(PBOC)의 기준환율</h5>
+    <p>중국은 완전 자유변동환율제가 아니라 관리변동환율제(managed float)를 씁니다. 매 영업일 아침 PBOC가 달러/위안 기준환율(midpoint fixing)을 발표하며, 본토 외환시장은 이 기준환율 대비 ±2% 범위 내에서 거래됩니다. 예컨대 기준환율이 1 USD = 7.1200 CNY이면 거래 범위는 하한 6.9776 ~ 상한 7.2624입니다. 기준환율은 전일 종가, 주요 통화 움직임, 정책 목표, 경기 상황, 수출 환경 등을 반영합니다.</p>
+    <h5>2. 실제 무역 결제는 대부분 시장 환율 적용</h5>
+    <p>기업 간 무역에서는 은행이 실시간 시장 환율을 제공합니다(삼성전자-중국 공급업체, 브라질 철광석-중국 철강사, 러시아 에너지-중국 국영기업 등). 실제 결제 환율은 역내 CNY 시장, 역외 CNH 시장, 은행 스프레드, 계약 조건에 의해 결정됩니다.</p>
+    <h5>3. 역내 CNY와 역외 CNH는 다르다</h5>
+    <table>
+      <thead><tr><th>구분</th><th>의미</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr><td>CNY</td><td>중국 본토 역내 위안화</td><td>정부 통제가 강함</td></tr>
+        <tr><td>CNH</td><td>홍콩 중심 역외 위안화</td><td>시장 자유도가 상대적으로 높음</td></tr>
+      </tbody>
+    </table>
+    <p>국제 무역에서는 CNH가 많이 쓰입니다. 홍콩·싱가포르·런던·두바이 등 역외 시장에서 위안화 결제 시 CNH 시장 환율의 영향을 크게 받아, CNY와 CNH 가격이 순간적으로 다를 수 있습니다(예: 역내 7.10 vs 역외 7.16).</p>
+    <h5>4. 실제 계약에서는 환율 기준을 명시</h5>
+    <p>실무에서는 계약서에 환율 기준을 정합니다(Reuters closing rate, PBOC fixing, Bloomberg CNH spot, 결제일 오전 11시 환율 등). 대형 에너지·원자재 계약에서는 특정 시점 환율, 평균환율, 헤지환율을 미리 정합니다.</p>
+    <h5>요약</h5>
+    <p>중국의 국제 무역 위안화 결제 환율은 기본적으로 CNY 또는 CNH 시장 환율을 따르되, 인민은행의 기준환율과 자본통제가 강하게 개입하는 관리변동형 체계 위에서 운영됩니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q9">
+  <div class="q"><span class="qmark">Q9</span><h4>스테이블코인의 B2C·B2B 시장 규모 전망은 어떠한가?</h4></div>
+  <div class="a">
+    <p>스테이블코인 시장은 2030년까지 시가총액 약 2조 달러에서 최대 4조 달러 규모로 성장할 것으로 전망됩니다. 현재는 개인 투자자의 거래 목적이 다수이지만, 향후 B2B가 성장을 주도하며 가장 큰 비중을 차지할 것으로 분석됩니다.</p>
+    <h5>1. B2B 시장: "주력 성장 동력"</h5>
+    <p>B2B는 국경 간 결제 효율성과 공급망 정산의 장점으로 핵심 타깃이 되고 있습니다. 2025년 기준 B2B 결제 거래량은 연간 약 360억~2,260억 달러로 추산되며, 전체 스테이블코인 결제량의 약 60%를 차지합니다. 주니퍼 리서치(Juniper Research)에 따르면 국경 간 B2B 스테이블코인 거래 가치는 2035년 5조 달러에 달하고, 전체 스테이블코인 거래 가치의 85%를 B2B가 차지할 것으로 전망됩니다.</p>
+    <h5>2. B2C 시장: "일상 결제의 확장"</h5>
+    <p>B2C는 카드 연동 결제 등을 통해 꾸준히 성장하나 거래 규모는 B2B에 비해 작습니다. 2025년 기준 B2C(또는 C2B) 결제 규모는 연간 약 33억~45억 달러로 추정됩니다. 전 세계 25,000개 이상의 가맹점이 결제를 수용하고 있으며, 스테이블코인 연동 카드 사용량이 매년 세 자릿수 성장률을 보입니다.</p>
+    <h5>3. 시장 유형별 비교 (2025년 추산)</h5>
+    <table>
+      <thead><tr><th>구분</th><th>B2B (기업 간)</th><th>B2C (기업-소비자)</th></tr></thead>
+      <tbody>
+        <tr><td>주요 용도</td><td>국경 간 무역, 자금 관리, 정산</td><td>소매 결제, 해외 송금, 게임</td></tr>
+        <tr><td>시장 비중</td><td>약 60% (결제 거래량 기준)</td><td>약 1~2% 내외</td></tr>
+        <tr><td>성장률</td><td>연간 약 700% 이상 폭증</td><td>연간 약 50~60% 성장</td></tr>
+        <tr><td>핵심 가치</td><td>수수료 절감 및 24/7 즉시 정산</td><td>일상적 편리함, 인플레이션 방어</td></tr>
+      </tbody>
+    </table>
+    <p>결론적으로, 스테이블코인은 단순한 투기 자산을 넘어 기관 주도의 B2B 시장을 중심으로 실물 경제 활동을 뒷받침하는 인프라로 성장할 것입니다. <span class="cut">2035년까지 연간 719조 달러의 실물 경제 활동을 뒷받침</span>할 것이라는 표현이 원문에 있었습니다.</p>
+    <div class="redpen"><span class="lbl fix">교정</span> <b>"연간 719조 달러"는 사실과 동떨어진 수치입니다.</b> 2025년 한 해 전체 스테이블코인 <em>온체인 거래량</em>은 약 33조 달러(이 중 USDC가 약 18.3조 달러)로 집계됐고, 719조 달러는 전 세계 GDP(약 100조 달러대)의 7배에 해당해 "실물 경제 활동" 규모로는 성립하지 않습니다. 봇·차익거래 트래픽을 포함한 총 전송량을 누적·중복 합산한 수치를 오인했을 가능성이 큽니다. <span class="src">출처: Coinbase 2025 연간 보고(8-K), Bloomberg Intelligence.</span></div>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q10">
+  <div class="q"><span class="qmark">Q10</span><h4>스테이블코인 및 디지털 화폐 시장을 B2C·B2B·B2G 세 축으로 비교하면?</h4></div>
+  <div class="a">
+    <p>세 축으로 비교하면 시장의 성격과 주도권이 명확히 갈립니다. 특히 B2G 영역은 민간 스테이블코인보다 CBDC와 예금 토큰이 주도하는 시장으로 형성되고 있습니다.</p>
+    <table>
+      <thead><tr><th>구분</th><th>B2C (소비자)</th><th>B2B (기업)</th><th>B2G (정부/공공)</th></tr></thead>
+      <tbody>
+        <tr><td>핵심 키워드</td><td>결제 편의성 &amp; 송금</td><td>비용 절감 &amp; 정산 효율</td><td>투명성 &amp; 통화 정책</td></tr>
+        <tr><td>주요 수단</td><td>민간 코인 (USDT, USDC)</td><td>스테이블코인, 예금 토큰</td><td>CBDC, 국채 토큰화</td></tr>
+        <tr><td>시장 성숙도</td><td>높음 (활발히 사용 중)</td><td>중간 (인프라 구축 단계)</td><td>초기 (실증·테스트 단계)</td></tr>
+        <tr><td>2030 규모 전망</td><td>수천억 달러(거래액)</td><td>수조 달러(가장 큰 비중)</td><td>수조 달러(자산 규모)</td></tr>
+      </tbody>
+    </table>
+    <h5>1. B2G: "가장 강력한 신뢰 시장"</h5>
+    <p>거래 규모보다 '자산의 디지털화' 측면에서 잠재력이 큽니다. 세금·보조금(바우처를 디지털 화폐로 지급하는 프로그래머블 머니), 국채 토큰화(관리 비용 절감), 공공 조달(실시간 자동 정산) 등이 대표 사례입니다. 민간 코인보다 국가가 보증하는 CBDC가 표준이 될 가능성이 높으며, 보안과 규제 준수가 최우선입니다.</p>
+    <h5>2. B2B: "볼륨의 제왕"</h5>
+    <p>국경 간 무역 대금 결제가 핵심입니다. 2035년까지 국경 간 B2B 거래량의 상당 부분(약 5조 달러 이상)이 스테이블코인 기반으로 전환될 것으로 보이며, 기존 SWIFT의 3~5일 소요를 실시간으로, 수수료를 1/10 수준으로 낮추는 것이 경쟁력입니다.</p>
+    <h5>3. B2C: "일상의 침투"</h5>
+    <p>규모는 B2B/B2G에 밀리지만 사용자 접점이 가장 넓습니다. 애플·삼성 지갑과 결합해 '디지털 현금'처럼 쓰이는 단계이며, 소비자 보호와 디페깅 민감도가 높아 규제가 가장 까다롭게 적용됩니다.</p>
+    <p><strong>요약</strong> — 수익성은 B2B 결제 솔루션사가 먼저 실현하고, 규모는 장기적으로 B2G(국가 예산·국채)가 가장 거대하며, 범용성은 B2C 지갑 서비스가 대중화를 이끕니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q11">
+  <div class="q"><span class="qmark">Q11</span><h4>스테이블코인과 디지털 화폐 시장의 B2C·B2B·B2G 부문별 규모 전망은?</h4></div>
+  <div class="a">
+    <p>스테이블코인과 디지털 화폐(CBDC 포함) 시장은 B2C → B2B → B2G 순으로 자금이 유입되며, 2030년을 기점으로 B2B와 B2G가 전체 시장의 80~90%를 장악할 것으로 전망됩니다(BCG, Bernstein 등 보고서 종합).</p>
+    <h5>1. 전체 시장 총괄 (2030년)</h5>
+    <ul>
+      <li>스테이블코인 시가총액: 약 2조 8,000억~3조 달러</li>
+      <li>전체 자산 토큰화 시장(RWA 포함): 약 16조 달러(글로벌 GDP의 10% 수준)</li>
+    </ul>
+    <h5>2. 부문별 규모 및 특징</h5>
+    <table>
+      <thead><tr><th>구분</th><th>B2C (개인/소매)</th><th>B2B (기업/무역)</th><th>B2G (정부/공공)</th></tr></thead>
+      <tbody>
+        <tr><td>2030 예상 규모</td><td>약 3,000억~5,000억 달러</td><td>약 2조~5조 달러(거래액)</td><td>약 5조 달러 이상(자산 규모)</td></tr>
+        <tr><td>규모의 성격</td><td>일상 결제·송금 잔액</td><td>국경 간 결제·정산 유동성</td><td>국채, 보조금, 인프라 자산</td></tr>
+        <tr><td>비중(예측)</td><td>약 10~15%</td><td>약 40~50%</td><td>약 30~40%</td></tr>
+      </tbody>
+    </table>
+    <p><strong>① B2C</strong> — 이미 시장이 형성돼 성장은 완만합니다. 2030년경 전 세계 소매 결제의 약 5~10%를 점유할 전망. <strong>② B2B</strong> — 가장 가파르게 성장(연 700% 이상)하며 2030년경 국경 간 B2B 결제의 약 20~30%가 스테이블코인으로 대체될 전망. <strong>③ B2G</strong> — '거래량'보다 '보유 자산 가치'가 중요. 국채 토큰화는 약 10억 달러에서 2030년 수조 달러로, CBDC는 전 세계 중앙은행의 90% 이상이 검토 중이어서 잠재 규모가 B2B를 넘어설 수 있습니다.</p>
+    <h5>3. 요약 및 시사점</h5>
+    <p>단기(~2026): 개인용(B2C)이 시장 주도 → 중기(2027~2029): 기업용(B2B) 정산이 규모를 수조 달러로 확대 → 장기(2030~): 정부(B2G) 국채·보조금 디지털화로 시장 안정기 도래. 우리가 보는 코인 시장보다 기업 무역(B2B)·정부 자산(B2G)이 결합된 미래 시장 규모가 최소 10배 이상 클 것으로 예상됩니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q12">
+  <div class="q"><span class="qmark">Q12</span><h4>USDC와 USDT의 준비금 투명성은 어떻게 다른가?</h4></div>
+  <div class="a">
+    <p>두 코인의 투명성 차이는, USDC가 USDT보다 더 빈번하고 엄격한 보고 체계를 따른다는 점에 있습니다. Tether의 USDT도 공시 수준을 크게 개선했지만, Circle의 USDC는 월간 제3자 검증 보고서를 제공한다는 점에서 여전히 투명성 측면의 선도 사례로 평가됩니다.</p>
+    <table>
+      <thead><tr><th>항목</th><th>USDC (USD Coin)</th><th>USDT (Tether)</th></tr></thead>
+      <tbody>
+        <tr><td>보고 주기</td><td>월간 검증 보고서 + 주간 준비금 스냅샷</td><td>분기별 검증 보고서 + 일일 투명성 업데이트</td></tr>
+        <tr><td>감사·검증</td><td>Deloitte 등 Big Four 회계법인 검증</td><td>BDO 등 글로벌 회계법인 검증</td></tr>
+        <tr><td>준비금 구성</td><td>보수적, 약 90%가 미국 국채·현금성 자산</td><td>다변화, 미국 국채 약 80% + 금·Bitcoin 등</td></tr>
+        <tr><td>규제 지위</td><td>EU MiCA·미국 GENIUS Act 준수에 유리</td><td>미국·EU 규제기관의 지속 감시</td></tr>
+      </tbody>
+    </table>
+    <h5>준비금 운용 철학의 차이</h5>
+    <p><strong>USDC(안정성 중심)</strong> — Circle의 준비금은 주로 BlackRock이 운용하는 Circle Reserve Fund를 통해 관리됩니다. 어떤 미국 국채가 USDC를 뒷받침하는지 높은 가시성을 제공해, 기관 투자자와 저리스크 선호 사용자에게 선호됩니다.</p>
+    <p><strong>USDT(유동성 중심)</strong> — Tether는 1,410억 달러 이상의 미국 국채를 보유한 대형 채권 보유자입니다. 다만 Bitcoin·담보대출 같은 변동성 높은 자산을 일부 포함해, 시장 급락 시 완충 장치가 충분한지에 대한 질문이 반복됩니다.</p>
+    <p>최신 보고서는 Circle Transparency Page, Tether Transparency Portal에서 각각 확인할 수 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q13">
+  <div class="q"><span class="qmark">Q13</span><h4>USDC의 주요 시장 지표와 거래 가능 거래소는?</h4></div>
+  <div class="a">
+    <p>2026년 4월 22일 기준 USD Coin(USDC)은 약 1.00달러에 거래되며, 미국 달러와 1:1 페그를 유지하고 있습니다.</p>
+    <h5>USDC 주요 시장 데이터(원문 기준일)</h5>
+    <ul>
+      <li>가격: 약 1.00 USD</li>
+      <li>시가총액: <span class="cut">약 782억 달러</span>, 일반적으로 전체 가상자산 중 6위권</li>
+      <li>24시간 거래량: 하루 약 545억 달러</li>
+      <li>유통량: 약 783억 USDC</li>
+    </ul>
+    <div class="redpen"><span class="lbl supp">보완</span> <b>2026년 6월 중순 기준 USDC 시가총액은 약 750억 달러</b>(유통량 ≈ 750억 USDC)로 다소 줄었으며, 순위는 여전히 6위권입니다. 시가총액·거래량은 변동성이 크므로 인용 시 CoinGecko·CoinMarketCap 등 1차 출처에서 당일 수치를 확인하세요. 한편 Circle은 2026년 하반기 유통량 1,500억 달러를 목표로 제시한 바 있습니다. <span class="src">출처: CoinGecko/CoinMarketCap(2026.06).</span></div>
+    <h5>USDC란?</h5>
+    <p>Circle이 발행하는 규제 친화적 스테이블코인으로, 현금·단기 미국 국채 등 유동성 높은 자산으로 100% 담보되며 규제 금융기관의 분리 계좌에 보관됩니다. 주요 회계법인이 검증한 월간 증명 보고서를 제공하고, Ethereum·Solana·Polygon 등 30개 이상 블록체인에서 사용되는 DeFi 핵심 유동성 자산입니다.</p>
+    <h5>거래 가능 거래소</h5>
+    <p>글로벌(Coinbase, Binance, Kraken 등), 국내(Upbit, Bithumb 등)에서 거래 가능합니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q14">
+  <div class="q"><span class="qmark">Q14</span><h4>USDT의 주요 시장 지표와 거래 가능 거래소는?</h4></div>
+  <div class="a">
+    <p>2026년 4월 22일 기준 Tether(USDT)는 약 1.00달러에 거래되며, 미국 달러와 페그를 유지하고 있습니다.</p>
+    <h5>USDT 주요 시장 데이터(원문 기준일)</h5>
+    <ul>
+      <li>가격: 약 1.00 USD</li>
+      <li>시가총액: 약 1,879억 5천만 달러, 전체 가상자산 중 3위권</li>
+      <li>24시간 거래량: 하루 약 698억 달러</li>
+      <li>유통량: 약 1,879억 2천만 USDT</li>
+    </ul>
+    <div class="redpen"><span class="lbl supp">보완</span> 2026년 6월 기준 USDT 시가총액은 <b>약 1,750억~1,860억 달러</b>로 여전히 1위 스테이블코인이자 전체 3위권입니다. 다만 <b>거래소 관련 설명은 보강이 필요합니다.</b> Tether가 EU MiCA 인가를 받지 않아, 2024년 말부터 Binance·Coinbase·Kraken·Crypto.com 등 주요 EU 규제 거래소에서 USDT가 이미 상장폐지·제한되었습니다. 또한 Tether는 GENIUS Act 이후 미국 시장용으로 Anchorage Digital을 통해 별도 스테이블코인 <b>USAT</b>를 발표했습니다. <span class="src">출처: MiCA 관련 보도(2024–2026), Eco/Genfinity 등.</span></div>
+    <h5>USDT란?</h5>
+    <p>미국 달러와 1:1 연동되도록 설계된 가상자산으로, Tether Limited는 모든 USDT가 현금·미국 국채·기타 유동 자산으로 100% 담보된다고 설명합니다. 트레이더가 변동성 큰 포지션에서 빠져나오면서도 블록체인 생태계에 머무는 "안전자산 대기처"로 주로 쓰이며, Ethereum·Tron·Solana 등 여러 체인에서 발행·유통됩니다.</p>
+    <h5>거래 가능 거래소</h5>
+    <p>글로벌(Binance, Kraken, Coinbase 등 — 단, EU 규제 거래소는 제한), 국내(Bithumb, Upbit 등)에서 거래 가능합니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q15">
+  <div class="q"><span class="qmark">Q15</span><h4>USDT와 USDC의 영업이익이 차이 나는 이유는?</h4></div>
+  <div class="a">
+    <p>Tether와 Circle의 영업이익 차이는 발행 규모뿐 아니라 준비금 운용 방식, 수익 분배 구조, 운영 효율성의 차이에서 발생합니다.</p>
+    <h5>1. 공격적인 자산 운용 전략</h5>
+    <p><strong>Tether</strong> — 준비금 일부를 BTC, 금, 기업어음, 담보 대출 등 다양한 자산에 투자합니다. BTC·금 가격 상승은 큰 미실현 이익을 안겨줄 수 있습니다. <strong>Circle</strong> — 현금과 단기 미국 국채 같은 초안전 자산 중심으로 운용해 안정성은 높지만 금리 외 추가 수익을 기대하기 어렵습니다.</p>
+    <h5>2. 수익 독점 vs 수익 공유</h5>
+    <p><strong>Tether</strong> — 이자 수익 대부분을 자사가 가져가 마진율이 높습니다. <strong>Circle</strong> — 생태계 확대를 위해 Coinbase 등 파트너와 수익을 공유해 발행사 순이익은 낮아질 수 있습니다.</p>
+    <h5>3. 시장 점유율과 운영 효율성</h5>
+    <p>USDT 시가총액이 USDC보다 훨씬 커 같은 금리 환경에서도 절대 이자 수익이 큽니다. 또한 Tether는 적은 인력으로 운영되어 직원 1인당 이익이 높습니다.</p>
+    <h5>4. 상장 여부에 따른 회계 차이</h5>
+    <p><strong>Circle</strong> — 상장 과정의 주식 기반 보상 비용 등 일회성 비용이 장부상 이익을 줄일 수 있습니다. <strong>Tether</strong> — 비상장사로서 수익 극대화와 유보금 축적에 집중할 수 있습니다.</p>
+    <h5>5. 결론</h5>
+    <p>"더 큰 발행 규모 + 공격적 준비금 운용 + 수익 독점 + 낮은 운영비"의 Tether와, "규제 친화성 + 보수적 준비금 + 파트너 수익 공유"를 택한 Circle의 전략 차이에서 비롯됩니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅰ-C. 통화 주권과 제도권 디지털 화폐</h3></div>
+
+<article class="qa" id="q16">
+  <div class="q"><span class="qmark">Q16</span><h4>스테이블코인 준비금으로 미국 국채 수요가 늘어나면 어떤 효과가 생기는가?</h4></div>
+  <div class="a">
+    <p>스테이블코인 발행사들이 준비금으로 미국 단기 국채(특히 T-Bills)를 대량 매입하면 미국 경제와 글로벌 금융 시스템에 여러 효과가 발생합니다.</p>
+    <h5>1. 미국 정부 조달 비용 감소</h5>
+    <p>발행사가 새로운 대형 구매자로 등장하면 단기 국채 수요가 늘고 수익률이 낮아질 수 있어, 미국 정부는 더 낮은 이자로 국채를 발행해 부채 이자 부담을 줄일 수 있습니다.</p>
+    <h5>2. 달러 패권 강화</h5>
+    <p>전 세계 사용자가 스테이블코인으로 달러를 보유·거래하면서 디지털 영역의 달러 수요가 증가합니다. 중국·일본 등 전통적 국채 매입 국가의 보유량이 줄어드는 상황에서 발행사가 새로운 한계 구매자 역할을 할 수 있으며, Tether는 이미 주요 미국 국채 보유자 수준으로 평가됩니다.</p>
+    <h5>3. 금융 시장 구조 변화</h5>
+    <p>시장이 수조 달러로 성장하면 민간 부문이 쓸 수 있는 단기 국채 물량이 부족해질 수 있고, 은행 예금이 스테이블코인으로 이동하면 은행의 대출 재원이 줄어 실물경제 대출 여력이 약화될 수 있습니다.</p>
+    <h5>4. 시스템 리스크</h5>
+    <p>특정 코인에서 신뢰 위기로 대규모 상환이 몰리면 발행사가 준비금인 국채를 급매해야 할 수 있고, 이 경우 국채 가격 급락·금리 급등 등 가상자산 위기가 전통 금융시장으로 전이될 위험이 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q17">
+  <div class="q"><span class="qmark">Q17</span><h4>대형 플랫폼 기업이 스테이블코인을 직접 발행하면 어떤 영향이 생기는가?</h4></div>
+  <div class="a">
+    <p>결제 효율성은 크게 높아지지만, 금융 시스템 안정성에는 새로운 위험이 생깁니다.</p>
+    <h5>1. 긍정적 영향</h5>
+    <p><strong>수수료 절감</strong> — Amazon, Walmart 같은 대형 유통 플랫폼은 카드사·은행에 지급하던 1~3% 결제 수수료를 줄일 수 있습니다. <strong>실시간 정산</strong> — 24시간 실시간 정산으로 자금 유동성을 높입니다. <strong>국경 없는 상거래</strong> — 환전·해외 송금 절차 없이 글로벌 결제가 가능합니다.</p>
+    <h5>2. 부정적 영향 및 시스템 리스크</h5>
+    <p><strong>은행 예금 이동</strong> — 빅테크 사용자 기반을 바탕으로 예금이 코인으로 이동하면 전통 은행의 자금 조달 비용이 상승할 수 있습니다. <strong>통화 주권 위협</strong> — Meta의 Libra가 좌초된 이유처럼, 민간 기업이 사실상 통화 발행권에 가까운 영향력을 갖는 문제가 생깁니다. <strong>운영·신뢰 위험</strong> — 중앙화 플랫폼의 시스템 오류가 전체 결제망 신뢰 저하로 이어질 수 있습니다.</p>
+    <h5>3. 주요 플레이어 동향</h5>
+    <p><strong>PayPal</strong> — PYUSD를 발행해 실물 결제와 가상자산 생태계를 연결. <strong>Amazon &amp; Walmart</strong> — 수수료 절감을 위해 자체 코인 발행 또는 USDC 등 기존 코인 도입을 검토하는 흐름.</p>
+    <h5>4. 결론</h5>
+    <p>소비자에게는 편의성·낮은 비용을 제공하지만, 정부·중앙은행에는 규제와 통화 안정성이라는 큰 과제를 안깁니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q18">
+  <div class="q"><span class="qmark">Q18</span><h4>비달러 통화국은 달러 스테이블코인과 빅테크 스테이블코인에 어떻게 대응해야 하는가?</h4></div>
+  <div class="a">
+    <p>비달러 통화국은 달러·빅테크 스테이블코인 확산으로 자국 통화 위상이 약화되는 '디지털 달러화' 위험에 대응해야 합니다.</p>
+    <h5>1. 통화 주권 수호를 위한 CBDC 도입</h5>
+    <p><strong>소매용 CBDC</strong> — 국민이 일상 결제에서 달러 코인 대신 자국 통화 디지털 화폐를 편리하게 쓰도록. <strong>도매용 CBDC</strong> — 은행 간·거액 결제에 블록체인을 도입해 금융 시스템 전체의 디지털 전환을 주도.</p>
+    <h5>2. 제도적 장벽 및 규제 체계</h5>
+    <p>발행 자격 제한(은행·신뢰 가능 기관만 발행), 준비금 규제(일부를 자국 국채·중앙은행 예치금으로 보유), 외환 관제 현대화(실시간 모니터링).</p>
+    <h5>3. 자국 통화 기반 생태계 육성</h5>
+    <p>RWA 지원(자국 부동산·채권 거래를 자국 통화 코인으로), 크로스보더 결제망 협력(다른 국가와 CBDC·코인 직접 환전망 구축).</p>
+    <h5>4. 기술적 보안 및 데이터 주권</h5>
+    <p>해외 발행사 시스템 오류의 전이 방지를 위한 사이버 보안 강화, 결제 데이터의 해외 독점 방지를 위한 데이터 현지화·개인정보 보호 강화.</p>
+    <h5>5. 결론</h5>
+    <p>자국 통화의 디지털 매력도를 높이는 CBDC 전략과, 해외 민간 코인에 대한 금융 안정성 규제를 병행하는 투트랙 전략이 필요합니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q19">
+  <div class="q"><span class="qmark">Q19</span><h4>한국은행 CBDC 테스트와 유럽 MiCA는 비달러 통화권의 대응 사례로 무엇을 보여주는가?</h4></div>
+  <div class="a">
+    <p>한국은행의 CBDC 테스트와 유럽 MiCA 법안은 비달러 통화국이 디지털 달러화와 해외 빅테크 스테이블코인 확산에 대응하는 대표 사례입니다.</p>
+    <h5>1. 한국은행: 예금 토큰 중심 CBDC 테스트</h5>
+    <p><strong>예금 토큰</strong> — 은행 예금을 디지털화해 블록체인상 결제·스마트 계약에 활용. 민간 코인의 역할을 은행 시스템 안으로 끌어들이는 전략입니다. <strong>실거래 테스트</strong> — 일반인 대상 디지털 바우처 실증을 통해 교육비·문화비 등 목적 지정 결제를 테스트. <strong>목표</strong> — 해외 코인이 국내 결제 시장을 장악하기 전에 안전·신뢰 가능한 디지털 결제 수단을 제도권에서 선점.</p>
+    <h5>2. 유럽: MiCA</h5>
+    <p><strong>준비금 100% 보장</strong> — 언제든 1:1 상환하도록 안전 자산 확보. <strong>비유로화 코인 제한</strong> — 비유로 코인 거래량이 일정 수준을 넘으면 제한할 수 있는 조항으로 유로화 지위 보호. <strong>빅테크 견제</strong> — Libra 사례처럼 거대 플랫폼이 통화 시스템을 흔드는 일을 막기 위해 금융권 수준의 면허·규제 요구.</p>
+    <h5>3. 시사점</h5>
+    <p>기술로는 CBDC·예금 토큰으로 편리한 대안을 먼저 제공하고, 법으로는 자국 통화에 위협이 되는 해외 코인의 사용량을 제한하며, 제도권 편입을 통해 사업자에게 세금·AML·준비금 의무를 부여해야 합니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q20">
+  <div class="q"><span class="qmark">Q20</span><h4>한국은행이 스테이블코인에 유보적인 이유는?</h4></div>
+  <div class="a">
+    <p>가장 큰 이유는 통화 정책의 유효성 저하와 금융 시스템 안정성에 대한 우려입니다.</p>
+    <h5>1. 통화 주권 및 정책 영향력 약화</h5>
+    <p>달러 연동 코인이 국내 결제 시장을 장악하면 금리 정책·통화량 조절의 효과가 약화될 수 있고, 국민이 원화보다 달러 코인을 선호하면 원화 지위가 흔들릴 수 있습니다.</p>
+    <h5>2. 금융 시스템 불안정성</h5>
+    <p>예금이 코인으로 이동하면 은행 대출 여력이 줄고 금융 중개 기능이 약화됩니다. Terra-Luna 사태처럼 가치 유지가 실패하면 충격이 전통 금융시장으로 전이될 수 있습니다.</p>
+    <h5>3. CBDC와의 우선순위 충돌</h5>
+    <p>한국은행은 민간 코인보다 국가가 발행하거나 은행 시스템 안에서 관리되는 CBDC·예금 토큰을 디지털 경제의 근간으로 선호합니다.</p>
+    <h5>4. 자금세탁 및 규제 공백</h5>
+    <p>발행·준비금 관리·유통 기준에 대한 세부 법체계가 아직 충분히 정비되지 않았다는 점도 보수적 입장의 이유입니다.</p>
+    <h5>5. 결론</h5>
+    <p>편의성은 인정하지만, 금융 질서 혼란을 막기 위해 충분한 규제와 CBDC 인프라 구축이 먼저라는 입장을 유지하고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q21">
+  <div class="q"><span class="qmark">Q21</span><h4>CBDC 시장에서 참여자들은 어떤 비즈니스 모델을 가질 수 있는가?</h4></div>
+  <div class="a">
+    <p>CBDC 시장은 '화폐 발행'을 넘어 국가 금융 인프라를 재설계하는 사업입니다. 참여자들은 각자의 강점을 바탕으로 다음 모델을 가질 수 있습니다.</p>
+    <h5>1. IT 서비스 기업 (플랫폼·인프라 구축)</h5>
+    <p>가장 먼저 수익을 내는 그룹으로 시스템의 '설계자·운영자' 역할입니다. 인프라 구축·운영(SI/SM, 예: LG CNS 모나체인, 삼성SDS 넥스레저), BaaS(클라우드 기반 개발 환경 제공·이용료), 상호운용성 솔루션(서로 다른 CBDC·블록체인을 잇는 '브릿지'와 트랜잭션 수수료).</p>
+    <h5>2. 금융사 (배포·부가가치 서비스)</h5>
+    <p>중앙은행에서 CBDC를 받아 전달하는 '중개자·자산 관리자'. 디지털 지갑·수탁(Custody), 예금 토큰 발행(대출·이자 연계), 프로그래머블 금융 상품(조건 충족 시 자동 집행되는 대출, 용도 지정 보조금 관리 등).</p>
+    <h5>3. 일반 기업 (실사용자·서비스 제공자)</h5>
+    <p>스마트 결제/정산 솔루션(배송 완료 즉시 대금 정산으로 자본 회전율 제고), 목적 지정 화폐(바우처) 사업, 마이크로 페이먼트(초소액 결제 기반 콘텐츠 비즈니스).</p>
+    <h5>가치 사슬별 수익 모델</h5>
+    <table>
+      <thead><tr><th>참여자</th><th>핵심 수익원</th></tr></thead>
+      <tbody>
+        <tr><td>IT 서비스사</td><td>시스템 구축비, 라이선스료, 트랜잭션 수수료, 보안 감사</td></tr>
+        <tr><td>금융사</td><td>계좌 유지 수수료, 운용 수익, 프로그래머블 금융 상품 판매</td></tr>
+        <tr><td>일반 기업</td><td>정산 비용 절감, 데이터 기반 마케팅, 신규 BM(콘텐츠/구독) 창출</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q22">
+  <div class="q"><span class="qmark">Q22</span><h4>한국은행 CBDC 활용성 테스트에 참여 중인 기업들의 구체적 사례는?</h4></div>
+  <div class="a">
+    <p>한국은행이 주도하는 CBDC 활용성 테스트(프로젝트 한강)는 기술 검증을 넘어 실제 비즈니스 모델을 찾는 단계에 진입해 있습니다.</p>
+    <h5>1. IT 서비스 기업: 시스템의 '뼈대' 구축</h5>
+    <p><strong>LG CNS</strong> — 한국은행 CBDC 시스템 구축의 핵심 파트너. 중앙은행 발행 CBDC(기관용)와 시중은행 발행 예금 토큰이 충돌 없이 순환하도록 하는 '인프라 라이선스' 모델을 검증 중. <strong>삼성SDS</strong> — 클라우드 인프라와 블록체인을 결합해 기업이 CBDC 환경에서 쉽게 서비스를 올리는 'PaaS' 사업 준비.</p>
+    <h5>2. 금융사: '예금 토큰' 기반 새 상품</h5>
+    <p><span class="cut"><strong>우리은행(프로젝트 팍스)</strong> — 국내외 스테이블코인 및 CBDC 연동을 통해 B2B 해외 송금 시간을 '수일'에서 '수초'로 단축하는 실증을 진행 중.</span> <strong>하나은행</strong> — 중앙은행 CBDC와 연동된 '디지털 바우처' 플랫폼 개발. 지자체 보조금·교육 급여를 예금 토큰으로 지급하고 스마트 컨트랙트로 용도를 제한하는 모델.</p>
+    <div class="redpen"><span class="lbl fix">교정</span> <b>'프로젝트 팍스'는 한국은행 CBDC 테스트(프로젝트 한강)와 별개의 사업이며, 한·일 국경 간 스테이블코인 송금 PoC입니다.</b> 일본 측은 3대 메가뱅크 합작사 <b>프로그맷(Progmat)</b>이, 한국 측은 블록체인 기업 <b>페어스퀘어랩</b>과 한국디지털자산수탁(KDAC)이 주관하며, 1단계 참여 한국 은행은 <b>신한·NH농협·케이뱅크</b>였습니다. 우리은행과 KB국민은행은 2025년 11월 <b>2단계</b>에 합류했으므로, 'CBDC 활용성 테스트 참여 + 우리은행 주도'라는 서술은 두 프로젝트를 혼동한 것입니다. <span class="src">출처: 서울경제·조세금융신문 등(2025.09–11).</span></div>
+    <h5>3. 일반 기업: 실생활 밀착형 '킬러 앱'</h5>
+    <p><strong>현대백화점/신세계</strong> — CBDC 기반 즉시 입금으로 카드 결제 후 며칠 걸리던 정산을 단축, 현금 흐름 개선·가맹점 수수료 절감. <strong>네이버/카카오(핀테크)</strong> — 소셜 아이디만으로 CBDC 지갑을 생성하고 복잡한 주소 없이 송금·간편 결제하는 '사용자 접점' 시장 공략.</p>
+    <h5>4. B2G 특화: 정부 보조금 관리(바우처)</h5>
+    <p>문화 바우처·아동 급식비 등을 CBDC 기반 예금 토큰으로 지급해 부정 수급(현금화 등)을 원천 차단하고, 사용처 데이터를 실시간 분석해 정책에 반영하는 '행정 효율화 솔루션' 모델입니다. 이 과정에서 수호아이오·해치랩스 같은 기술 스타트업은 지갑 보안·스마트 컨트랙트 감사를 전담하며 틈새시장을 형성하고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part1">↑ 목차로</a>
+</article>
+
+</section>
+
+<section class="part" id="part2">
+  <div class="part-head"><div class="part-num">Ⅱ</div><h2 class="part-title">자산 토큰화와 디지털 금융시장</h2></div>
+
+<div class="subsec"><h3 class="subsec-title">Ⅱ-A. 자산 토큰화와 RWA</h3></div>
+
+<article class="qa" id="q23">
+  <div class="q"><span class="qmark">Q23</span><h4>RWA, 즉 실물 자산 토큰화란 무엇인가?</h4></div>
+  <div class="a">
+    <p>RWA(Real World Assets, 실물 자산 토큰화)란 부동산·금·채권·미술품 같은 현실 세계의 가치 있는 자산을 블록체인에 올려 디지털 토큰 형태로 변환하는 것을 말합니다. 쉽게 말해 '현실의 자산을 코인처럼 사고팔 수 있게 만드는 기술'입니다.</p>
+    <h5>RWA로 만드는 주요 자산</h5>
+    <ul>
+      <li><strong>금융 자산</strong> — 미국 국채(최근 가장 활발), 회사채, 주식, 현금</li>
+      <li><strong>실물 자산</strong> — 부동산(건물), 금, 은, 원자재</li>
+      <li><strong>무형·기타 자산</strong> — 미술품, 저작권, 탄소 배출권, 매출 채권</li>
+    </ul>
+    <h5>왜 RWA를 하나 (핵심 장점)</h5>
+    <ol>
+      <li><strong>조각 투자</strong> — 수십억 원짜리 빌딩이나 수억 원대 미술품을 단돈 1만 원어치만 살 수 있습니다.</li>
+      <li><strong>24/7 거래와 유동성</strong> — 부동산은 파는 데 수개월이 걸리지만, 토큰화된 부동산은 거래소에서 즉시 팔 수 있습니다.</li>
+      <li><strong>정산 비용·시간 절감</strong> — 중개인을 거치는 복잡한 서류 절차가 스마트 컨트랙트로 자동화됩니다.</li>
+      <li><strong>투명성</strong> — 소유권 이력과 거래 내역이 블록체인에 기록되어 위·변조가 어렵습니다.</li>
+    </ol>
+    <h5>시장 트렌드</h5>
+    <p>세계 최대 자산운용사 블랙록(BlackRock)이 이더리움에 'BUIDL'이라는 토큰화 펀드를 출시하면서 시장이 빠르게 성장하고 있습니다. 코인 변동성에 지친 투자자들이 '실제 수익(미국 국채 이자 등)'을 주는 RWA로 몰리고 있기 때문입니다.</p>
+    <h5>한국의 상황</h5>
+    <p>한국에서는 주로 <em>토큰 증권(ST/STO)</em>이라는 법적 테두리 안에서 논의됩니다. 비상장 주식, 부동산 조각 투자(카사, 루센트블록 등), 한우 조각 투자(뱅카우), 미술품(테사) 등이 사례입니다.</p>
+    <h5>RWA와 스테이블코인의 관계</h5>
+    <p>USDC 같은 스테이블코인 자체가 사실은 '달러'라는 실물 자산을 토큰화한 가장 성공적인 RWA의 한 종류로 볼 수 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q24">
+  <div class="q"><span class="qmark">Q24</span><h4>ERC-4643은 RWA 및 증권형 토큰 표준화에서 어떤 의미를 갖는가?</h4></div>
+  <div class="a">
+    <div class="redpen"><span class="lbl fix">교정</span> 질문에 언급된 <span class="cut">ERC-4643</span>은 <b>실재하지 않는 표준</b>입니다. RWA·증권형 토큰의 사실상 표준은 <b>ERC-3643(T-REX, Token for Regulated EXchanges)</b>입니다. Tokeny가 개발하고 ERC-3643 협회가 관리하며, 2023년 12월 이더리움 개선 제안(EIP)에서 <b>Final</b> 상태로 확정됐습니다. 정식 ERC 표준으로 승인된 규제형 증권 토큰 표준은 ERC-3643이 유일합니다. 아래 설명은 <b>ERC-3643</b> 기준으로 읽으시면 됩니다. <span class="src">출처: ERC-3643 Association, Chainalysis, Quicknode 등(2025–2026).</span></div>
+    <p>기존의 ERC-20(일반 토큰)이나 ERC-721(NFT)만으로는 법적 규제와 복잡한 권리 관계를 담기 어려웠기 때문에, 이를 보완하기 위해 등장한 이더리움 표준 규격입니다.</p>
+    <h5>주요 특징: "법적 규제를 코드로"</h5>
+    <ul>
+      <li><strong>권한 제어(Compliance)</strong> — 누구나 가질 수 있는 일반 코인과 달리, 화이트리스트(신원 확인)에 등록된 투자자만 토큰을 보유·거래하도록 제한합니다.</li>
+      <li><strong>소유권 증명</strong> — 해당 토큰이 실물 자산(부동산 지분, 채권 등)의 법적 소유권을 나타냄을 명시합니다.</li>
+      <li><strong>분할 소유·수익 배분</strong> — 자산을 쪼개 다수가 소유하고, 발생하는 이자·임대료를 스마트 컨트랙트로 자동 배분합니다.</li>
+    </ul>
+    <h5>왜 필요한가</h5>
+    <p><strong>상호운용성</strong> — A사가 발행한 부동산 토큰과 B사의 채권 토큰이 공통 규격을 써야 거래소·지갑에서 문제없이 인식·거래됩니다. <strong>관리 효율</strong> — 발행사가 토큰을 회수(상환)하거나 법적 명령에 따라 강제 동결해야 할 때 표준화된 명령 체계가 필요합니다.</p>
+    <h5>핵심 정리</h5>
+    <p>ERC-3643의 핵심은 '신원 인증(KYC)'과 '거래 제한' 로직을 토큰 자체에 효율적으로 심는 데 있습니다. 기업이 이 표준을 채택한다는 것은 "우리가 발행한 토큰은 글로벌 규제를 준수할 준비가 되어 있고, 다른 금융 플랫폼과도 쉽게 연동된다"는 신뢰를 시장에 주는 것과 같습니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q25">
+  <div class="q"><span class="qmark">Q25</span><h4>각 분야별 RWA 서비스 사례는 무엇인가?</h4></div>
+  <div class="a">
+    <h5>1. 금융 자산 (가장 규모가 크고 활발)</h5>
+    <p>전통 금융 상품의 수익률(이자)을 온체인으로 가져오는 모델입니다.</p>
+    <ul>
+      <li><strong>BlackRock — BUIDL</strong> — 투자자가 이더리움에서 BUIDL 토큰을 사면, 블랙록이 실제 미국 국채에 투자해 발생한 이자를 매일 토큰 형태로 지급합니다.</li>
+      <li><strong>온도 파이낸스(Ondo Finance)</strong> — 미국 국채·회사채를 토큰화해 전 세계 누구나 달러 스테이블코인으로 투자·수익을 얻게 합니다.</li>
+    </ul>
+    <h5>2. 부동산 (조각 투자의 대표 주자)</h5>
+    <ul>
+      <li><strong>리얼티(RealT)</strong> — 미국 부동산을 토큰화해 50달러 단위로 지분을 사고, 임대료를 매일 정산받습니다.</li>
+      <li><strong>국내(카사, 루센트블록)</strong> — 주요 지역 빌딩을 토큰(DABS 등)화해 소액으로 건물주가 되게 합니다. 단, 국내는 '토큰 증권(ST)' 규제 샌드박스 하에서 운영됩니다.</li>
+    </ul>
+    <h5>3. 귀금속·원자재</h5>
+    <ul>
+      <li><strong>팍소스 골드(PAXG)</strong> — 런던 금고의 실제 금 1온스와 PAXG 토큰 1개를 1:1 매칭. 금을 들고 다니지 않고도 지갑에서 전송하거나 24시간 거래합니다.</li>
+    </ul>
+    <h5>4. 미술품·희귀 자산</h5>
+    <ul>
+      <li><strong>아트투게더 / 테사(TESSA)</strong> — 고가 작품을 조각 투자로 소유하고, 매각 시 지분만큼 차익을 배분받습니다.</li>
+      <li><strong>뱅카우</strong> — 송아지를 토큰화해 사육 비용을 투자하고, 출하 시 수익을 나누는 '한우 조각 투자' 사례입니다.</li>
+    </ul>
+    <h5>5. 무형 자산·탄소 배출권</h5>
+    <ul>
+      <li><strong>뮤직카우</strong> — 음악 저작권료를 받을 권리를 조각 투자로 판매합니다.</li>
+      <li><strong>탄소 배출권</strong> — 기업이 보유한 배출 권리를 토큰화해 투명하게 거래합니다.</li>
+    </ul>
+    <h5>RWA 서비스의 핵심 가치</h5>
+    <p>① 유동성 공급(안 팔리던 자산을 언제든 거래) ② 접근성 확대(소액으로 우량 자산 투자) ③ 효율성(등기·공증 절차를 스마트 컨트랙트로 대체).</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q26">
+  <div class="q"><span class="qmark">Q26</span><h4>RWA 투자의 주요 리스크와 법적 보호 방안은 무엇인가?</h4></div>
+  <div class="a">
+    <p>RWA 투자는 소유권을 혁신적으로 분산하지만, 실물 자산과 디지털 토큰의 연결 고리가 끊길 때 발생하는 '오프체인 리스크'가 가장 큰 취약점입니다.</p>
+    <h5>1. 실물 자산 관련 주요 리스크</h5>
+    <ul>
+      <li><strong>자산 분실·물리적 훼손</strong> — 토큰화된 금·미술품이 분실·파손되면 온체인 토큰은 가치 근거를 잃습니다.</li>
+      <li><strong>보관·수탁 위험</strong> — 실물을 보관하는 수탁사가 파산하거나 관리 부실에 빠지는 카운터파티 리스크가 존재합니다.</li>
+      <li><strong>가치 평가·오라클 오류</strong> — 가치를 온체인에 반영하는 오라클이 해킹되거나 입력 오류가 나면 실제 가치와 토큰 가격에 괴리가 생깁니다.</li>
+    </ul>
+    <h5>2. 법적 리스크·한계</h5>
+    <ul>
+      <li><strong>증권성·규제 불확실성</strong> — 수익 배분 구조를 가진 RWA는 자본시장법상 '증권'으로 분류될 가능성이 높아, 인가 없는 발행은 불법이 될 수 있습니다.</li>
+      <li><strong>소유권 주장의 어려움</strong> — 다수 국가 법원은 블록체인 기록만으로는 실물 소유권을 인정하지 않습니다. 별도 장부·등기가 우선합니다.</li>
+      <li><strong>강제 집행의 난해함</strong> — 자산 이전 명령이 나와도 개인키 분실·강제 전송 기능 부재 시 온체인 이전이 불가능할 수 있습니다.</li>
+    </ul>
+    <h5>3. 리스크 방어·법적 보호 방안</h5>
+    <ul>
+      <li><strong>제도권 토큰 증권(ST) 이용</strong> — 금융위 가이드라인에 따라 발행된 자산이라야 자본시장법의 투자자 보호를 받습니다.</li>
+      <li><strong>SPV·신탁 계약</strong> — 실물을 별도 법인·신탁에 예치해 발행사가 파산해도 투자자 자산이 보호되는 도산 절연 구조를 확인합니다.</li>
+      <li><strong>코드 감사·오라클 다변화</strong> — 스마트 컨트랙트 보안 감사 여부, 체인링크 등 신뢰할 수 있는 다중 오라클 사용 여부를 점검합니다.</li>
+    </ul>
+    <p>결론적으로 RWA는 기술적 투명성보다 '실물 자산이 법적으로 얼마나 단단하게 묶여 있는가'를 먼저 확인하는 것이 성공적인 투자의 핵심입니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q27">
+  <div class="q"><span class="qmark">Q27</span><h4>국내 주요 증권사들의 STO 플랫폼 경쟁은 어떻게 전개되고 있는가?</h4></div>
+  <div class="a">
+    <p>국내 주요 증권사들은 토큰증권(STO) 법제화(자본시장법·전자증권법 개정) 흐름에 맞춰, 단순 기술 도입을 넘어 각사 강점을 활용한 차별화 플랫폼 경쟁에 돌입했습니다.</p>
+    <div class="redpen"><span class="lbl supp">보완</span> 토큰증권 법제화는 2023년 금융위 가이드라인 이후 전자증권법·자본시장법 개정안이 발의·논의되어 온 사안입니다. <b>구체적 시행 시점과 세부 인가 요건은 입법 진행에 따라 달라질 수 있으므로</b>, '2026년 1월 시행 완료'와 같은 단정적 서술은 실제 관보·금융위 발표로 재확인이 필요합니다. <span class="src">출처: 금융위원회 보도자료 등.</span></div>
+    <h5>주요 증권사별 STO 플랫폼 특징</h5>
+    <table>
+      <thead><tr><th>증권사</th><th>주요 전략·특징</th><th>핵심 파트너·협의체</th></tr></thead>
+      <tbody>
+        <tr><td>미래에셋증권</td><td>글로벌 확장·대규모 발행. 대형 디지털 채권 발행 실적, 거래소 '코빗' 연계로 유통 인프라까지 아우르는 생태계 지향</td><td>코빗, IB사업부 중심</td></tr>
+        <tr><td>한국투자증권</td><td>인프라 선점·리스크 관리. 분산원장 인프라 구축·시범 발행, 클라우드 기반 디지털 신사업 본부 신설</td><td>토스뱅크, 카카오엔터프라이즈</td></tr>
+        <tr><td>신한투자증권</td><td>유통 플랫폼 표준화. '프로젝트 PULSE'·'NXT 컨소시엄'으로 발행–유통 표준 인프라 주도, 조각투자 계좌관리기관 최다 실적</td><td>SK증권, 넥스트레이드, 조각투자사</td></tr>
+        <tr><td>NH투자증권</td><td>특수 자산·지역 기반. 와인·명품·미술품 등 수집품 조각투자 협업, 농협 지역 네트워크 활용</td><td>STO 비전그룹(투게더아트, 트레져러 등)</td></tr>
+        <tr><td>KB증권</td><td>금융 그룹 시너지. 신탁 기반 블록체인 자산관리 시스템, 개인·기관 통합 플랫폼 지향</td><td>ST 오너스(SK C&amp;C 등)</td></tr>
+      </tbody>
+    </table>
+    <h5>플랫폼 경쟁력의 핵심 포인트</h5>
+    <ul>
+      <li><strong>발행·유통 분리</strong> — 개정 방향에 따라 발행·유통을 분리하는 체계가 논의되며, 증권사는 '계좌관리기관' 또는 '장외거래소'로 시장을 선점하려 합니다.</li>
+      <li><strong>공동 인프라 활용</strong> — 중소형 증권사들은 구축 비용을 줄이려 코스콤 공동 플랫폼을 활용해 표준화 시장에 진입합니다.</li>
+      <li><strong>법적 안전망</strong> — 모든 플랫폼은 자본시장법 적용을 받아 정보 공개·투자자 보호 장치를 갖춥니다.</li>
+    </ul>
+    <h5>시장 전망</h5>
+    <p>국내 STO 시장은 장기적으로 수백조 원 규모로 성장할 것이라는 전망이 제시되며, 부동산·미술품을 넘어 지식재산권(IP) 등 다양한 실물 자산이 거래되는 방향으로 확장되고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q28">
+  <div class="q"><span class="qmark">Q28</span><h4>토큰화 주식은 무엇인가?</h4></div>
+  <div class="a">
+    <p>토큰화 주식(Tokenized Stocks)은 전통적인 주식·ETF의 가치를 블록체인상의 디지털 토큰으로 변환한 자산입니다. 기존 증권 거래의 효율을 높이는 기술적 업그레이드로 평가되며, RWA의 핵심 분야 중 하나입니다.</p>
+    <h5>주요 개념</h5>
+    <ul>
+      <li><strong>디지털 증명</strong> — 주식 소유권을 종이 서류 대신 블록체인 원장에 디지털 인증서 형태로 기록합니다.</li>
+      <li><strong>소수점 거래</strong> — 비싼 우량주를 1주 단위가 아닌 소액 단위로 쪼개 살 수 있습니다.</li>
+      <li><strong>24/7 거래</strong> — 전통 시장 시간 제한 없이 거래할 수 있습니다.</li>
+      <li><strong>직접 vs 간접 발행</strong> — 기초 자산을 1:1 담보로 발행하는 방식과, 가격만 추종하는 파생상품형으로 나뉩니다.</li>
+    </ul>
+    <h5>주요 서비스 사례 (2025–2026)</h5>
+    <ul>
+      <li><strong>로빈후드(Robinhood)</strong> — 비트판다와 협력해 유럽 고객에게 미국 주요 주식을 24시간 소수점 거래로 제공합니다.</li>
+      <li><strong>온도 파이낸스</strong> — 국채·우량 주식 기반 토큰화 상품을 제공하며 지갑 통합 서비스를 지원합니다.</li>
+      <li><strong>백드 파이낸스(Backed Finance)</strong> — 실제 주식을 1:1 담보하는 토큰을 발행해 거래소에서 유통합니다.</li>
+      <li><strong>국내 현황</strong> — 부동산·미술품 중심의 STO 시장이 먼저 형성되었고, 주식 토큰화는 규제 샌드박스를 통해 단계적으로 검토 중입니다.</li>
+    </ul>
+    <h5>투자 리스크</h5>
+    <ul>
+      <li><strong>주주 권리 부재</strong> — 대부분 가격 노출만 제공할 뿐, 의결권·직접 배당권을 보장하지 않는 경우가 많습니다.</li>
+      <li><strong>규제·법적 불확실성</strong> — 국가별 규제가 다르며, 미인가 플랫폼 이용 시 증권법 위반·서비스 중단 위험이 있습니다.</li>
+      <li><strong>수탁·발행사 리스크</strong> — 발행사·수탁 기관 파산이나 해킹 시 토큰 가치가 상실될 수 있습니다.</li>
+      <li><strong>가격 괴리·유동성</strong> — 유동성 부족 시 실제 주가와 토큰 가격 사이에 슬리피지가 발생합니다.</li>
+    </ul>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅱ-B. DeFi와 디지털 금융 메커니즘</h3></div>
+
+<article class="qa" id="q29">
+  <div class="q"><span class="qmark">Q29</span><h4>DeFi, 즉 탈중앙화 금융이란 무엇인가?</h4></div>
+  <div class="a">
+    <p>DeFi(탈중앙화 금융)는 은행·증권사 같은 중앙 중개기관 없이, 블록체인의 스마트 계약을 통해 P2P 방식으로 이루어지는 모든 금융 서비스를 의미합니다.</p>
+    <h5>핵심 개념</h5>
+    <ul>
+      <li><strong>탈중앙화</strong> — 정부·은행 개입 없이 오픈소스 소프트웨어와 분산 네트워크로 운영됩니다.</li>
+      <li><strong>비허가성(Permissionless)</strong> — 인터넷과 지갑만 있으면 신원 확인 없이 누구나 접근할 수 있습니다.</li>
+      <li><strong>투명성</strong> — 모든 거래가 블록체인에 공개 기록되어 검증 가능합니다.</li>
+      <li><strong>자기 수탁(Self-Custody)</strong> — 사용자가 개인 키를 직접 관리하며 자산에 대한 완전한 통제권을 가집니다.</li>
+    </ul>
+    <h5>주요 서비스 사례 (2026년 기준)</h5>
+    <p>2026년의 디파이는 단순 투기를 넘어 실물 자산(RWA) 결합과 AI 통합을 통해 제도권 금융의 보완재로 진화하고 있습니다.</p>
+    <ul>
+      <li><strong>탈중앙화 거래소(DEX)</strong> — AMM으로 자산을 즉시 교환(예: Uniswap, PancakeSwap)</li>
+      <li><strong>대출·차입(Lending)</strong> — 자산을 담보로 대출받거나 예치해 이자 수취(예: Aave, Compound)</li>
+      <li><strong>스테이킹·이자 농사</strong> — 유동성을 제공하고 보상(거버넌스 토큰·이자)을 받음</li>
+      <li><strong>스테이블코인 발행</strong> — 가치 고정 디지털 화폐 생성(예: MakerDAO의 DAI)</li>
+      <li><strong>RWA 담보 대출</strong> — 국채·부동산 토큰을 담보로 스테이블코인을 빌려 재투자</li>
+      <li><strong>AI 기반 디파이</strong> — AI가 실시간 위험을 예측하고 수익을 최적화</li>
+    </ul>
+    <p>디파이는 수백억 달러 이상의 자산이 예치된 거대한 산업으로 성장했으며, 규제 명확화와 함께 기관 투자자의 진입이 가속화되고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q30">
+  <div class="q"><span class="qmark">Q30</span><h4>DeFi 서비스 유형별 대표 프로토콜과 기업은 무엇인가?</h4></div>
+  <div class="a">
+    <h5>1. 탈중앙화 거래소 (DEX)</h5>
+    <ul>
+      <li><strong>유니스왑(Uniswap)</strong> — 유니스왑 랩스(미국). 세계 최대 DEX로 AMM 모델의 표준을 만들었습니다.</li>
+      <li><strong>팬케이크스왑(PancakeSwap)</strong> — DAO 운영. BNB 체인 기반 대표 DEX로 저렴한 수수료와 게임화 요소가 강점입니다.</li>
+    </ul>
+    <h5>2. 대출·차입 (Lending &amp; Borrowing)</h5>
+    <ul>
+      <li><strong>에이브(Aave)</strong> — '플래시 론'을 최초로 선보인 선도 대출 프로토콜. 기관용 연결을 시도하고 있습니다.</li>
+      <li><strong>메이커다오(MakerDAO, 현 Sky)</strong> — 담보를 맡기면 달러 연동 스테이블코인 'DAI'를 발행. 디파이의 '중앙은행' 역할입니다.</li>
+    </ul>
+    <h5>3. 유동성 스테이킹·자산 관리</h5>
+    <ul>
+      <li><strong>라이도 파이낸스(Lido)</strong> — 스테이킹 자산을 묶어두지 않고 유동성 토큰(stETH 등)을 발행해 재활용하게 합니다.</li>
+      <li><strong>연 파이낸스(Yearn.finance)</strong> — 가장 높은 이자율을 자동 추적·이동하는 수익률 애그리게이터입니다.</li>
+    </ul>
+    <h5>4. 디파이 인프라·보안</h5>
+    <ul>
+      <li><strong>체인링크(Chainlink)</strong> — 외부 데이터를 블록체인으로 안전하게 전달하는 오라클 1위. 거의 모든 디파이가 사용합니다.</li>
+      <li><strong>서틱(CertiK)</strong> — 스마트 컨트랙트 보안 취약점을 검수하는 보안 감사 전문 기업입니다.</li>
+    </ul>
+    <div class="redpen"><span class="lbl supp">보완</span> 체인링크의 개발·운영 주체는 현재 <b>체인링크 랩스(Chainlink Labs)</b>로 통칭됩니다('SmartContract.com'은 초기 명칭). 에이브는 <b>런던 기반 Avara(구 Aave Companies)</b>가 개발하며, 창업자 Stani Kulechov가 핀란드에서 시작한 ETHLend가 모태입니다.</div>
+    <table>
+      <thead><tr><th>유형</th><th>대표 사례</th><th>핵심 가치</th></tr></thead>
+      <tbody>
+        <tr><td>거래</td><td>Uniswap, Curve</td><td>24시간 자산 교환, 슬리피지 최소화</td></tr>
+        <tr><td>대출</td><td>Aave, Compound</td><td>자산 효율 극대화, 수동적 수익 창출</td></tr>
+        <tr><td>운용</td><td>Lido, Yearn</td><td>스테이킹 유동성 확보, 자동 수익 최적화</td></tr>
+        <tr><td>인프라</td><td>Chainlink, Fireblocks</td><td>데이터 정확성, 자산 수탁 보안</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q31">
+  <div class="q"><span class="qmark">Q31</span><h4>유니스왑의 AMM 모델은 어떻게 작동하는가?</h4></div>
+  <div class="a">
+    <p>유니스왑의 AMM(Automated Market Maker)은 주문서를 매칭하는 방식이 아니라, 수학 공식에 따라 자산을 즉각 교환하는 시스템입니다. 핵심은 <em>X × Y = K</em>라는 공식입니다.</p>
+    <h5>1. 핵심 공식: X × Y = K (상수곱)</h5>
+    <ul>
+      <li><strong>X, Y</strong> — 유동성 풀에 든 두 코인의 수량(예: 이더리움과 테더)</li>
+      <li><strong>K</strong> — 두 수량을 곱한 값으로, 거래가 일어나도 일정하게 유지되어야 합니다.</li>
+      <li><strong>작동 원리</strong> — 누군가 이더리움(X)을 가져가면 풀의 ETH가 줄고, K를 맞추기 위해 테더(Y) 가격이 자동 상승합니다. 수량이 적어질수록 비싸지는 구조입니다.</li>
+    </ul>
+    <h5>2. 주요 구성 요소</h5>
+    <ol>
+      <li><strong>유동성 풀</strong> — 코인 쌍을 모아둔 스마트 컨트랙트 바구니</li>
+      <li><strong>유동성 공급자(LP)</strong> — 바구니를 채우고 그 대가로 거래 수수료를 받는 사람</li>
+      <li><strong>트레이더</strong> — 주문서 없이 바구니와 직접 코인을 즉시 교환</li>
+    </ol>
+    <h5>3. 진화 (V1 → V3)</h5>
+    <ul>
+      <li><strong>V1·V2</strong> — 모든 가격 범위에 유동성을 골고루 분산. 안전하지만 자본 효율이 낮음</li>
+      <li><strong>V3(집중 유동성)</strong> — LP가 특정 가격 범위를 지정해 공급. 거래가 활발한 구간에 자금이 집중되어 LP는 더 많은 수수료를, 트레이더는 더 유리한 가격을 얻습니다.</li>
+    </ul>
+    <h5>4. 장단점</h5>
+    <p><strong>장점</strong> — 중개인 없는 24시간 거래, 간소한 상장, 즉각적 유동성. <strong>단점</strong> — 비영구적 손실 위험, 대규모 거래 시 슬리피지. 쉽게 비유하면 AMM은 '정해진 공식에 따라 돈을 바꿔주는 무인 환전 키오스크'입니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q32">
+  <div class="q"><span class="qmark">Q32</span><h4>비영구적 손실이란 무엇인가?</h4></div>
+  <div class="a">
+    <p>비영구적 손실(Impermanent Loss, IL)은 유동성 공급자(LP)가 코인을 그냥 지갑에 들고 있었을 때보다, 유동성 풀에 예치했을 때 가치가 더 낮아지는 현상입니다.</p>
+    <h5>1. 왜 발생하나 (가격 차이)</h5>
+    <p>AMM 풀은 외부 시장 가격을 실시간 알지 못하고 오직 풀 내부 비율로만 가격을 정합니다. ① 외부에서 A 코인 가격이 오르면 ② 차익 거래자들이 풀에서 싼 A 코인을 사가고 B 코인을 채워 넣어 ③ 결과적으로 오른 코인(A)은 줄고 낮은 코인(B)만 가득해집니다.</p>
+    <h5>2. 왜 '비영구적'인가</h5>
+    <p>가격이 변동된 상태에서 인출하면 손실이 확정되지만, 빼지 않고 기다려 코인 가격이 예치 시점 비율로 돌아오면 손실이 사라지기 때문입니다.</p>
+    <h5>3. 예시 (1:1 예치)</h5>
+    <ul>
+      <li>상황 — ETH 1개 + 3,000달러(USDC) 예치(총 6,000달러)</li>
+      <li>변동 — 외부에서 ETH가 4,000달러로 상승</li>
+      <li>지갑 보관 시 — 1 ETH(4,000) + 3,000 = <strong>7,000달러</strong></li>
+      <li>풀 예치 시 — 약 0.86 ETH + 3,464달러 ≈ <strong>6,928달러</strong> (약 72달러 손해)</li>
+    </ul>
+    <h5>4. LP는 왜 이 위험을 감수하나</h5>
+    <p>비영구적 손실보다 '거래 수수료 수익'이 더 크면 이득이기 때문입니다. 가격 변동이 적고 거래량이 많은 구간(스테이블코인 쌍)에서는 손실은 거의 없고 수수료만 쌓여 수익이 극대화됩니다.</p>
+    <p><strong>요약</strong> — 두 코인의 가격 격차가 크게 벌어질수록 손실이 커지고, 비슷하게 움직이거나 제자리로 돌아오면 손실이 적습니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q33">
+  <div class="q"><span class="qmark">Q33</span><h4>비영구적 손실을 줄이는 수익 최적화 도구에는 무엇이 있는가?</h4></div>
+  <div class="a">
+    <p>비영구적 손실을 줄이고 수익을 극대화하는 도구는 크게 세 유형으로, LP가 직접 가격 범위를 수정하지 않아도 알고리즘이 대신 관리합니다.</p>
+    <h5>1. 자동 유동성 관리자 (ALM)</h5>
+    <ul>
+      <li><strong>아라키스(Arrakis Finance)</strong> — 유동성을 자동 재배치해 '가격 범위 이탈'로 수수료를 못 받는 상황을 방지합니다.</li>
+      <li><strong>감마 스트레티지(Gamma Strategies)</strong> — 수학적 모델로 손실은 최소화하고 수수료는 높이는 최적 구간을 자동 설정합니다.</li>
+    </ul>
+    <h5>2. 수익 애그리게이터</h5>
+    <ul>
+      <li><strong>연 파이낸스(Yearn.finance)</strong> — '금고(Vaults)' 시스템으로 가장 효율적인 전략을 찾아 자동 운용합니다.</li>
+      <li><strong>비피 파이낸스(Beefy Finance)</strong> — 수십 개 체인을 지원하며 보상 토큰을 자동 재투자해 복리를 최적화합니다.</li>
+    </ul>
+    <h5>3. 스테이블코인 특화 풀 (StableSwap)</h5>
+    <ul>
+      <li><strong>커브 파이낸스(Curve Finance)</strong> — USDT·USDC·DAI처럼 가치가 같은 코인 간 거래에 최적화. 변동폭이 극도로 작아 비영구적 손실 걱정이 적습니다.</li>
+    </ul>
+    <h5>4. 핵심 장점과 주의점</h5>
+    <p><strong>장점</strong> — 24시간 시장 감시 불필요, 복리·재투자 자동화로 시간·가스비 절약. <strong>주의점</strong> — 자동화 도구 자체의 스마트 컨트랙트 버그라는 '레이어드 리스크'가 존재합니다(유니스왑은 안전해도 관리 도구가 해킹되면 위험). 최근에는 AI를 도입해 급락 시 유동성을 자동 회수하는 등 지능화되고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q34">
+  <div class="q"><span class="qmark">Q34</span><h4>이자 및 수익형 스테이블코인에는 어떤 것들이 있는가?</h4></div>
+  <div class="a">
+    <p>2026년 규제 환경에서 수익형 스테이블코인은 알고리즘 기반, RWA 기반, 거래소 예치형으로 나뉩니다. GENIUS·MiCA로 단순 보유 이자 모델은 까다로워졌지만 다음이 여전히 인기입니다.</p>
+    <h5>1. RWA 기반 수익형</h5>
+    <ul>
+      <li><strong>sDAI</strong> — MakerDAO(현 Sky)의 DAI를 예치하면 미국 국채 수익률 기반 이자를 지급합니다.</li>
+      <li><strong>USDY(Ondo)</strong> — 파산 격리된 미국 국채 포트폴리오로 뒷받침되며 주로 미국 외 투자자 대상입니다.</li>
+      <li><strong>Mountain Protocol(USDM)</strong> — 보유만 해도 매일 보상(Rebase)이 지급되는 규제 준수형입니다.</li>
+    </ul>
+    <h5>2. 알고리즘·델타 중립</h5>
+    <ul>
+      <li><strong>에테나(Ethena, USDe)</strong> — '합성 달러'. ETH를 담보로 잡는 동시에 선물 숏 포지션으로 변동을 상쇄하고, 펀딩비와 스테이킹 보상을 수익으로 돌려줍니다.</li>
+    </ul>
+    <h5>3. 스테이킹·예치 플랫폼 (간접 수익)</h5>
+    <ul>
+      <li><strong>USDC(via Circle/Coinbase)</strong> — 코인 자체는 이자가 없으나 특정 거래소에서 보유 보상(Rewards)을 지급하기도 합니다.</li>
+      <li><strong>Aave / Compound</strong> — USDT·USDC를 예치하면 대출 수요자가 내는 이자 수익을 공유받습니다.</li>
+    </ul>
+    <h5>주의할 점</h5>
+    <p><strong>규제 리스크</strong> — GENIUS Act에 따라 미국 내에서는 '단순 보유 시 이자 지급'이 금지되거나 증권으로 분류될 가능성이 높습니다. <strong>스마트 컨트랙트 위험</strong> — 복잡한 메커니즘을 쓰는 만큼 해킹·설계 오류 위험이 일반 스테이블코인보다 높습니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q35">
+  <div class="q"><span class="qmark">Q35</span><h4>디파이 상품이 전통 금융상품 대비 수익률이 높다는 것을 어떻게 증명할 수 있는가?</h4></div>
+  <div class="a">
+    <p>디파이 수익률이 전통 금융보다 높은 점은 ① 중개 비용 제거 ② 유동성 공급 보상 ③ 실제 데이터 비교로 설명할 수 있습니다.</p>
+    <h5>1. 중개인 없는 직거래에 따른 비용 절감</h5>
+    <p>전통 은행은 예금자에게 연 2.5~3.5%를 주면서 대출자에게는 4~15% 이상을 받습니다. 그 예대마진은 건물·인건비·마케팅·규제 대응 비용으로 쓰입니다. 디파이는 스마트 컨트랙트가 중개 기능을 대신해 중개 비용이 줄고, 그 절감분이 예치자·LP의 수익률로 돌아갑니다.</p>
+    <h5>2. 수치로 보는 격차</h5>
+    <ul>
+      <li><strong>평균 수익률</strong> — 일부 집계에서 디파이 스테이킹·대출 평균 약 8% 안팎 vs 글로벌 은행 평균 저축 금리 약 2% 수준으로 비교됩니다.</li>
+      <li><strong>스테이블코인 활용</strong> — 일부 프로토콜은 스테이블코인 대출에 두 자릿수 수익률을 제공하기도 합니다.</li>
+    </ul>
+    <p>다만 같은 위험 수준의 상품을 비교한 것이 아닐 수 있으므로, 단순 수익률이 아니라 <em>리스크 조정 수익률</em> 관점에서 해석해야 합니다.</p>
+    <div class="redpen"><span class="lbl supp">보완</span> 본 항목의 '8.2%', '14%', '2.5배' 같은 구체 수치는 <b>특정 시점·특정 출처의 집계치</b>로, APY는 시장 상황에 따라 크게 변동합니다. 디파이 수익률에는 예금자 보호가 없고 스마트 컨트랙트·청산 리스크가 포함되므로, 수치 인용 시 DeFiLlama 등에서 <b>실시간 값을 재확인</b>해야 합니다.</div>
+    <h5>3. 수익 원천의 다양화</h5>
+    <ul>
+      <li><strong>거버넌스 토큰 보상</strong> — 예치 시 이자 외에 플랫폼 토큰을 추가로 받습니다(이자 농사).</li>
+      <li><strong>거래 수수료 배분</strong> — DEX에 유동성을 공급하면 거래 수수료 일부를 직접 배분받습니다.</li>
+      <li><strong>24시간 유동성 제공</strong> — 기관이 맡던 마켓 메이킹 역할을 개인도 수행합니다.</li>
+    </ul>
+    <h5>4. 주요 안정형 디파이 프로토콜 사례</h5>
+    <table>
+      <thead><tr><th>프로토콜</th><th>주요 특징</th><th>수익 구조·안정성</th></tr></thead>
+      <tbody>
+        <tr><td>Aave</td><td>대표적 탈중앙 대출</td><td>스테이블코인 예치 일반 연 3~7%, 수요 급증 시 일시적 고이율. 다수 체인·대규모 유동성·반복 보안 감사 기반 안정성</td></tr>
+        <tr><td>Sky(구 MakerDAO)</td><td>DAI·USDS 생태계</td><td>Sky Savings Rate 기준 연 4.5~8% 내외. RWA(미 국채 등) 담보 활용</td></tr>
+        <tr><td>Lido</td><td>이더리움 리퀴드 스테이킹</td><td>ETH 스테이킹 보상 기반 연 4% 내외. 높은 TVL·네트워크 보안 연계</td></tr>
+        <tr><td>Morpho</td><td>대출 시장 효율화</td><td>기존 대비 1~2%p 높은 예치 수익 가능. 상대적으로 짧은 운영 이력</td></tr>
+        <tr><td>Pendle</td><td>원금·수익률 분리 거래</td><td>조건·시장에 따라 두 자릿수 수익률 가능. 높은 구조적 복잡성·변동성</td></tr>
+        <tr><td>DeFiLlama / DeFi Safety</td><td>수익률·안전성 확인 도구</td><td>실시간 APY·TVL·보안 점수 비교용 보조 도구</td></tr>
+      </tbody>
+    </table>
+    <p>위 프로토콜은 비교적 신뢰받지만, 은행 예금과 달리 원금 보장·예금자 보호가 없습니다. 수익률만 볼 게 아니라 스마트 컨트랙트·유동성·담보·운영 이력·규제 리스크를 함께 비교해야 합니다.</p>
+    <h5>5. 하이리스크 하이리턴</h5>
+    <p>디파이의 높은 수익률은 해킹·운영·유동성 고갈·규제 불확실성에 대한 보상 성격을 포함합니다. "더 좋은 상품"이 아니라 "더 높은 위험을 부담한 대가"에 가깝습니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q36">
+  <div class="q"><span class="qmark">Q36</span><h4>디파이 수익률은 주식이나 펀드 상품 수익률보다 항상 높은가?</h4></div>
+  <div class="a">
+    <p>아닙니다. 예금이나 단기 금융상품보다 높게 보이는 경우는 많지만, 주식·펀드보다 항상 높은 것은 아닙니다. 특히 강세장에서는 주식·지수·성장주가 디파이 이자를 크게 웃돌 수 있습니다.</p>
+    <h5>1. 수익의 성격이 다르다</h5>
+    <p>디파이는 주로 이자·수수료·토큰 보상 같은 현금흐름형 수익을, 주식·펀드는 시세 차익(Capital Gain)을 핵심으로 합니다. 성장주가 1년에 50~80% 오르면 연 5~15% 안정형 디파이로는 따라가기 어렵습니다. 디파이는 고성장 자산의 대체라기보다 <em>현금성 자산 운용의 보완재</em>에 가깝습니다.</p>
+    <h5>2. 상승장에서는 주식·지수가 우위일 수 있다</h5>
+    <p>S&amp;P 500 같은 지수도 강세장에서는 스테이블코인 예치 수익률을 상회할 수 있습니다. 반면 디파이는 횡보·하락장에서도 일정한 예치 이자·수수료를 기대할 수 있다는 점이 차별화됩니다.</p>
+    <h5>3. "주식 대체재"라기보다 "현금성 자산 운용 대안"</h5>
+    <table>
+      <thead><tr><th>비교 대상</th><th>디파이와의 관계</th></tr></thead>
+      <tbody>
+        <tr><td>은행 예금</td><td>더 높은 수익 가능, 단 예금자 보호 없음</td></tr>
+        <tr><td>MMF·단기채 펀드</td><td>현금성 자산 운용 대안으로 비교 가능</td></tr>
+        <tr><td>주식형 펀드</td><td>상승장에서는 주식형 펀드가 더 높은 수익 가능</td></tr>
+        <tr><td>개별 성장주</td><td>수익 가능성은 주식이 크지만 변동성도 큼</td></tr>
+      </tbody>
+    </table>
+    <h5>4. 결론</h5>
+    <p>디파이 수익률은 전통 예금·일부 단기 상품보다 높을 수 있지만 주식·펀드보다 항상 우월하지는 않습니다. 상승장에서는 주식이, 횡보·불안정 장세에서는 디파이가 안정적 현금흐름 수단으로 상대적 매력을 가집니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q37">
+  <div class="q"><span class="qmark">Q37</span><h4>예금, 주식 현물, 금융상품 대신 스테이블코인을 보유해야 하는 이유는 무엇인가?</h4></div>
+  <div class="a">
+    <p>스테이블코인은 가격 안정성을 제공하면서 전통 금융의 한계를 보완하는 결제·송금·정산 인프라로 기능합니다. 다만 예금·주식·펀드를 완전히 대체한다기보다 목적에 따라 보완적으로 보유할 이유가 생깁니다.</p>
+    <h5>1. 개인: 자산 접근성과 금융 효율성</h5>
+    <ul>
+      <li><strong>글로벌 달러 접근성</strong> — 은행 계좌 개설이 어렵거나 자국 통화가 불안정한 지역에서도 지갑만 있으면 달러 연동 코인을 보유할 수 있습니다.</li>
+      <li><strong>24시간 즉시 송금</strong> — 영업시간·송금망에 구애받지 않습니다.</li>
+      <li><strong>낮은 해외 송금 비용</strong> — SWIFT·카드 해외 결제 대비 수수료를 줄입니다.</li>
+      <li><strong>투자 기회 확대</strong> — 거래소 유동성 확보나 DeFi 예치 수익이 가능합니다.</li>
+    </ul>
+    <h5>2. 기업: 운영 효율성과 BM 혁신</h5>
+    <ul>
+      <li><strong>실시간 정산</strong> — 수일 걸리던 국가 간 결제를 분 단위로 단축해 운전자본 회전율을 높입니다.</li>
+      <li><strong>프로그래밍 가능한 화폐</strong> — 배송·검수·계약 조건 충족 시 자동 지급되도록 설계합니다.</li>
+      <li><strong>국경 간 비용 절감</strong> — 중개 은행·환거래 계좌·전신료 의존을 줄입니다.</li>
+      <li><strong>새로운 수익원</strong> — 준비자산 운용, 결제 수수료, 온·오프램프 수수료, 데이터 서비스 수익.</li>
+    </ul>
+    <h5>3. 정부: 금융 인프라 현대화와 정책 효율성</h5>
+    <ul>
+      <li><strong>통화 주권 수호</strong> — 원화 스테이블코인·CBDC로 디지털 달러화 위험을 완화합니다.</li>
+      <li><strong>국채 수요 확대</strong> — 달러 코인 발행사가 준비자산으로 미국 국채를 보유하면 새 수요처가 됩니다.</li>
+      <li><strong>정책 집행 투명성</strong> — 복지금·보조금을 목적 제한형 화폐로 지급해 흐름을 투명하게 관리합니다.</li>
+      <li><strong>AML·추적성</strong> — 블록체인 분석으로 자금세탁방지·이상 거래 탐지가 쉬워집니다.</li>
+    </ul>
+    <h5>4. 결론</h5>
+    <p>보유 이유는 주체별로 다릅니다(개인=접근성·송금, 기업=정산·자동화, 정부=주권·집행 효율). 다만 예금자 보호가 있는 예금이나 성장에 투자하는 주식과 성격이 다르므로 목적에 따라 보완적으로 활용하는 것이 적절합니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q38">
+  <div class="q"><span class="qmark">Q38</span><h4>스테이블코인의 장점에 비해 리스크가 더 큰 것은 아닌가?</h4></div>
+  <div class="a">
+    <p>전통 자산(예금·주식·펀드)과 비교하면 스테이블코인의 잠재 리스크가 큰 것은 사실입니다. 효율성·혁신성을 제공하지만, 전통 금융이 오래 구축한 안전장치를 아직 충분히 갖추지 못한 과도기적 자산이기 때문입니다.</p>
+    <h5>1. 원금 보장 장치의 부재</h5>
+    <p>은행 예금은 예금자보호제도로 일정 금액까지 보호되지만, 스테이블코인은 발행사 파산·준비자산 부실 시 손실을 직접 부담할 수 있습니다. 또한 시장 불안·준비자산 부실 시 페그가 깨지는 <em>디페깅</em> 위험이 있습니다.</p>
+    <h5>2. 준비자산의 불투명성·운영 리스크</h5>
+    <p>가치는 발행사 준비자산에 대한 신뢰에 의존합니다. 안전자산으로 충분히 보유했는지, 고위험 자산이 섞였는지에 따라 위험이 달라집니다. 주식·펀드는 공시·감사 체계 안에서 관리되지만, 스테이블코인은 국가별 규제가 정비되는 과정이라 투명성 편차가 큽니다.</p>
+    <h5>3. 기술·보안 리스크</h5>
+    <ul>
+      <li><strong>스마트컨트랙트 오류</strong> — 코드 결함·해킹 시 자산이 탈취·동결될 수 있습니다.</li>
+      <li><strong>개인키 분실</strong> — 시드 구문·개인키를 잃으면 복구가 어렵습니다.</li>
+      <li><strong>브릿지·체인 리스크</strong> — 체인 간 이동에서 브릿지 해킹·체인 장애가 발생할 수 있습니다.</li>
+    </ul>
+    <h5>4. 규제 변화 불확실성</h5>
+    <p>준비금 요건, 발행사 인가, AML/KYC, 이자 지급 제한이 강화되고 있습니다. 장기적으로는 신뢰를 높이지만, 단기적으로는 상장폐지·서비스 중단·리워드 축소를 초래할 수 있습니다.</p>
+    <h5>5. 결론</h5>
+    <p>스테이블코인은 결제·송금·DeFi·정산 자동화의 장점이 있지만, 예금자 보호·준비자산 투명성·보안·규제 안정성 면에서는 전통 금융보다 리스크가 큽니다. 예금·주식을 전면 대체하기보다 목적이 분명한 결제·송금·단기 유동성 관리 수단으로 제한적으로 활용하는 것이 바람직합니다.</p>
+  </div>
+  <a class="top-link" href="#part2">↑ 목차로</a>
+</article>
+
+</section>
+
+<section class="part" id="part3">
+  <div class="part-head"><div class="part-num">Ⅲ</div><h2 class="part-title">블록체인 기술 인프라와 온체인 서비스</h2></div>
+
+<div class="subsec"><h3 class="subsec-title">Ⅲ-A. 스마트컨트랙트·오라클·L1/L2 기초</h3></div>
+
+<article class="qa" id="q39">
+  <div class="q"><span class="qmark">Q39</span><h4>스테이블코인에서 Oracle은 무슨 의미인가?</h4></div>
+  <div class="a">
+    <p>오라클(Oracle)은 '블록체인 외부(Off-chain)의 데이터를 내부(On-chain)로 가져다주는 연결 고리'입니다. 스마트 컨트랙트는 스스로 외부 세상을 볼 수 없는 '닫힌 시스템'이라, 외부 정보를 전달하는 신뢰할 수 있는 메신저가 반드시 필요합니다.</p>
+    <h5>1. 가격 오라클 (Price Oracle)</h5>
+    <p>스테이블코인이 '1달러'를 유지하는지 확인합니다. 외부 거래소의 실시간 가격을 컨트랙트에 전달하며, 잘못된 가격을 전달하면 시스템 정지나 강제 청산 같은 대형 사고로 이어질 수 있습니다.</p>
+    <h5>2. 준비금 증명 오라클 (Proof of Reserve)</h5>
+    <p>발행사의 은행 잔고·수탁 자산 현황을 실시간 확인해 온체인에 기록합니다. B2B에서는 구매자가 입금한 현금이 에스크로 계좌에 안전하게 들어왔는지 확인하는 데 쓰입니다.</p>
+    <h5>3. 상거래용 데이터 오라클 (B2B 특화)</h5>
+    <p>물류사의 배송 완료(B/L), 관세청 통관 정보, 원자재 시세 등을 가져옵니다. 예를 들어 "하이퐁 항구에 구리 원자재 도착"이라는 선박 추적 데이터를 오라클이 가져오면, 컨트랙트가 잠겨 있던 대금을 판매자에게 자동 송금합니다.</p>
+    <h5>대표 솔루션</h5>
+    <ul>
+      <li><strong>Chainlink</strong> — 가장 많이 쓰이는 분산형 오라클. 여러 노드의 정보를 모아 조작 위험을 낮춥니다.</li>
+      <li><strong>Pyth Network</strong> — 기관급 금융 데이터를 초저지연으로 제공해 전문 트레이딩·대규모 B2B 결제에 유리합니다.</li>
+    </ul>
+    <p>오라클은 스테이블코인 플랫폼의 '눈과 귀'입니다. 오라클이 오작동하면 아무리 완벽한 스마트 컨트랙트도 잘못된 결정을 내립니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q40">
+  <div class="q"><span class="qmark">Q40</span><h4>스마트컨트랙트를 통한 직접 거래 시 부정은 어떻게 방어하는가?</h4></div>
+  <div class="a">
+    <p>핵심 원리는 사람의 개입 없이 코드에 의해 강제로 이행되도록 만드는 것입니다.</p>
+    <h5>1. 에스크로(Escrow) 자동화</h5>
+    <p>제3자 대신 컨트랙트가 자금을 보관합니다. 구매자가 보낸 돈은 판매자에게 곧장 가지 않고 묶이며, 물건·서비스 제공 증거가 기록(또는 구매자 확정)되어야만 자동 전송됩니다.</p>
+    <h5>2. 다중 서명 (Multi-Sig)</h5>
+    <p>거래 승인 권한을 분산합니다. 관련자 3명 중 2명 이상의 서명이 필요하도록 설정하면, 한 명이 키를 해킹당하거나 변심해도 자금을 빼갈 수 없습니다.</p>
+    <h5>3. 오라클을 통한 데이터 검증</h5>
+    <p>체인링크 같은 오라클로 외부 실물 데이터(배송 완료 등)를 입력합니다. "물건이 도착하면 송금"이 실제 물류 데이터와 연동되므로 허위 배송 주장을 막습니다.</p>
+    <h5>4. 코드 감사·불변성</h5>
+    <p>배포 전 전문 보안 업체의 검수(Audit)를 받고, 배포된 코드는 수정 불가능(Immutability)하게 만들어 운영자의 임의 규칙 변경이나 해커의 취약점 공격을 차단합니다.</p>
+    <h5>5. 평판 시스템·스테이킹</h5>
+    <p>참여자가 보증금을 걸게 하고, 부정 발각 시 자동 몰수(Slashing)하여 부정으로 얻는 이득보다 손해가 크도록 설계합니다. 결국 "상대를 믿는 대신 수학과 코드를 믿게 만드는 구조"입니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q41">
+  <div class="q"><span class="qmark">Q41</span><h4>스테이블코인에서 승인 망 구축이 따로 필요한가, 아니면 L2에서 처리 가능한가?</h4></div>
+  <div class="a">
+    <p>별도의 물리적 '승인 망'을 구축할 필요가 없으며, L2 솔루션으로 충분히 처리 가능합니다. 다만 신용카드의 '승인' 기능을 L2에서 구현할 때는 접근 방식이 일반 송금과 조금 다릅니다.</p>
+    <h5>1. 왜 별도 망이 필요 없나</h5>
+    <p>신용카드가 별도 승인 망을 두는 이유는 중앙 원장을 조회해 한도를 체크해야 하기 때문입니다. 스테이블코인은 블록체인 노드가 실시간으로 잔액·서명 유효성을 검증하므로 <em>망 자체가 곧 승인 시스템</em>이며, "잔액이 있고 서명이 유효하면 승인"하는 로직이 코드에 내재돼 있습니다.</p>
+    <h5>2. L2에서 '승인'을 처리하는 방법</h5>
+    <ul>
+      <li><strong>즉시 승인(Soft Confirmation)</strong> — L2 시퀀서가 트랜잭션 수신 즉시 승인 여부를 알려줍니다(카드의 0.5초 승인과 유사).</li>
+      <li><strong>가스비 최적화</strong> — L1보다 수십 배 저렴해 소액부터 대규모 B2B까지 부담 없이 처리합니다.</li>
+    </ul>
+    <h5>3. 신용카드 승인 모델의 L2 구현 (Pending Transaction)</h5>
+    <p>'승인(Hold) → 정산(Capture)' 프로세스는 '가승인 컨트랙트'로 구현합니다. 결제 시 대금이 판매자에게 가지 않고 'Pending'으로 묶이고(한도 차감과 동일 효과), 배송 등 조건 충족 시 정산됩니다.</p>
+    <h5>4. 플랫폼 운영자를 위한 선택</h5>
+    <ul>
+      <li><strong>퍼블릭 L2 활용</strong> — Base·Arbitrum 위에 결제 컨트랙트를 올리는 방식(가장 빠르고 저렴).</li>
+      <li><strong>앱체인(App-chain) 구축</strong> — OP Stack 등으로 전용 L2를 구축. 가스비를 자체 스테이블코인으로 내게 하거나(계정 추상화) 특정 기업 고객만 접속하는 '프라이빗 승인 망'처럼 운영합니다.</li>
+    </ul>
+    <p>따로 하드웨어 망을 깔 필요 없이, L2의 스마트 컨트랙트 로직만으로 카드 승인 망보다 더 투명하고 안전한 시스템을 만들 수 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q42">
+  <div class="q"><span class="qmark">Q42</span><h4>프라이빗 메인넷을 만드는 것이 사업성이 있는가?</h4></div>
+  <div class="a">
+    <p>B2B 원자재 결제 플랫폼을 위해 자체 프라이빗(허가형) 메인넷을 구축하는 것은 높은 사업성을 가집니다. 한국·베트남처럼 규제·보안이 까다로운 국가 간 거래에서는 퍼블릭보다 허가형 환경이 기관 고객의 신뢰를 얻기에 유리합니다.</p>
+    <h5>1. 사업 가치·차별화</h5>
+    <ul>
+      <li><strong>컴플라이언스 최적화</strong> — 승인된 기업(화이트리스트)만 참여해 사고 시 추적·동결이 용이합니다.</li>
+      <li><strong>거래 속도·비용 제어</strong> — 외부 망 혼잡·가스비에서 자유롭고, 예측 가능한 낮은 수수료 체계를 직접 설계합니다.</li>
+      <li><strong>프라이버시 보호</strong> — 거래 금액·단가·거래처 같은 기밀을 권한 있는 당사자만 보도록 설계합니다.</li>
+    </ul>
+    <h5>2. 수익 모델</h5>
+    <ul>
+      <li><strong>인프라 이용료(BaaS)</strong> — 가맹점·협력 은행에 접속 권한을 공급하고 라이선스 비용 수취</li>
+      <li><strong>자체 거버넌스 코인/포인트</strong> — 수수료·혜택 토큰으로 생태계 자금 흐름 장악</li>
+      <li><strong>데이터 비즈니스</strong> — 물류·결제 데이터를 비식별화해 시장 분석·공급망 금융(SCF) 심사 모델로 판매</li>
+    </ul>
+    <h5>3. 현실적 전략: 'L2 앱체인'</h5>
+    <p>완전히 바닥부터(L1) 만드는 대신 OP Stack이나 Avalanche 서브넷으로 '기업용 전용 체인'을 만드는 것이 주류입니다. 기술적 안정성은 글로벌 메인넷을 따르되, 운영 권한·수익은 플랫폼 운영자가 독점하고 구축 기간도 짧습니다. 요컨대 프라이빗 메인넷은 "규제를 준수하는 안전한 금융 영토"를 제공한다는 점에서 강력한 사업성을 확보합니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q43">
+  <div class="q"><span class="qmark">Q43</span><h4>L1과 L2의 역할 및 대표 솔루션은 무엇인가?</h4></div>
+  <div class="a">
+    <h5>1. L1 (Layer 1): "최종 신뢰와 보안의 토대"</h5>
+    <p>네트워크 최하단에서 거래의 최종 확정성(Finality)과 보안을 담당합니다. 보안은 높지만 전 세계 사용자가 공유해 속도가 느리고 가스비가 비쌉니다.</p>
+    <ul>
+      <li><strong>Ethereum</strong> — 가장 강력한 보안·생태계의 표준 L1. 대부분의 L2가 이 위에 구축됩니다.</li>
+      <li><strong>Solana</strong> — 단일 계층에서도 빠르지만 기업용 프라이버시 제어에는 한계가 있을 수 있습니다.</li>
+      <li><strong>Kaia(카이아)</strong> — 클레이튼과 핀시아의 합병으로 탄생. 한국·동남아 시장 인프라에 강점이 있습니다.</li>
+    </ul>
+    <h5>2. L2 (Layer 2): "실제 결제와 비즈니스 로직의 무대"</h5>
+    <p>L1 위에서 실제 상거래 결제가 일어나는 곳으로, 대량 트랜잭션 초고속 처리·저렴한 수수료·맞춤형 설계를 담당합니다.</p>
+    <ul>
+      <li><strong>Arbitrum / Optimism</strong> — 이더리움 기반 대표 L2. 안정성·호환성이 가장 뛰어납니다.</li>
+      <li><strong>Base</strong> — 코인베이스가 구축. 규제 준수를 중시하는 기업이 선호합니다.</li>
+      <li><strong>Polygon(zkEVM)</strong> — 영지식 증명으로 보안·확장성을 동시에 잡습니다.</li>
+    </ul>
+    <h5>3. B2B 운영자를 위한 '앱체인' 솔루션</h5>
+    <table>
+      <thead><tr><th>솔루션</th><th>특징</th><th>활용 예시</th></tr></thead>
+      <tbody>
+        <tr><td>OP Stack</td><td>Optimism 기술로 나만의 L2 구축</td><td>Base가 이 기술로 제작됨</td></tr>
+        <tr><td>Avalanche Subnet</td><td>아발란체 메인넷 내 독립 프라이빗 망</td><td>대기업의 전용 체인</td></tr>
+        <tr><td>Polygon CDK / Supernets</td><td>맞춤형 고성능 체인 배포</td><td>특정 원자재 전용 결제망</td></tr>
+      </tbody>
+    </table>
+    <p><strong>추천</strong> — "L1은 보안이 검증된 이더리움이나 카이아를 쓰고, 그 위에 OP Stack·Polygon 기술로 전용 L2(프라이빗 메인넷)를 올리는 방식"이 사업성이 높습니다. 가스비 정책·가맹점 관리는 직접 하되 보안은 거대 네트워크에 맡길 수 있기 때문입니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q44">
+  <div class="q"><span class="qmark">Q44</span><h4>블록체인 L1 시장의 경쟁 구도는 어떻게 구성되어 있는가?</h4></div>
+  <div class="a">
+    <p>L1 시장은 '이더리움의 수성'과 '대항마들의 확장' 구도로 요약됩니다. 과거에는 처리 속도(TPS)만 강조했다면, 지금은 생태계의 내실과 사용자 경험을 두고 싸우는 양상입니다.</p>
+    <h5>1. 주요 경쟁 구도</h5>
+    <ul>
+      <li><strong>절대 강자, 이더리움</strong> — 압도적 자본력(TVL)·개발자 커뮤니티·보안. 직접 확장보다 L2(롤업) 중심 로드맵에 집중합니다.</li>
+      <li><strong>고성능 대항마, 솔라나</strong> — '단일 레이어(Monolithic)' 구조로 빠른 속도·저렴한 수수료. 사용자 친화적 UX로 급부상했습니다.</li>
+      <li><strong>신흥 세력(Sui, Aptos 등)</strong> — 'Move' 언어 등 최신 스택으로 안정성·병렬 처리를 극대화합니다.</li>
+      <li><strong>모듈러 진영(Celestia 등)</strong> — 실행·데이터 가용성 등 기능을 쪼개 효율을 높입니다.</li>
+    </ul>
+    <h5>2. 핵심 경쟁력 (차별화 포인트)</h5>
+    <ul>
+      <li><strong>네트워크 효과·생태계</strong> — "사람과 돈이 어디에 있는가". 킬러 앱·유동성·개발 편의가 생존을 결정합니다.</li>
+      <li><strong>확장성·비용</strong> — TPS와 가스비. 대중 서비스를 위해 빠르면서도 수수료가 거의 없어야 합니다.</li>
+      <li><strong>보안·탈중앙화</strong> — 공격 저항성과 무중단 운영. 트릴레마(속도·보안·탈중앙화) 사이의 균형이 핵심 역량입니다.</li>
+    </ul>
+    <p>최근에는 기술적 우위보다 '실제 사용 사례(Real World Use-case)'를 누가 먼저 만드느냐가 가장 큰 화두입니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅲ-B. L2 확장성·인터체인·체인 추상화</h3></div>
+
+<article class="qa" id="q45">
+  <div class="q"><span class="qmark">Q45</span><h4>L2의 한계와 확장성 개선 방향은 무엇인가?</h4></div>
+  <div class="a">
+    <p>L2는 L1(특히 이더리움)보다 훨씬 빠르지만, 여전히 TPS 한계와 병목을 안고 있습니다. 해결 흐름은 데이터 가용성 혁신, 병렬 실행, ZK-Rollup 고도화로 정리됩니다.</p>
+    <h5>1. L2의 한계</h5>
+    <ul>
+      <li><strong>이더리움의 데이터 비용</strong> — L2는 결과 데이터를 L1에 기록해야 하는데, L1 공간이 제한적·고가라 전체 성능을 제한합니다.</li>
+      <li><strong>직렬 처리</strong> — 대부분의 EVM 기반 L2는 트랜잭션을 한 줄로 순차 처리해 구조적 병목이 생깁니다.</li>
+    </ul>
+    <h5>2. 극복 방안</h5>
+    <p><strong>데이터 가용성(DA) 혁신</strong> — EIP-4844(Proto-Danksharding)의 Blob 도입으로 L2 수수료를 크게 낮췄고, Celestia·Avail 같은 외부 DA로 더 저렴한 저장 공간을 씁니다. <strong>병렬 실행</strong> — 서로 무관한 트랜잭션을 동시 처리해 CPU 자원을 효율화합니다(Monad·Solana 방식 차용). <strong>ZK-Rollup 고도화</strong> — 모든 데이터 대신 수학적 증명만 올리며, 증명 생성을 가속하는 하드웨어(ZPU)로 실시간에 가까워지고 있습니다.</p>
+    <h5>3. 미래 전망</h5>
+    <p>궁극적으로 App-specific Rollup(앱 전용 롤업)으로 이동할 가능성이 큽니다. 하나의 거대한 도로를 공유하는 대신, 게임·거래소·결제 전용 롤업을 수천 개 만들고 이를 연결합니다. 이 구조가 성숙하면 개별 L2의 TPS 한계를 넘어 생태계 전체가 훨씬 높은 확장성을 갖게 됩니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q46">
+  <div class="q"><span class="qmark">Q46</span><h4>아비트럼과 옵티미즘의 L2 성능 향상 기술은 무엇인가?</h4></div>
+  <div class="a">
+    <h5>1. 아비트럼: Stylus와 병렬성</h5>
+    <ul>
+      <li><strong>병렬 실행</strong> — 순차 처리를 넘어 무관한 트랜잭션을 동시 처리하는 방향으로 개선합니다.</li>
+      <li><strong>Stylus 업그레이드</strong> — Solidity뿐 아니라 Rust·C·C++ 같은 고성능 언어로 컨트랙트를 작성하게 해, 복잡한 계산이 필요한 게임·고성능 DeFi의 속도를 크게 높입니다.</li>
+    </ul>
+    <h5>2. 옵티미즘: Superchain과 데이터 효율</h5>
+    <ul>
+      <li><strong>Superchain</strong> — Base·OP Mainnet 등 여러 L2가 하나처럼 연결돼 데이터를 공유하고 체인 간 이동 지연을 줄입니다.</li>
+      <li><strong>Alt-DA / Plasma 모드</strong> — 모든 데이터를 L1에 올리지 않고 필요할 때만 확인하는 방식으로 특정 서비스의 수수료를 낮추고 TPS를 확보합니다.</li>
+    </ul>
+    <h5>3. 병렬 EVM의 선두주자</h5>
+    <ul>
+      <li><strong>Monad</strong> — EVM 호환을 유지하면서 초당 1만 건 이상 처리를 목표로 하는 병렬 실행 구조를 제시합니다.</li>
+      <li><strong>Cyber</strong> — 소셜·데이터 집약 서비스를 위해 병렬 실행 엔진을 탑재한 L2로 UX를 개선합니다.</li>
+    </ul>
+    <h5>4. 체감 변화</h5>
+    <p>거래 속도는 클릭과 동시에 완료되는 수준의 Finality에 가까워지고, 데이터 압축·DA 혁신으로 복잡한 금융 거래도 낮은 수수료로 가능해지고 있습니다. 온체인 FPS 게임, 실시간 오더북 거래소 같은 과거 어려웠던 서비스가 현실화되고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q47">
+  <div class="q"><span class="qmark">Q47</span><h4>고성능 L2 인프라 위에서 주목받는 DApp은 무엇인가?</h4></div>
+  <div class="a">
+    <p>대량 데이터를 실시간 처리하거나, 사용자 경험이 기존 웹 서비스와 비슷해야 하는 분야에 집중되어 있습니다.</p>
+    <h5>1. 온체인 오더북 거래소</h5>
+    <ul>
+      <li><strong>Hyperliquid</strong> — 자체 기술로 1초 미만 정산을 구현하며 중앙화 거래소와 유사한 속도로 선물 거래를 지원합니다.</li>
+      <li><strong>Aevo</strong> — OP Stack 기반 옵션·선물 거래로 기관급 속도·인터페이스를 지향합니다.</li>
+    </ul>
+    <h5>2. 완전 온체인 게임</h5>
+    <ul>
+      <li><strong>Primodium</strong> — Arbitrum 기반 우주 자원 채굴 게임으로 자원 생산·전쟁 로직을 컨트랙트로 처리합니다.</li>
+      <li><strong>Hashbane</strong> — 고사양 그래픽과 L2 기반 게임 내 경제를 결합해 지연이 적은 플레이를 지향합니다.</li>
+    </ul>
+    <h5>3. SocialFi·탈중앙 소셜</h5>
+    <ul>
+      <li><strong>Farcaster</strong> — Optimism 기반 프로토콜로 빠른 소셜 경험을 제공합니다.</li>
+      <li><strong>Lens Protocol</strong> — 사용자 관계망을 자산화해 여러 앱에서 공유하게 합니다.</li>
+    </ul>
+    <h5>4. RWA-Fi</h5>
+    <ul>
+      <li><strong>Ondo Finance</strong> — Mantle·Base 등 L2로 미국 국채 기반 토큰 유동성을 공급해 소액 투자자도 우량 자산 수익에 접근하게 합니다.</li>
+    </ul>
+    <h5>5. AI-Fi</h5>
+    <ul>
+      <li><strong>Enzero</strong> — AI가 초 단위로 시장을 분석해 L2 풀 간 자산을 리밸런싱합니다.</li>
+    </ul>
+    <h5>6. 2026년 DApp의 특징</h5>
+    <p>사용자는 더 이상 "블록체인을 쓰고 있다"고 강하게 느끼지 않는 방향으로 이동하고 있습니다. 가스비 대납·계정 추상화·빠른 Finality가 결합되어 코인 없이도 앱을 시작할 수 있는 UX가 대세입니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q48">
+  <div class="q"><span class="qmark">Q48</span><h4>사이드체인과 Layer 2는 무엇이 다른가?</h4></div>
+  <div class="a">
+    <p>둘 다 메인넷 혼잡을 푸는 확장 솔루션이지만, 결정적 차이는 <em>보안을 어디에 의존하는가</em>입니다.</p>
+    <h5>1. Layer 2: 메인넷 보안 공유</h5>
+    <p>L2는 메인넷 위에서 트랜잭션을 처리하고 결과·증명을 메인넷에 기록합니다. L1의 보안을 빌려오므로 L2가 멈춰도 L1 기록을 근거로 자산을 회수할 수 있습니다. 대표 기술은 Optimistic Rollup·ZK Rollup이며, 사례는 Arbitrum·Optimism·zkSync입니다. '본점 장부 검증을 받는 직영 분점'에 비유됩니다.</p>
+    <h5>2. 사이드체인: 독자적 보안</h5>
+    <p>메인넷 옆에 별도로 존재하는 독립 블록체인으로, 브릿지로만 연결됩니다. 자체 검증인·합의가 책임지며(Polygon PoS, BNB Smart Chain), 검증인 담합·브릿지 해킹 시 L1 보안과 무관하게 자산을 잃을 수 있습니다. '장부를 공유하지 않는 제휴 업체'에 비유됩니다.</p>
+    <h5>3. 주요 차이</h5>
+    <table>
+      <thead><tr><th>구분</th><th>Layer 2</th><th>사이드체인</th></tr></thead>
+      <tbody>
+        <tr><td>보안 의존도</td><td>L1 보안 사용</td><td>자체 보안 사용</td></tr>
+        <tr><td>자산 안전성</td><td>L2 장애 시에도 L1에서 회수 가능</td><td>장애 시 회수 곤란 가능</td></tr>
+        <tr><td>운영 방식</td><td>L1에 데이터·증명 제출</td><td>L1과 독립적으로 블록 생성</td></tr>
+        <tr><td>속도/비용</td><td>L1 기록 비용 존재</td><td>빠르고 저렴함</td></tr>
+      </tbody>
+    </table>
+    <p>최근 Polygon처럼 과거 사이드체인 중심에서 이더리움 보안을 활용하는 zkEVM 등 L2 방식으로 전환하는 사례가 늘고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q49">
+  <div class="q"><span class="qmark">Q49</span><h4>롤업 방식이 사이드체인보다 대세가 된 이유는 무엇인가?</h4></div>
+  <div class="a">
+    <p>핵심 이유는 브릿지 해킹에 대한 공포와, 사용자가 자산을 되찾을 수 있는 <em>탈출구의 유무</em>입니다.</p>
+    <h5>1. 사이드체인의 아킬레스건: 브릿지 해킹</h5>
+    <p>사이드체인은 별도 네트워크라 자산 이동 시 브릿지를 거쳐야 하고, 이 브릿지가 주요 공격 대상이 됩니다. Axie Infinity의 Ronin Bridge 해킹에서는 검증인 키 유출로 대규모 자산이 탈취됐습니다. 사이드체인이 뚫리면 메인넷 보안이 강해도 해당 자산을 보호하기 어렵습니다.</p>
+    <h5>2. 롤업이 선택받은 이유: 탈출 가능성</h5>
+    <ul>
+      <li><strong>강제 인출(Force Withdrawal)</strong> — L2 운영자가 사라지거나 거래를 막아도 L1 기록을 근거로 자산을 인출할 수 있습니다.</li>
+      <li><strong>수학적 보장</strong> — ZK Rollup은 수학적 증명 없이는 L1이 거래를 승인하지 않아 운영자가 거짓 상태를 제출하기 어렵습니다.</li>
+    </ul>
+    <h5>3. 시장의 변화</h5>
+    <p>Polygon은 PoS 중심에서 zkEVM 등 L2를 강화하고, BNB Chain은 opBNB 같은 L2 롤업을 출시했습니다.</p>
+    <h5>4. 사용자 관점 결론</h5>
+    <p>큰 금액은 Arbitrum·Optimism 같은 L2에 두는 것이 안전하다는 인식이 강해졌습니다. 아주 소액의 게임·테스트라면 비용이 낮은 사이드체인을 활용할 수 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q50">
+  <div class="q"><span class="qmark">Q50</span><h4>인터체인의 개념과 주요 사례는 무엇인가?</h4></div>
+  <div class="a">
+    <p>인터체인(Interchain)은 서로 다른 블록체인이 데이터를 주고받고 자산을 자유롭게 이전하도록 연결하는 '블록체인판 인터넷'입니다.</p>
+    <h5>1. 핵심 개념</h5>
+    <ul>
+      <li><strong>상호운용성</strong> — A 체인 코인을 B 체인에서 쓰거나, A 체인 컨트랙트가 B 체인 데이터를 활용</li>
+      <li><strong>자산 이동</strong> — 중앙화 거래소를 거치지 않는 체인 간 자산 이동</li>
+      <li><strong>표준화</strong> — 서로 다른 블록체인이 대화하는 공용 프로토콜 제공</li>
+    </ul>
+    <h5>2. 주요 사례</h5>
+    <ul>
+      <li><strong>Cosmos</strong> — Hub·Zone 구조. 독립 체인들이 IBC로 연결되며 자체 체인 제작이 쉽습니다.</li>
+      <li><strong>Polkadot</strong> — Relay Chain에 여러 Parachain이 연결돼 메인 체인의 보안을 공유합니다.</li>
+      <li><strong>Avalanche</strong> — Subnet으로 맞춤형 독립 체인을 만들어 기업용 프라이빗 체인에 적합합니다.</li>
+    </ul>
+    <h5>3. 기술적 진화: Chainlink CCIP</h5>
+    <p>Chainlink의 CCIP(Cross-Chain Interoperability Protocol)는 특정 생태계에 종속되지 않고 여러 체인을 잇는 표준형 인프라로 주목받습니다. B2B 스테이블코인 송금이나 RWA 자산 이동의 핵심 인프라가 될 수 있습니다.</p>
+    <h5>4. 요약</h5>
+    <p>인터체인이 완성되면 사용자는 자신이 어떤 블록체인을 쓰는지 의식하지 않고 앱을 사용합니다. 웹사이트를 쓸 때 서버 위치를 신경 쓰지 않는 것과 비슷한 경험입니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q51">
+  <div class="q"><span class="qmark">Q51</span><h4>체인 추상화는 무엇이며 사용자 경험을 어떻게 바꾸는가?</h4></div>
+  <div class="a">
+    <p>체인 추상화(Chain Abstraction)는 인터체인의 최종 진화 형태로, 사용자가 "어떤 블록체인을 쓰고 있는지" 전혀 의식하지 않게 만드는 기술입니다.</p>
+    <h5>1. 핵심 기능</h5>
+    <ul>
+      <li><strong>통합 잔액</strong> — 여러 체인에 흩어진 자산이 지갑에는 합산 표시되고, 결제 시 지갑이 알아서 끌어다 정산합니다.</li>
+      <li><strong>가스비 통합</strong> — 체인마다 전용 가스비가 필요했지만, 보유한 스테이블코인 등으로 모든 체인 수수료를 낼 수 있습니다.</li>
+      <li><strong>원클릭 브릿징</strong> — 사용자가 직접 브릿지하지 않아도 백엔드에서 자동 이동·실행합니다.</li>
+    </ul>
+    <h5>2. 주요 프로젝트</h5>
+    <ul>
+      <li><strong>NEAR Protocol</strong> — Chain Signatures로 NEAR 계정 하나로 Bitcoin·Ethereum 등의 트랜잭션을 서명·실행합니다.</li>
+      <li><strong>Particle Network</strong> — 여러 체인의 계정을 하나로 묶는 Universal Account를 제공합니다.</li>
+      <li><strong>Everclear</strong> — 체인 간 자산 이동의 정산을 최적화하는 클리어링 레이어 역할을 합니다.</li>
+    </ul>
+    <h5>3. 사용자 경험 변화</h5>
+    <p>과거에는 특정 게임을 하려면 Polygon으로 브릿지하고 MATIC을 가스비로 준비해야 했습니다. 체인 추상화에서는 "게임 시작" 버튼만 누르면 지갑이 가스비 대납과 체인 연결을 자동 처리합니다.</p>
+    <h5>4. 요약</h5>
+    <p>인터체인이 선로를 연결하는 철도 사업이라면, 체인 추상화는 목적지만 말하면 알아서 기차·버스를 갈아타게 해주는 통합 모빌리티 서비스에 가깝습니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅲ-C. 온체인 서비스 사례: Polymarket</h3></div>
+
+<article class="qa" id="q52">
+  <div class="q"><span class="qmark">Q52</span><h4>Polymarket의 사업 모델, 기술 기반, 장단점은 무엇인가?</h4></div>
+  <div class="a">
+    <p>Polymarket은 정치·경제·사회 이슈 등 현실 이벤트의 결과를 예측해 주식처럼 거래하는 탈중앙화 예측 시장 플랫폼입니다.</p>
+    <h5>1. 사업 모델</h5>
+    <ul>
+      <li><strong>거래 구조</strong> — 특정 사건의 결과를 나타내는 주식을 구매. 맞으면 주당 1달러, 틀리면 0이 됩니다.</li>
+      <li><strong>수익 모델</strong> — 거래 수수료 기반.</li>
+      <li><strong>집단지성 활용</strong> — 참여자 거래 데이터를 바탕으로 뉴스·여론조사보다 빠른 확률 지표를 제공하는 정보 플랫폼 역할.</li>
+    </ul>
+    <h5>2. 기술 기반</h5>
+    <ul>
+      <li><strong>Polygon</strong> — 낮은 가스비·빠른 속도를 위해 사용합니다.</li>
+      <li><strong>스마트 컨트랙트</strong> — 거래·정산이 코드로 자동 처리되어 투명·불변성을 제공합니다.</li>
+      <li><strong>USDC</strong> — 변동성이 낮은 USDC를 거래 통화로 사용합니다.</li>
+      <li><strong>오라클</strong> — UMA 같은 탈중앙 오라클로 현실 결과 데이터를 반영합니다.</li>
+    </ul>
+    <h5>3. 장점과 단점</h5>
+    <table>
+      <thead><tr><th>구분</th><th>주요 내용</th></tr></thead>
+      <tbody>
+        <tr><td>장점</td><td>돈이 걸린 시장이라 여론조사보다 편향이 적고 정보 반영이 빠름</td></tr>
+        <tr><td>장점</td><td>블록체인 기록으로 거래·자금 흐름 검증 가능</td></tr>
+        <tr><td>장점</td><td>지갑만 있으면 글로벌 사용자 접근 가능</td></tr>
+        <tr><td>단점</td><td>CFTC 등 규제 당국의 감시 대상</td></tr>
+        <tr><td>단점</td><td>대형 투자자가 확률 지표를 왜곡할 가능성</td></tr>
+        <tr><td>단점</td><td>자체 시장 조성 논란 등 이해상충 우려</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q53">
+  <div class="q"><span class="qmark">Q53</span><h4>Polymarket은 블록체인 사상 관점에서 어떤 부분을 타협했는가?</h4></div>
+  <div class="a">
+    <p>블록체인의 핵심 사상은 탈중앙화·무허가성·검열 저항성입니다. 하지만 Polymarket은 대중 확장·효율성·규제 대응을 위해 여러 지점에서 타협했습니다.</p>
+    <h5>1. 시장 생성의 중앙화</h5>
+    <p>완전 무허가 모델이 아니라 내부 팀이 시장 생성을 관리합니다. 스팸·모호한 질문·분쟁 가능성을 줄이려는 것이지만, 플랫폼 확장이 운영 인력에 종속되는 인적 병목이 생깁니다.</p>
+    <h5>2. 하이브리드 오라클 모델</h5>
+    <p>대부분의 결과는 지정 보고자가 우선 확정하고, 이의가 제기될 때만 UMA 같은 탈중앙 오라클 투표로 넘어갑니다. UMA 토큰 보유자의 영향력이 커지면 결과가 자본력에 왜곡될 수 있습니다.</p>
+    <h5>3. 법적 규제와 지리적 차단</h5>
+    <p>CFTC와의 합의 이후 미국 IP 접속을 공식 차단합니다. 현재는 지갑 연결 중심이지만 규제 압력이 커지면 KYC가 강화될 가능성이 있습니다.</p>
+    <div class="redpen"><span class="lbl supp">보완</span> 2025년 Polymarket은 규제 환경 변화 속에 <b>미국 시장 재진입</b>을 모색했고(CFTC 등록 거래소 인수 등), 미국 사용자 차단은 향후 정책에 따라 달라질 수 있습니다. 본문은 합의 직후 상황을 기준으로 한 서술이므로 현재 접근 정책은 별도 확인이 필요합니다.</div>
+    <h5>4. 중앙 집중적 시장 감시</h5>
+    <p>거래는 온체인에 기록되지만 이상 거래·시장 조작 감시 주체는 Polymarket과 파트너 보안 기업입니다. "Code is Law"보다 전통 금융의 감시 모델에 가깝습니다.</p>
+    <h5>5. 결론</h5>
+    <p>Polymarket은 중앙화 관리 요소를 결합해 편의성·신뢰도를 높였지만, 블록체인 본연의 완전한 자율성은 일부 포기했습니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q54">
+  <div class="q"><span class="qmark">Q54</span><h4>UMA 오라클과 Polymarket의 규제 대응 전략은 무엇인가?</h4></div>
+  <div class="a">
+    <p>Polymarket의 핵심 인프라인 UMA 오라클은 분쟁이 생길 때만 개입하는 낙관적 오라클이며, Polymarket은 기술적 탈중앙성과 현실적 사업 운영 사이의 균형을 택하고 있습니다.</p>
+    <h5>1. UMA 오라클: 분쟁이 생길 때만 소환되는 재판관</h5>
+    <ul>
+      <li><strong>기본 전제</strong> — 누군가 결과를 제출하면, 거짓말하지 않을 것이라 낙관적으로 가정합니다.</li>
+      <li><strong>이의 제기</strong> — 틀렸다고 보는 참여자가 담보를 걸고 이의를 제기합니다.</li>
+      <li><strong>투표</strong> — 분쟁 시 UMA 토큰 홀더들이 투표로 최종 결과를 결정합니다.</li>
+      <li><strong>경제적 유인</strong> — 다수 결정과 일치한 쪽은 보상을, 틀린 쪽은 담보를 잃습니다.</li>
+    </ul>
+    <h5>2. Polymarket의 규제 대응 전략</h5>
+    <ul>
+      <li><strong>지리적 차단</strong> — CFTC 합의 후 미국 사용자 접속을 차단하고 해외 사용자에 집중(이후 재진입 모색).</li>
+      <li><strong>비수탁형 구조</strong> — 자금을 직접 보관하지 않고 컨트랙트에 예치하게 해 기술 제공자 성격을 강조합니다.</li>
+      <li><strong>정보 플랫폼 브랜딩</strong> — 도박·증권이 아니라 '여론조사보다 정확한 정보 플랫폼'이라는 가치를 강조합니다.</li>
+    </ul>
+    <h5>3. 최근 논란과 리스크</h5>
+    <p>UMA 투표에서 대형 토큰 보유자가 자신에게 유리하게 결과를 왜곡하려 했다는 의혹이 제기된 바 있습니다. 탈중앙화된 진실이 자본력에 흔들릴 수 있음을 보여주는 사례입니다.</p>
+  </div>
+  <a class="top-link" href="#part3">↑ 목차로</a>
+</article>
+
+</section>
+
+<section class="part" id="part4">
+  <div class="part-head"><div class="part-num">Ⅳ</div><h2 class="part-title">신뢰·보안·컴플라이언스 인프라</h2></div>
+
+<div class="subsec"><h3 class="subsec-title">Ⅳ-A. 제도권 규제와 컴플라이언스</h3></div>
+
+<article class="qa" id="q55">
+  <div class="q"><span class="qmark">Q55</span><h4>GENIUS Act와 EU MiCA 규제가 USDT와 USDC 거래에 어떤 영향을 주는가?</h4></div>
+  <div class="a">
+    <h5>1. 미국 GENIUS Act: "허용된 결제용 스테이블코인" 체계</h5>
+    <p>2025년 법으로 제정된 GENIUS Act는 시행 단계에 진입하고 있습니다.</p>
+    <ul>
+      <li><strong>규제 우위</strong> — 미국 내에서 USDC와 USDT의 격차를 확대. Circle의 USDC는 규제 친화적 지위에서 유리한 위치를 확보합니다.</li>
+      <li><strong>비준수 코인 접근 제한</strong> — 미국 거래소들은 인가·자본·감사 기준을 충족하지 못한 발행사 코인에 대한 시장 접근을 제한해야 하는 압박을 받습니다.</li>
+      <li><strong>수익 지급 제한</strong> — 보유·사용을 이유로 한 이자·수익 지급을 명시적으로 금지해 리워드 구조가 바뀔 수 있습니다.</li>
+      <li><strong>사용자 보호</strong> — 발행사 파산 시 토큰 보유자의 준비자산 우선 청구권, 액면가(1.00달러) 상환권을 보호합니다.</li>
+      <li><strong>컴플라이언스</strong> — 발행사에 은행 수준의 AML·제재 준수를 요구합니다.</li>
+    </ul>
+    <h5>2. EU MiCA: 인가 전환과 상장폐지 리스크</h5>
+    <ul>
+      <li><strong>인가</strong> — 발행사는 전자화폐기관(EMT) 또는 자산준거토큰(ART) 발행사로 정식 인가를 받아야 합니다.</li>
+      <li><strong>USDT 리스크</strong> — MiCA 인가를 확보하지 못한 스테이블코인은 유럽 규제 거래소에서 제한·상장폐지될 수 있어, 거래소들이 사용자에게 안내하기 시작했습니다.</li>
+      <li><strong>규제 준수 대안으로 이동</strong> — 유동성 분절을 피하려 많은 EU 거래자가 USDC·EURC 같은 코인으로 이동하고 있습니다.</li>
+      <li><strong>준비금 요건</strong> — 충분한 유동성 보장을 위해 준비자산의 상당 부분을 신용기관(은행)에 보관하도록 요구합니다.</li>
+    </ul>
+    <div class="redpen"><span class="lbl supp">보완</span> MiCA의 스테이블코인(ART/EMT) 규정은 <b>2024년 6월 30일</b>부터 적용되기 시작했고, MiCA 전체는 2024년 12월 30일 발효됐습니다. 회원국별로 일정 기간 경과(grandfathering)가 허용되며, 그 종료 시한이 <b>2026년 7월 1일</b>로 거론됩니다. 따라서 '2026년 7월 인가 마감/상장폐지'는 <b>경과기간 종료</b> 맥락으로 이해하는 것이 정확합니다. <span class="src">출처: ESMA·EU 공식 자료.</span></div>
+    <table>
+      <thead><tr><th>항목</th><th>USDC</th><th>USDT</th></tr></thead>
+      <tbody>
+        <tr><td>미국 내 지위</td><td>'허용된 결제용 스테이블코인' 후보로 유리</td><td>준비금·투명성 기준 충족 압박 지속</td></tr>
+        <tr><td>EU 내 지위</td><td>MiCA 준수 코인으로 인식, 기관 사용에 안정적</td><td>규제 거래소 상장폐지 리스크</td></tr>
+        <tr><td>적합한 용도</td><td>기관 사용, 규제 안정성, 장기 보관</td><td>미국·EU 외 지역 고속 거래·글로벌 유동성</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <a class="top-link" href="#part4">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q56">
+  <div class="q"><span class="qmark">Q56</span><h4>트래블룰은 무엇이며 어떻게 작동하는가?</h4></div>
+  <div class="a">
+    <p>트래블룰(Travel Rule)은 가상자산이 어디에서 와서 어디로 가는지 확인하기 위해 송금·수신 거래소가 송·수신자 정보를 공유하도록 만든 국제 규격입니다. 쉽게 말해 가상자산 송금 시 실명 확인제입니다.</p>
+    <h5>1. 도입 배경</h5>
+    <p>FATF 권고에 따라 도입됐습니다. 익명성을 악용한 자금세탁·테러 자금 조달·조세 회피를 막기 위해 금융권 수준의 투명성을 요구합니다.</p>
+    <h5>2. 한국 기준 주요 적용</h5>
+    <ul>
+      <li><strong>금액 기준</strong> — 원화 가치 100만 원 이상을 다른 거래소·개인 지갑으로 보낼 때 적용</li>
+      <li><strong>공유 정보</strong> — 송금인 이름·거주지, 수신인 이름·지갑 주소 등</li>
+      <li><strong>동일인 확인</strong> — 기본적으로 보내는 사람과 받는 사람 이름이 일치해야 입금 승인</li>
+    </ul>
+    <h5>3. 거래소 간 솔루션</h5>
+    <ul>
+      <li><strong>CODE</strong> — Bithumb·Coinone·Korbit 등이 참여한 솔루션</li>
+      <li><strong>VerifyVASP(VV)</strong> — Upbit가 사용하는 솔루션</li>
+    </ul>
+    <p>두 솔루션은 연동되어 있어 대부분의 국내 거래소 간 송금이 가능합니다.</p>
+    <h5>4. 개인 지갑 송금</h5>
+    <p>개인 지갑은 정보를 주고받을 상대 거래소가 없으므로 지갑 주소 사전 등록 방식이 쓰입니다. 본인의 MetaMask·Ledger 주소임을 증명해야 하며, 거래소는 사전 검증된 화이트리스트 주소로만 출금을 허용하는 경우가 많습니다.</p>
+    <h5>5. 사용자 주의사항</h5>
+    <p>정보가 일치하지 않으면 송금이 거절되고 반환 절차가 복잡할 수 있습니다. 트래블룰 협약이 없는 소형 해외 거래소로는 100만 원 이상 송금이 제한될 수 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part4">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅳ-B. 장기 보안과 암호 체계</h3></div>
+
+<article class="qa" id="q57">
+  <div class="q"><span class="qmark">Q57</span><h4>스테이블코인 영역에서 양자내성암호 도입이 필요한 분야는 구체적으로 어디인가?</h4></div>
+  <div class="a">
+    <p>거액이 이동하고 장기 신뢰가 필요한 영역에서 양자내성암호(PQC) 도입이 시급한 분야는 4가지로 압축됩니다. 양자 컴퓨터가 실용화되면 현재의 공개키 암호(RSA, ECDSA)가 무력화될 수 있기 때문입니다.</p>
+    <h5>1. 디지털 지갑·트랜잭션 서명</h5>
+    <p>가장 취약한 대상입니다. 대부분의 스테이블코인은 ECDSA를 쓰는데, 양자 컴퓨터는 이 서명을 위조해 지갑 소유권을 탈취할 수 있습니다. B2B용 멀티시그 지갑에 우선적으로 양자내성 서명(예: Dilithium, Falcon)을 적용해 '지갑 탈취'를 봉쇄해야 합니다.</p>
+    <h5>2. 스마트 컨트랙트·에스크로</h5>
+    <p>'조건부 자동 지급' 로직의 무결성을 보호해야 합니다. 양자 공격자가 관리자 권한을 탈취하거나 계약 조건을 수정해 에스크로된 대금을 가로챌 수 있으므로, 업데이트·실행 승인 프로세스 전반에 양자내성 체계를 통합해 '계약 변조'를 방지해야 합니다.</p>
+    <h5>3. 노드 간 통신·데이터 암호화</h5>
+    <p>'지금 저장하고 나중에 해독(Harvest Now, Decrypt Later)' 공격에 노출됩니다. 현재의 암호화 통신을 미리 수집해 두었다가 양자 컴퓨터로 해독할 수 있으므로, 통신 구간 암호화(TLS/SSL)에 양자내성 키 교환(예: Kyber)을 도입해 '장기 데이터 보안'을 확보해야 합니다.</p>
+    <h5>4. 실시간 자산 증명·오라클</h5>
+    <p>준비금·배송 데이터의 신뢰성입니다. 오라클이 해킹되면 가짜 데이터로 코인이 발행되거나 대금이 잘못 지급될 수 있으므로, 오라클 노드가 데이터를 서명할 때 양자내성 디지털 서명으로 '출처·무결성'을 보장해야 합니다.</p>
+    <h5>전략적 제언</h5>
+    <p>B2B 결제 플랫폼은 데이터 생명주기가 깁니다. <strong>하이브리드 암호화</strong>(기존 + 양자내성 동시 사용)로 현재 안정성과 미래 보안을 모두 잡고, 지갑·IT 파트너 선정 시 NIST 표준 양자내성 알고리즘 지원 로드맵을 반드시 확인해야 합니다.</p>
+  </div>
+  <a class="top-link" href="#part4">↑ 목차로</a>
+</article>
+
+</section>
+
+<section class="part" id="part5">
+  <div class="part-head"><div class="part-num">Ⅴ</div><h2 class="part-title">결제 시스템과 소비자 보호 모델</h2></div>
+
+<div class="subsec"><h3 class="subsec-title">Ⅴ-A. 신용카드망과 스테이블코인 결제</h3></div>
+
+<article class="qa" id="q58">
+  <div class="q"><span class="qmark">Q58</span><h4>스테이블코인 기반 상거래 결제가 신용카드 결제를 대체할 수 있을까?</h4></div>
+  <div class="a">
+    <p>"기술적으로는 압도적이나, 제도와 습관의 벽을 넘는 것이 관건"입니다. 두 시스템의 경쟁력을 비교하면 답이 보입니다.</p>
+    <h5>1. 스테이블코인이 앞서는 점 (판매자 입장)</h5>
+    <ul>
+      <li><strong>수수료 절감</strong> — 카드는 2~3%를 떼지만 스테이블코인 직결제는 0.1~0.5% 수준으로 낮출 수 있습니다.</li>
+      <li><strong>즉시 정산</strong> — 카드는 2~3일 걸리지만 스테이블코인은 확정 즉시 입금되어 현금 흐름이 좋습니다.</li>
+      <li><strong>국경 없는 결제</strong> — 복잡한 환전·해외 결제 수수료가 사라집니다.</li>
+    </ul>
+    <h5>2. 신용카드가 여전히 강력한 이유 (소비자 입장)</h5>
+    <ul>
+      <li><strong>신용 공여(BNPL)</strong> — 스테이블코인은 지갑에 돈이 있어야 쓰는 '직불'이라, 카드의 단기 대출 기능을 대체하기 어렵습니다.</li>
+      <li><strong>소비자 보호(차지백)</strong> — 물건이 안 왔을 때 결제를 취소하는 차지백은 카드사의 강력한 무기입니다.</li>
+      <li><strong>보상 체계</strong> — 포인트·마일리지 등 수십 년간 쌓인 마케팅 생태계를 단기간에 따라잡기 힘듭니다.</li>
+    </ul>
+    <h5>3. 2026년 '하이브리드' 트렌드</h5>
+    <p>완전한 대체보다 융합으로 가고 있습니다. Visa·Mastercard가 USDC를 네트워크에 통합해, 사용자는 '카드'를 긁지만 뒷단에서는 스테이블코인으로 정산됩니다. 계정 추상화로 가스비 부담도 사라지며 진입 장벽이 낮아졌습니다.</p>
+    <h5>요약: 언제 대체 가능한가</h5>
+    <p>B2B·고액 결제(도매·기업 간 거래·명품)에서는 빠르게 대체 중이고, 소액·일상 결제는 포인트·외상 습관 때문에 당분간 공존합니다. 결국 "카드만큼 편하면서 포인트보다 큰 캐시백(수수료 절감분 환원)"을 제공하는 서비스가 나오느냐가 대체 시점을 결정합니다.</p>
+  </div>
+  <a class="top-link" href="#part5">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q59">
+  <div class="q"><span class="qmark">Q59</span><h4>신용카드 결제망 및 가맹점 망은 일반 망과 무엇이 다른가?</h4></div>
+  <div class="a">
+    <p>카드 결제망은 일반 인터넷 위에 구축되지만, 보안·신뢰·정산이라는 목적을 위해 완전히 다른 논리·물리 구조를 가집니다.</p>
+    <h5>1. 폐쇄적·엄격한 네트워크 구조</h5>
+    <p>일반 망은 공개 경로로 이동하는 'Public' 성격이 강하지만, 카드 망은 카드사·은행·VAN·PG만 연결된 전용망(Leased Line)·VPN을 씁니다. 외부 해킹을 차단하기 위해 일반 인터넷과 물리적·논리적으로 분리됩니다.</p>
+    <h5>2. PCI-DSS 보안 표준</h5>
+    <p>참여 주체는 모두 PCI-DSS라는 글로벌 보안 표준을 준수해야 합니다. 카드 번호·CVC·유효기간 전송 시 암호화·보관·접근 권한까지 통제되며, 위반 시 망 접속이 차단됩니다.</p>
+    <h5>3. 승인(Authorization)과 매입(Capture)의 분리</h5>
+    <ul>
+      <li><strong>승인 망</strong> — 결제 순간 고객 한도를 0.5초 내 확인하는 실시간 망</li>
+      <li><strong>정산(매입) 망</strong> — 결제 이후 가맹점이 카드사에 청구하고 통장으로 입금되는 자금 흐름 망</li>
+    </ul>
+    <p>이 때문에 카드 결제는 '실시간 결제–비실시간 정산' 구조를 가집니다.</p>
+    <h5>4. 거대한 중개인 생태계 (VAN &amp; PG)</h5>
+    <p>VAN사는 오프라인 단말기와 카드사를 잇고, PG사는 온라인 쇼핑몰을 대신해 결제창을 제공합니다. 덕분에 가맹점은 카드사와 일일이 계약할 필요가 없지만, 대신 2~3%의 높은 수수료를 냅니다.</p>
+    <p><strong>B2B 플랫폼과의 연관성</strong> — 스테이블코인 결제 플랫폼은 이 복잡한 VAN/PG/카드사 망을 블록체인이라는 단일 망으로 대체하는 작업입니다. P2P 직접 연결로 수수료를 극적으로 낮추되, 카드망의 '차지백' 같은 소비자 보호 기능을 스마트 컨트랙트로 어떻게 구현하느냐가 핵심 과제입니다.</p>
+  </div>
+  <a class="top-link" href="#part5">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q60">
+  <div class="q"><span class="qmark">Q60</span><h4>카드망이 제공하는 차지백 기능을 스테이블코인 망에서 스마트컨트랙트로 어떻게 구현할 수 있는가?</h4></div>
+  <div class="a">
+    <p>카드망의 차지백은 '신뢰할 수 없는 거래를 사후에 강제로 되돌리는 권리'입니다. 스테이블코인 망은 기본적으로 '취소 불가능'하지만, 스마트 컨트랙트로 이를 논리적으로 구현하는 4가지 모델이 있습니다.</p>
+    <h5>1. 조건부 에스크로·단계별 지급 (Milestone Escrow)</h5>
+    <p>대금을 한 번에 주지 않고 계약 단계별로 잠금을 해제합니다. 검수 전까지는 판매자가 인출할 수 없어 하자 발견 시 즉시 환불이 가능하며, 물류 오라클과 연동해 "배송 완료 후 7일간 이의 없으면 자동 지급" 로직을 설계합니다.</p>
+    <h5>2. 탈중앙화 중재 시스템</h5>
+    <p>카드사의 '심판' 역할을 프로토콜이 대신합니다. Kleros·Jur 등을 연동해, 분쟁 시 제3자 배심원(토큰 홀더)이 증거를 보고 승자를 결정하고 컨트랙트가 자동 환불합니다.</p>
+    <h5>3. 발행사 수준의 동결 권한</h5>
+    <p>중앙화 스테이블코인(USDC·USDT)의 관리 기능을 활용합니다. 명백한 사기·범죄가 입증되면 발행사에 요청해 자금을 동결·회수합니다. 탈중앙화 철학과 충돌하지만 제도권 B2B 결제에서는 필수 안전장치입니다.</p>
+    <h5>4. 소비자 보호 풀·보험</h5>
+    <p>판매자가 가맹 등록 시 보증금을 예치하거나 수수료 일부를 '보호 기금'으로 적립합니다. 판매자가 이미 대금을 인출했어도 정당한 환불 사유가 생기면 기금에서 즉시 환불하고, 나중에 판매자에게 구상권을 청구합니다.</p>
+    <h5>B2B 원자재 거래를 위한 최적의 조합</h5>
+    <p>'1번(에스크로)'과 '4번(보증금)'을 결합하는 것이 현실적입니다. ① 대금 70%는 선적 시 지급(판매자 유동성) ② 30%는 최종 검수 후 지급(구매자 보호) ③ 분쟁 시 플랫폼이 중재자로 개입. '결제 취소'는 소비자 보호법 등 법적 의무와 직결되므로 설계 단계부터 법률 자문을 병행해야 합니다.</p>
+  </div>
+  <a class="top-link" href="#part5">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅴ-B. 소비자 보호와 결제 플랫폼</h3></div>
+
+<article class="qa" id="q61">
+  <div class="q"><span class="qmark">Q61</span><h4>스테이블코인 결제에서 환불 및 소비자 보호를 해결하기 위한 핵심 기술 접근법은 무엇인가?</h4></div>
+  <div class="a">
+    <h5>1. 스마트 컨트랙트 에스크로</h5>
+    <p>가장 원천적인 해결책입니다. 구매자가 보낸 대금은 판매자에게 가지 않고 잠금 컨트랙트에 머무릅니다. 배송 완료 확인(오라클) 또는 구매자 '확정' 시 해제되며, 구매자가 악의적으로 확정을 안 하면 판매자가 자금난에 빠지므로 '자동 해제 기간(예: 7일)'을 두는 방식이 표준입니다.</p>
+    <h5>2. 제3자 중재 레이어</h5>
+    <p>카드사의 차지백을 온체인에 구현한 모델입니다. Kleros는 무작위 선정 배심원이 증거를 보고 판결하며, 결과에 따라 컨트랙트가 대금을 자동 전송합니다. 중재 수수료가 운영사 수익이 됩니다.</p>
+    <h5>3. 발행사 차원의 동결·강제 이전</h5>
+    <p>중앙화 스테이블코인의 특성을 활용합니다. 사기 거래가 명백히 입증되면(법원 판결 등) 발행사가 자금을 동결하거나 원주인에게 강제 반환하는 API를 제공합니다. 블록체인의 '불변성'과 상충하지만 MiCA·GENIUS가 요구하는 핵심 기능 중 하나입니다.</p>
+    <h5>결론</h5>
+    <p>소비자가 안심하려면 "문제 발생 시 돈을 돌려받을 수 있다"는 확신이 필요합니다. 현재는 '카드사의 결제망'과 '스테이블코인의 정산망'을 결합해, 겉으로는 카드사의 소비자 보호 정책을 유지하면서 뒷단에서만 스테이블코인으로 비용을 절감하는 방식이 가장 현실적 대안으로 꼽힙니다.</p>
+  </div>
+  <a class="top-link" href="#part5">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q62">
+  <div class="q"><span class="qmark">Q62</span><h4>소비자 보호 기능을 내장한 결제 프로토콜 API 비즈니스는 어떻게 설계할 수 있는가?</h4></div>
+  <div class="a">
+    <p>스테이블코인 상거래의 '미싱 링크'를 채우는 고부가가치 사업입니다. 3단계 모델을 제안합니다.</p>
+    <h5>1. 프로토콜 단계: '홀드백(Hold-back)' 엔진</h5>
+    <p>결제 시 100%를 즉시 정산하지 않고 일부(예: 90%)만 선정산, 나머지(10%)는 '소비자 보호 기간(예: 14일)' 동안 컨트랙트에 묶어두는 엔진입니다. 묶인 자금(TVL)에서 발생하는 예치 이자나 안전 결제 이용료(건당 수수료)가 수익원입니다.</p>
+    <h5>2. 플랫폼 단계: '온체인 평판 시스템' 연동</h5>
+    <p>구매자·판매자 거래 이력을 데이터화해 보험과 연계합니다. 이력이 깨끗한 판매자에게는 정산 단축·수수료 할인을, 위험 거래에는 분쟁 해결 수수료를 추가 부과합니다. 정산일을 앞당기고 싶은 판매자에게 할인료를 받는 '정산 앞당기기(Factoring)' 금융 모델도 가능합니다.</p>
+    <h5>3. API/SDK 단계: 이커머스 플러그인</h5>
+    <p>쇼피파이·카페24 같은 플랫폼에 꽂는 'Consumer Protection SDK'를 배포합니다. 결제 버튼 하나로 [KYC + 스테이블코인 송금 + 에스크로 생성 + 배송 추적 오라클]을 처리하며, SaaS 월 구독료·API 호출당 비용이 수익입니다.</p>
+    <h5>가장 중요한 포인트: '오라클'</h5>
+    <p>환불 로직이 자동 돌아가려면 "물건이 실제 반품/배송 실패되었는가"라는 외부 데이터를 블록체인이 알아야 합니다. CJ대한통운·페덱스 같은 물류사 API를 컨트랙트에 연결하는 '데이터 브릿지' 기술이 이 비즈니스의 성패를 좌우합니다.</p>
+  </div>
+  <a class="top-link" href="#part5">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q63">
+  <div class="q"><span class="qmark">Q63</span><h4>직접 결제 플랫폼을 운영하면 어떤 사업 구조와 운영 리스크가 발생하는가?</h4></div>
+  <div class="a">
+    <p>직접 운영하면 기술 제공자를 넘어 '가상자산 결제 대행사(Crypto PG)'이자 '디지털 자산 수탁자'가 됩니다. 수익성은 높지만 리스크 관리·규제 준수가 성패를 가릅니다.</p>
+    <h5>1. 수익 구조</h5>
+    <ul>
+      <li><strong>거래 수수료</strong> — 결제액의 0.5~1.5%(카드 대비 낮은 수수료로 가맹점 유인)</li>
+      <li><strong>정산 스프레드</strong> — 스테이블코인을 법정화폐로 바꿔 정산할 때의 환전 차익</li>
+      <li><strong>예치 수익(Float)</strong> — 에스크로 자금을 안전 자산(국채 기반 코인 등)에 운용</li>
+      <li><strong>가맹점 데이터 서비스</strong> — 결제 데이터 분석 인사이트 제공 구독료</li>
+    </ul>
+    <h5>2. 운영 핵심 전략: '신뢰'와 '편의성'</h5>
+    <ul>
+      <li><strong>하이브리드 정산</strong> — 판매자가 코인/법정화폐 수령을 선택하게 하고 내부 유동성 풀을 관리</li>
+      <li><strong>가스비 대납(Gasless)</strong> — 계정 추상화로 가스비를 플랫폼이 대납하고 서비스 수수료에 포함</li>
+      <li><strong>분쟁 조정 센터</strong> — 자동 컨트랙트 + 예외 상황을 위한 사람의 중재 프로세스 운영</li>
+    </ul>
+    <h5>3. 필수 리스크 체크리스트</h5>
+    <ul>
+      <li><strong>규제 라이선스</strong> — 한국 VASP 신고 필수, 미국·유럽 진출 시 GENIUS·MiCA 준수 최우선</li>
+      <li><strong>담보 가치 변동</strong> — 페깅 위험이 적은 USDC·국채 기반 코인을 주력으로 설정</li>
+      <li><strong>AML</strong> — Chainalysis 등 지갑 필터링 솔루션을 연동해 실시간 모니터링</li>
+    </ul>
+  </div>
+  <a class="top-link" href="#part5">↑ 목차로</a>
+</article>
+
+</section>
+
+<section class="part" id="part6">
+  <div class="part-head"><div class="part-num">Ⅵ</div><h2 class="part-title">적용 사례: B2B 원자재·한-베트남 결제</h2></div>
+
+<div class="subsec"><h3 class="subsec-title">Ⅵ-A. 사업성·결제 구조·FX 인프라</h3></div>
+
+<article class="qa" id="q64">
+  <div class="q"><span class="qmark">Q64</span><h4>B2B 원자재 거래에서 스테이블코인 결제는 어떤 효용을 주는가?</h4></div>
+  <div class="a">
+    <p>원자재 B2B 거래는 금액이 크고, 국경을 넘으며, 결제·정산 주기가 길다는 특징이 있습니다. 스테이블코인은 이 세 가지 마찰을 동시에 줄입니다.</p>
+    <h5>1. 정산 속도와 운전자본</h5>
+    <p>전통 무역 결제(T/T 송금·신용장)는 중개 은행을 여러 단계 거쳐 수일이 걸립니다. 스테이블코인 직결제는 확정 즉시 입금되어, 대금 회수 지연으로 묶이던 운전자본을 빠르게 회전시킵니다.</p>
+    <h5>2. 수수료 절감</h5>
+    <p>코레스폰던트 뱅킹(환거래 은행망)을 거치는 송금은 전신료·중개 수수료·환전 스프레드가 누적됩니다. 온체인 결제는 중개 단계를 축소해 거래당 고정비를 낮춥니다. 거래액이 클수록 절감 효과가 커집니다.</p>
+    <h5>3. 투명성과 자동화</h5>
+    <p>스마트 컨트랙트로 "선적 서류 확인 → 자동 지급" 같은 조건부 결제를 구현하면, 서류 위조·이중 결제·지급 지연 분쟁을 줄일 수 있습니다. 모든 거래가 온체인에 기록되어 감사·추적이 용이합니다.</p>
+    <h5>4. 한계와 전제</h5>
+    <ul>
+      <li><strong>환전·온오프램프</strong> — 결국 자국 통화로 바꿔야 하므로, 양국의 합법적 환전 채널이 확보돼야 효용이 실현됩니다.</li>
+      <li><strong>규제 준수</strong> — 외국환거래법·AML·트래블룰 준수가 전제이며, 미준수 시 송금 자체가 막힙니다.</li>
+      <li><strong>가격 안정성</strong> — 페깅 안정성이 높은 코인(USDC 등)이라야 거액 결제에 적합합니다.</li>
+    </ul>
+    <p>요컨대 원자재 B2B는 스테이블코인의 장점(속도·비용·자동화)이 가장 크게 발휘되는 분야이지만, 환전 인프라와 규제 준수가 사업 성패의 전제 조건입니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q65">
+  <div class="q"><span class="qmark">Q65</span><h4>한-베트남 B2B 결제 플랫폼은 어떻게 설계할 수 있으며, 2026년 규제 환경은 어떤가?</h4></div>
+  <div class="a">
+    <p>한국 수입사가 베트남 공급사에 원자재 대금을 지급하는 구조라면, '원화 → 스테이블코인 → 동(VND) 정산'의 흐름을 안전하고 합법적으로 잇는 것이 핵심입니다.</p>
+    <h5>1. 기본 결제 흐름</h5>
+    <ol>
+      <li><strong>온램프</strong> — 한국 수입사가 원화를 합법 채널로 달러 스테이블코인(USDC 등)으로 전환</li>
+      <li><strong>송금</strong> — 온체인으로 베트남 파트너(또는 현지 정산사)에게 즉시 전송</li>
+      <li><strong>오프램프</strong> — 베트남 측이 현지 합법 채널로 VND로 환전·정산</li>
+      <li><strong>조건부 결제</strong> — 선적·통관 서류 확인 후 자동 지급되도록 스마트 컨트랙트로 설계</li>
+    </ol>
+    <h5>2. 규제 환경 (2026년 관점)</h5>
+    <ul>
+      <li><strong>한국</strong> — 외국환거래법상 지급·수령 신고 의무, VASP 신고, 트래블룰(100만 원 이상) 적용. 기업 송금은 한도·증빙 요건이 더 엄격합니다.</li>
+      <li><strong>베트남</strong> — 가상자산 제도화가 진행 중인 단계로, 합법적 환전·정산 채널 확보 여부가 사업의 전제입니다. 현지 라이선스 보유 파트너와의 협업이 사실상 필수입니다.</li>
+    </ul>
+    <h5>3. 설계 시 핵심 고려사항</h5>
+    <ul>
+      <li><strong>규제 준수 우선</strong> — 양국 모두에서 합법적 온·오프램프 라이선스를 확보한 파트너와 연계</li>
+      <li><strong>FX 처리</strong> — KRW-USD-VND 환전 경로의 스프레드·슬리피지를 최소화하는 구조 설계</li>
+      <li><strong>분쟁·환불</strong> — 에스크로·중재 레이어로 무역 분쟁에 대응</li>
+    </ul>
+    <p>현지 규제가 빠르게 변하므로, 구체 인가 요건·허용 범위는 사업 착수 전 양국 법률·세무 자문으로 반드시 재확인해야 합니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q66">
+  <div class="q"><span class="qmark">Q66</span><h4>스마트컨트랙트 기반 로컬 통화 코인 환전(AMM)은 어떻게 작동하며, 비용 절감 효과는 어느 정도인가?</h4></div>
+  <div class="a">
+    <p>핵심은 원화 연동 코인(KRW)과 동 연동 코인(VND)을 온체인에서 직접 교환하는 AMM 풀을 만드는 것입니다. 달러를 거치지 않는 직접 환전으로 중개 단계를 줄입니다.</p>
+    <h5>1. 작동 원리</h5>
+    <ul>
+      <li><strong>유동성 풀</strong> — KRW 코인과 VND 코인을 함께 예치한 풀을 구성</li>
+      <li><strong>StableSwap 곡선</strong> — 가치가 비슷한 통화 쌍에 최적화된 곡선을 써서 슬리피지를 최소화</li>
+      <li><strong>오라클 연동</strong> — 외부 환율(KRW/VND)을 참조해 풀 가격이 시장과 크게 벌어지지 않도록 조정</li>
+      <li><strong>차익 거래</strong> — 풀 가격과 시장 환율이 벌어지면 차익 거래자가 균형을 회복</li>
+    </ul>
+    <h5>2. 비용 절감 효과</h5>
+    <p>국내 한 PoC(예: Kaia 기반 실증)에서는 전통 송금 대비 환전·송금 비용을 큰 폭으로 절감(한 사례에서 약 87% 절감)했다고 보고된 바 있습니다. KRW/VND 환율은 약 17.78(1원 ≈ 17.78동) 수준으로, 이 직접 교환 구조에서는 'KRW→USD→VND'의 이중 환전 스프레드가 단일 교환으로 줄어듭니다.</p>
+    <div class="redpen"><span class="lbl supp">보완</span> 인용된 <b>'약 87% 절감'</b>은 특정 실증(PoC)의 결과치이며, 환율(약 17.78)도 시점에 따라 변동합니다. 실제 절감폭은 거래 규모·풀 유동성·오프램프 수수료에 따라 달라지므로, 사업 제안 시 <b>자체 시뮬레이션 수치</b>로 재산정하는 것이 안전합니다.</div>
+    <h5>3. 한계와 전제</h5>
+    <ul>
+      <li><strong>유동성 확보</strong> — 풀에 충분한 KRW·VND 코인이 있어야 거액 거래에서 슬리피지가 작습니다.</li>
+      <li><strong>발행·상환 채널</strong> — 로컬 통화 코인을 실제 통화로 바꾸는 합법적 발행·상환 채널이 핵심입니다.</li>
+      <li><strong>규제</strong> — 비기축통화 스테이블코인 발행·환전은 양국 규제 영향을 크게 받습니다.</li>
+    </ul>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q67">
+  <div class="q"><span class="qmark">Q67</span><h4>온체인 FX(외환) 사업자에는 어떤 곳들이 있는가?</h4></div>
+  <div class="a">
+    <p>온체인 FX는 서로 다른 통화 연동 자산을 블록체인에서 교환·정산하는 영역으로, 기관형과 퍼블릭 DeFi형으로 나뉩니다.</p>
+    <h5>1. 기관·은행 주도</h5>
+    <ul>
+      <li><strong>J.P.Morgan Kinexys</strong> — 기관용 블록체인 결제·FX 인프라(구 Onyx). 토큰화 예금 기반의 도매형 외환·정산을 지향합니다.</li>
+      <li><strong>Stripe</strong> — Bridge 인수를 통해 스테이블코인 기반 글로벌 결제·정산 역량을 확장하고 있습니다.</li>
+    </ul>
+    <h5>2. 퍼블릭 DeFi·인프라</h5>
+    <ul>
+      <li><strong>Circle × Uniswap</strong> — USDC 발행사와 대표 DEX의 결합으로 달러 기반 유동성·교환을 지원합니다.</li>
+      <li><strong>Mento</strong> — 다양한 로컬 통화 스테이블 자산(예: 셀로 생태계)의 발행·교환에 특화됩니다.</li>
+      <li><strong>Curve</strong> — StableSwap으로 가치가 유사한 통화 쌍의 저슬리피지 교환에 강점이 있습니다.</li>
+      <li><strong>Nabla</strong> — 오라클 기반 가격 모델로 슬리피지를 줄인 온체인 FX·스왑을 지향합니다.</li>
+    </ul>
+    <h5>3. 한-베트남 플랫폼 시사점</h5>
+    <p>거액·규제 준수가 중요한 B2B에서는 기관형(Kinexys 류)의 폐쇄형 정산 모델이 신뢰를 얻기 쉽고, 소액·다통화 교환에는 Curve·Mento 같은 퍼블릭 인프라가 유리합니다. 실제 설계에서는 두 접근을 조합해 '규제 준수 정산 + 효율적 교환'을 함께 확보하는 방향이 현실적입니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q68">
+  <div class="q"><span class="qmark">Q68</span><h4>도매형(기관 간) 온체인 FX는 어떻게 구성되며 대표 사례는 무엇인가?</h4></div>
+  <div class="a">
+    <p>도매형 온체인 FX는 은행·금융기관 간 대규모 외환 거래를 블록체인에서 처리하는 영역으로, 토큰화 예금·기관용 wCBDC를 기반으로 합니다.</p>
+    <h5>1. 핵심 구성 요소</h5>
+    <ul>
+      <li><strong>토큰화 예금</strong> — 은행 예금을 토큰화해 기관 간 정산에 사용</li>
+      <li><strong>DvP / PvP</strong> — 자산·대금 동시 결제로 결제 리스크(상대방 미이행)를 제거</li>
+      <li><strong>아토믹 스왑</strong> — 두 통화 자산을 원자적으로 교환해 한쪽만 이행되는 위험을 차단</li>
+    </ul>
+    <h5>2. 대표 사례</h5>
+    <ul>
+      <li><strong>J.P.Morgan Kinexys</strong> — 기관용 토큰화 예금·다통화 정산 인프라</li>
+      <li><strong>Project Mariana(BIS)</strong> — 국제결제은행(BIS) 주도로 기관용 wCBDC 간 자동화 FX·정산을 실험한 프로젝트</li>
+      <li><strong>CLS</strong> — 전통 외환 결제의 PvP 정산 인프라로, 온체인 정산과의 연계가 논의됩니다.</li>
+      <li><strong>Anchorage</strong> — 규제 준수형 디지털 자산 수탁·정산 인프라를 제공합니다.</li>
+    </ul>
+    <h5>3. 한-베트남 B2B 시사점</h5>
+    <p>도매형은 신뢰·규제 면에서 견고하지만 참여 기관이 제한된 폐쇄형입니다. 한-베트남 플랫폼은 도매형(은행 간 정산)과 소매형(기업 간 결제)을 계층적으로 연결해, 상단은 토큰화 예금 기반 안전 정산, 하단은 효율적 교환으로 설계하는 '공존 모델'이 적합합니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q69">
+  <div class="q"><span class="qmark">Q69</span><h4>로컬 통화 코인 FX 풀의 유동성 공급(LP) 전략과 위험은 무엇인가?</h4></div>
+  <div class="a">
+    <p>KRW-VND 같은 비기축 통화 쌍 FX 풀은 유동성이 얕아 LP 전략과 위험 관리가 사업성의 핵심입니다.</p>
+    <h5>1. LP 전략</h5>
+    <ul>
+      <li><strong>StableSwap 집중</strong> — 환율 중심 구간에 유동성을 집중해 슬리피지를 줄이고 자본 효율을 높입니다.</li>
+      <li><strong>RFQ(견적 요청) 병행</strong> — 거액 거래는 AMM이 아니라 사전 견적(RFQ)으로 대형 LP·마켓메이커와 직접 매칭해 가격 충격을 줄입니다.</li>
+      <li><strong>wCBDC·토큰화 예금 연계</strong> — 기관 유동성을 끌어와 풀 깊이를 확보합니다.</li>
+    </ul>
+    <h5>2. 주요 위험</h5>
+    <ul>
+      <li><strong>슬리피지</strong> — 유동성이 얕으면 거액 거래 시 체결가가 크게 밀립니다.</li>
+      <li><strong>비영구적 손실</strong> — 환율이 한 방향으로 크게 움직이면 LP가 손실을 볼 수 있습니다.</li>
+      <li><strong>오라클·디페그</strong> — 로컬 코인이 실제 통화 가치에서 벗어나면 풀 가격이 왜곡됩니다.</li>
+      <li><strong>삼각 차익</strong> — KRW→USD→VND와 KRW→VND 직접 경로 간 가격 차가 생기면 차익 거래로 균형이 잡히지만, 그 과정에서 LP 손익이 영향을 받습니다.</li>
+    </ul>
+    <h5>3. 위험 완화</h5>
+    <p>다중 오라클로 가격 신뢰성을 확보하고, 거액은 RFQ로 분리하며, 인센티브(수수료·보상)로 LP를 유치해 풀 깊이를 유지하는 것이 핵심입니다. 비기축 통화 FX는 '얕은 유동성'이 구조적 한계이므로, 기관 유동성과 퍼블릭 LP를 함께 끌어오는 하이브리드 설계가 필요합니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q70">
+  <div class="q"><span class="qmark">Q70</span><h4>베트남 현지 파트너와 정보보안 요건은 어떻게 고려해야 하는가?</h4></div>
+  <div class="a">
+    <p>베트남 사업은 현지 라이선스·결제망·보안 규제를 갖춘 파트너와의 협업이 사실상 필수입니다.</p>
+    <h5>1. 잠재 파트너 유형</h5>
+    <ul>
+      <li><strong>VNPAY</strong> — 베트남 대표 결제·QR 인프라 사업자로 가맹점·정산망 연계에 강점</li>
+      <li><strong>FPT</strong> — 베트남 최대 IT 기업으로 시스템 구축·운영(SI) 역량 보유</li>
+      <li><strong>Vietcombank</strong> — 대형 은행으로 합법적 환전·정산·수탁 채널 확보에 유리</li>
+    </ul>
+    <h5>2. 파트너 선정 기준</h5>
+    <ul>
+      <li><strong>라이선스</strong> — 환전·결제·정산 관련 현지 인가 보유 여부</li>
+      <li><strong>정산 채널</strong> — VND 오프램프(현지 통화 정산) 합법 채널 확보</li>
+      <li><strong>네트워크</strong> — 가맹점·기업 고객·은행망 연결성</li>
+    </ul>
+    <h5>3. 정보보안 요건</h5>
+    <p>베트남은 사이버보안법과 데이터 현지화·개인정보 보호 규제를 운영합니다. 금융·결제 시스템은 등급제 보안 요건(예: 4등급 수준의 강화된 보안 통제)을 적용받을 수 있으므로, 데이터 저장 위치·암호화·접근 통제·로그 관리가 현지 기준을 충족해야 합니다. 양자내성·하이브리드 암호 적용, PCI-DSS 준수, 정기 보안 감사를 함께 설계하는 것이 안전합니다.</p>
+    <p>현지 규제·등급 기준은 변동되므로, 진출 전 베트남 현지 법률·보안 컨설팅으로 최신 요건을 확인해야 합니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅵ-B. 기술 아키텍처와 운영 모델</h3></div>
+
+<article class="qa" id="q71">
+  <div class="q"><span class="qmark">Q71</span><h4>오라클과 물류(e-BL) 연동은 어떤 단계로 설계하는가?</h4></div>
+  <div class="a">
+    <p>원자재 무역에서 '대금 자동 지급'을 구현하려면, 선적·통관·인도 같은 물류 이벤트를 신뢰할 수 있게 온체인으로 가져와야 합니다. 전자선하증권(e-BL)과 오라클 연동이 핵심입니다.</p>
+    <h5>1. 5단계 연동 설계</h5>
+    <ol>
+      <li><strong>계약·에스크로 생성</strong> — 거래 조건(품목·수량·금액·인도 조건)을 컨트랙트에 등록하고 대금을 에스크로에 예치</li>
+      <li><strong>선적 데이터 입력</strong> — 선적 완료 시 e-BL 발급 정보(선사·운송사)를 오라클이 온체인에 전달</li>
+      <li><strong>운송 추적</strong> — 선박 위치·항만 도착 등 추적 데이터를 오라클이 갱신</li>
+      <li><strong>통관·인도 확인</strong> — 관세청·물류사 데이터로 통관·인도 완료를 확인</li>
+      <li><strong>조건 충족 자동 지급</strong> — 인도 확인 + 이의 제기 기간 경과 시 컨트랙트가 대금을 판매자에게 자동 지급</li>
+    </ol>
+    <h5>2. e-BL의 의미</h5>
+    <p>종이 선하증권은 위·변조와 분실, 전달 지연 문제가 있습니다. e-BL은 디지털 원본성·소유권 이전을 검증 가능하게 해, '서류 도착 후 대금 지급'을 신뢰성 있게 자동화합니다(국제 표준·법적 효력 정비가 진행 중).</p>
+    <h5>3. 신뢰성 확보</h5>
+    <ul>
+      <li><strong>다중 오라클</strong> — 단일 데이터 소스 의존을 피해 조작·오류 위험을 낮춤</li>
+      <li><strong>데이터 서명</strong> — 물류사·선사가 데이터에 디지털 서명해 출처·무결성을 보장</li>
+      <li><strong>예외 처리</strong> — 데이터 불일치·분쟁 시 사람의 중재로 넘기는 프로세스 병행</li>
+    </ul>
+    <p>오라클·물류 연동의 품질이 '자동 결제'의 신뢰도를 결정하므로, 이 데이터 브릿지가 플랫폼의 핵심 경쟁력입니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q72">
+  <div class="q"><span class="qmark">Q72</span><h4>이 구조에서 법적 책임과 비용 쟁점은 무엇인가?</h4></div>
+  <div class="a">
+    <h5>1. 법적 책임 쟁점</h5>
+    <ul>
+      <li><strong>플랫폼의 지위</strong> — 단순 기술 제공자인지, 자금 보관·정산 책임을 지는 수탁·결제 대행사인지에 따라 규제·책임 범위가 달라집니다.</li>
+      <li><strong>오라클·데이터 오류</strong> — 잘못된 물류 데이터로 대금이 잘못 지급될 경우의 책임 소재(오라클 제공자·물류사·플랫폼)를 계약으로 명확히 해야 합니다.</li>
+      <li><strong>스마트 컨트랙트 하자</strong> — 코드 결함으로 손해가 발생하면 누가 책임지는지(감사 기관 포함) 사전 합의가 필요합니다.</li>
+      <li><strong>외국환·AML</strong> — 외국환거래법 신고·트래블룰·제재 준수 책임. 미준수 시 형사·행정 제재 위험.</li>
+      <li><strong>분쟁 관할·준거법</strong> — 한-베트남 거래의 분쟁 시 어느 나라 법·중재가 적용되는지 명시.</li>
+    </ul>
+    <h5>2. 비용 쟁점</h5>
+    <ul>
+      <li><strong>온·오프램프 수수료</strong> — 원화·VND 환전·발행·상환 비용이 전체 비용의 큰 비중을 차지</li>
+      <li><strong>가스비</strong> — 체인 선택에 따라 변동. 앱체인·L2로 최적화 가능</li>
+      <li><strong>유동성 비용</strong> — FX 풀 유지를 위한 LP 인센티브·슬리피지 비용</li>
+      <li><strong>컴플라이언스 비용</strong> — KYC/KYB/AML 솔루션, 보안 감사, 라이선스 유지 비용</li>
+    </ul>
+    <h5>3. 시사점</h5>
+    <p>"수수료가 저렴하다"는 장점은 온·오프램프와 컴플라이언스 비용을 포함한 총비용(TCO) 관점에서 따져야 실제 경쟁력이 드러납니다. 법적 책임은 계약·라이선스·보험으로 분산하고, 양국 법률 자문을 사업 설계 단계부터 병행하는 것이 필수입니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q73">
+  <div class="q"><span class="qmark">Q73</span><h4>KYC/KYB/AML/트래블룰은 실무에서 어떻게 운영하는가?</h4></div>
+  <div class="a">
+    <p>B2B 결제 플랫폼은 개인(KYC)보다 기업 신원확인(KYB)과 자금세탁방지(AML)가 핵심입니다.</p>
+    <h5>1. KYB(기업 신원확인)</h5>
+    <ul>
+      <li><strong>법인 검증</strong> — 사업자등록·법인 등기·실소유자(UBO) 확인</li>
+      <li><strong>대표·임원 검증</strong> — 대표자 신원·제재 명단(PEP/제재) 조회</li>
+      <li><strong>사업 실재성</strong> — 거래 목적·무역 실적·거래 상대방 확인</li>
+    </ul>
+    <h5>2. AML 모니터링</h5>
+    <ul>
+      <li><strong>지갑 스크리닝</strong> — Chainalysis·Elliptic 등으로 송·수신 지갑의 위험도를 실시간 평가</li>
+      <li><strong>이상 거래 탐지</strong> — 비정상 규모·빈도·경로 패턴을 탐지하고 의심거래보고(STR)</li>
+      <li><strong>제재 준수</strong> — OFAC 등 제재 대상·관할 차단</li>
+    </ul>
+    <h5>3. 트래블룰</h5>
+    <p>송·수신 사업자 간 거래 당사자 정보를 공유합니다. 국경 간 거래에서는 양국 사업자가 호환되는 트래블룰 솔루션을 사용해야 하며, 미연동 시 송금이 막힐 수 있습니다.</p>
+    <h5>4. 운영 모델</h5>
+    <ul>
+      <li><strong>온보딩 자동화</strong> — KYB 서류 검증을 RegTech 솔루션으로 자동화</li>
+      <li><strong>리스크 등급제</strong> — 거래처를 위험 등급으로 분류해 모니터링 강도를 차등</li>
+      <li><strong>감사 추적</strong> — 모든 검증·거래 기록을 온체인+오프체인으로 보관해 규제 대응</li>
+    </ul>
+    <p>컴플라이언스는 비용이지만, 제도권 기업 고객의 신뢰를 얻는 진입 장벽이자 차별화 요소이기도 합니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q74">
+  <div class="q"><span class="qmark">Q74</span><h4>허가형 체인 기술(Hyperledger Fabric, Besu, R3 Corda)은 어떻게 다른가?</h4></div>
+  <div class="a">
+    <p>B2B·기관 결제에서는 참여자를 통제하는 허가형(Permissioned) 체인이 자주 쓰입니다. 대표 3개 기술을 비교합니다.</p>
+    <table>
+      <thead><tr><th>구분</th><th>Hyperledger Fabric</th><th>Hyperledger Besu</th><th>R3 Corda</th></tr></thead>
+      <tbody>
+        <tr><td>기반</td><td>리눅스 재단, 모듈형 허가형 체인</td><td>이더리움 호환(EVM) 허가/퍼블릭 겸용</td><td>금융 특화 분산원장(엄밀히는 블록체인과 다른 구조)</td></tr>
+        <tr><td>합의</td><td>플러그형(Raft 등)</td><td>QBFT·IBFT 2.0 등</td><td>노터리(Notary) 기반 검증</td></tr>
+        <tr><td>데이터 공개</td><td>채널로 거래를 분리·격리</td><td>퍼블릭 EVM 호환, 프라이버시 모듈 추가</td><td>거래 당사자만 데이터 공유(높은 프라이버시)</td></tr>
+        <tr><td>스마트컨트랙트</td><td>체인코드(Go·Java 등)</td><td>Solidity(EVM)</td><td>CorDapp(JVM)</td></tr>
+        <tr><td>강점</td><td>유연한 모듈·기업 채택 다수</td><td>이더리움 생태계 호환, 퍼블릭 연계 용이</td><td>금융 계약·규제 친화, 강한 프라이버시</td></tr>
+        <tr><td>적합 용도</td><td>공급망·다자간 컨소시엄</td><td>퍼블릭/프라이빗 연동이 필요한 결제</td><td>은행 간 정산·무역금융</td></tr>
+      </tbody>
+    </table>
+    <h5>한-베트남 플랫폼 선택 가이드</h5>
+    <ul>
+      <li><strong>퍼블릭 연계가 중요하면</strong> — Besu(EVM 호환)로 퍼블릭 스테이블코인·DeFi 인프라와 연결</li>
+      <li><strong>다자간 무역 컨소시엄이면</strong> — Fabric의 채널 기반 데이터 격리가 유리</li>
+      <li><strong>은행 간 정산·강한 프라이버시면</strong> — Corda가 금융 거래에 특화</li>
+    </ul>
+    <p>실무에서는 '퍼블릭 정산(스테이블코인) + 허가형 운영(KYB·프라이버시)'을 혼합하는 하이브리드가 흔합니다.</p>
+  </div>
+  <a class="top-link" href="#part6">↑ 목차로</a>
+</article>
+
+</section>
+
+<section class="part" id="part7">
+  <div class="part-head"><div class="part-num">Ⅶ</div><h2 class="part-title">사업 기회와 수익 모델</h2></div>
+
+<div class="subsec"><h3 class="subsec-title">Ⅶ-A. IT·플랫폼 기업의 수익 모델</h3></div>
+
+<article class="qa" id="q75">
+  <div class="q"><span class="qmark">Q75</span><h4>IT·플랫폼 기업이 스테이블코인 영역에서 가질 수 있는 수익 모델은 무엇인가?</h4></div>
+  <div class="a">
+    <p>금산분리 등 규제로 직접 발행이 어려운 IT 기업도, 발행을 둘러싼 인프라·서비스 영역에서 다양한 수익 모델을 가질 수 있습니다.</p>
+    <h5>1. 인프라·플랫폼 제공 (BaaS)</h5>
+    <p>발행사·금융사가 쓰는 발행·정산·지갑 인프라를 구축·운영하고 이용료를 받습니다. 시스템 구축비(SI), 운영·유지보수(SM), 클라우드 기반 BaaS 구독료가 수익원입니다.</p>
+    <h5>2. 지갑·전송 레이어</h5>
+    <p>사용자 접점인 지갑·결제 SDK를 제공합니다. 송금·결제 처리 수수료, 가스비 대납을 포함한 서비스 수수료, 가맹점 연동 수수료가 발생합니다.</p>
+    <h5>3. 온·오프램프</h5>
+    <p>법정화폐와 스테이블코인을 교환하는 관문을 운영하며 환전 스프레드·전환 수수료를 얻습니다.</p>
+    <h5>4. 컴플라이언스·보안 솔루션 (RegTech)</h5>
+    <p>KYC/KYB/AML·지갑 스크리닝·보안 감사·트래블룰 솔루션을 구독형으로 제공합니다.</p>
+    <h5>5. 데이터·부가 서비스</h5>
+    <p>결제·물류·온체인 데이터를 비식별화해 분석·공급망 금융(SCF) 심사 모델·마케팅 인사이트로 제공합니다.</p>
+    <h5>요약</h5>
+    <p>IT 기업의 기회는 '발행' 자체보다 그 주변의 인프라·지갑·온오프램프·컴플라이언스·데이터에 있습니다. 규제 제약 안에서도 '돈이 흐르는 길'을 까는 사업으로 안정적 수익을 만들 수 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part7">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q76">
+  <div class="q"><span class="qmark">Q76</span><h4>각 수익 모델별 대표 기업은 어디인가?</h4></div>
+  <div class="a">
+    <table>
+      <thead><tr><th>수익 모델</th><th>대표 기업</th><th>역할</th></tr></thead>
+      <tbody>
+        <tr><td>발행·준비자산 운용</td><td>Circle, Paxos</td><td>USDC·각종 규제 준수형 스테이블코인 발행, 준비자산(국채 등) 운용 수익</td></tr>
+        <tr><td>결제·정산 인프라</td><td>Stripe(Bridge)</td><td>스테이블코인 기반 글로벌 결제·정산 API</td></tr>
+        <tr><td>온·오프램프</td><td>MoonPay</td><td>법정화폐↔코인 전환 관문, 전환 수수료</td></tr>
+        <tr><td>컴플라이언스·분석</td><td>Chainalysis, Sumsub</td><td>지갑 스크리닝·AML·KYC 솔루션 구독</td></tr>
+        <tr><td>수익형·합성 자산</td><td>Yearn, Ethena</td><td>예치 수익 최적화, 합성 달러(USDe) 운용</td></tr>
+        <tr><td>오라클·증명</td><td>Chainlink(Proof of Reserve)</td><td>준비금 증명·가격 데이터 제공</td></tr>
+      </tbody>
+    </table>
+    <h5>시사점</h5>
+    <p>스테이블코인 산업은 발행사 중심이 아니라, 발행을 둘러싼 결제·온오프램프·컴플라이언스·오라클·수익화의 다층 생태계로 구성됩니다. IT·플랫폼 기업은 자사 강점(클라우드·보안·데이터·사용자 접점)에 맞는 레이어를 선택해 진입할 수 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part7">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q77">
+  <div class="q"><span class="qmark">Q77</span><h4>Coinbase는 스테이블코인 생태계에서 어떤 역할을 하며 어떻게 수익을 내는가?</h4></div>
+  <div class="a">
+    <p>Coinbase는 USDC 생태계에서 발행사 Circle의 핵심 파트너이자 유통·인프라 사업자로서, 다층적 수익을 얻습니다.</p>
+    <h5>1. USDC 준비자산 수익 공유</h5>
+    <p>Circle과의 협약에 따라 USDC 준비자산(주로 미국 국채)에서 발생하는 이자 수익을 공유합니다. 특히 Coinbase 플랫폼에 보관된 USDC에서 발생하는 수익에 대해서는 더 큰 비중을 가져가는 구조로 알려져 있습니다.</p>
+    <h5>2. Base(L2) 운영</h5>
+    <p>OP Stack 기반 L2 'Base'를 운영합니다. 네트워크 수수료(시퀀서 수익)와 생태계 확장에 따른 거래·서비스 수익을 얻습니다.</p>
+    <h5>3. USDC Rewards</h5>
+    <p>사용자가 USDC를 보유하면 일정 보상(예: 연 3.5~4% 수준, 시점·지역에 따라 변동)을 지급해 USDC 보유·유통을 촉진합니다. 보상 재원은 준비자산 수익에서 나옵니다.</p>
+    <h5>4. 커스텀 스테이블코인·인프라</h5>
+    <p>기업·기관이 자체 스테이블코인을 발행·운영하도록 인프라를 지원하고 수수료를 얻는 방향으로 사업을 확장하고 있습니다.</p>
+    <h5>시사점</h5>
+    <p>Coinbase는 '거래소 수수료'에 의존하던 모델에서, USDC 준비자산 수익 공유·L2 운영·구독형 인프라로 수익을 다변화하고 있습니다. 발행사가 아니어도 유통·인프라·플랫폼 장악으로 큰 수익을 낼 수 있음을 보여주는 사례입니다.</p>
+    <div class="redpen"><span class="lbl supp">보완</span> Circle-Coinbase의 USDC 수익 배분 구조와 USDC Rewards 요율(약 3.5~4%)은 <b>공개 협약·시점에 따라 달라지는 추정치</b>입니다. 정확한 배분 비율·요율은 양사 공시(Circle SEC 제출자료 등)로 재확인이 필요합니다.</div>
+  </div>
+  <a class="top-link" href="#part7">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q78">
+  <div class="q"><span class="qmark">Q78</span><h4>RegTech, RWA, 계정 추상화 영역에는 어떤 사업 기회가 있는가?</h4></div>
+  <div class="a">
+    <h5>1. RegTech (규제 기술)</h5>
+    <p>규제가 강화될수록 수요가 커지는 구조적 성장 영역입니다.</p>
+    <ul>
+      <li><strong>KYB·온보딩 자동화</strong> — 기업 신원확인을 자동화하는 SaaS</li>
+      <li><strong>온체인 AML</strong> — 지갑 위험도 평가·이상거래 탐지 구독 서비스</li>
+      <li><strong>트래블룰 솔루션</strong> — 사업자 간 정보 공유 인프라</li>
+    </ul>
+    <h5>2. RWA (실물 자산 토큰화)</h5>
+    <ul>
+      <li><strong>발행·관리 플랫폼</strong> — ERC-3643 기반 토큰 발행·컴플라이언스 관리 SaaS</li>
+      <li><strong>수탁·정산</strong> — 실물 자산 수탁·도산 절연 구조 제공</li>
+      <li><strong>오라클·증명</strong> — 준비금·자산 가치 증명 데이터 서비스</li>
+    </ul>
+    <h5>3. 계정 추상화 (Account Abstraction)</h5>
+    <ul>
+      <li><strong>스마트 지갑</strong> — 시드 구문 없이 소셜 로그인·복구가 가능한 지갑</li>
+      <li><strong>가스비 대납(Paymaster)</strong> — 사용자가 코인 없이 시작하게 하고, 대납 수수료를 수익화</li>
+      <li><strong>일괄 거래·세션 키</strong> — 복잡한 거래를 한 번에 처리하는 UX 개선</li>
+    </ul>
+    <h5>시사점</h5>
+    <p>이 세 영역은 모두 '대중화·제도화의 병목'을 푸는 분야입니다. RegTech는 규제 대응, RWA는 자산 확장, 계정 추상화는 사용자 경험이라는 각기 다른 병목을 해소하며, IT 기업이 기술력으로 진입하기 좋은 고성장 시장입니다.</p>
+  </div>
+  <a class="top-link" href="#part7">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅶ-B. 스마트컨트랙트와 금융권 모델</h3></div>
+
+<article class="qa" id="q79">
+  <div class="q"><span class="qmark">Q79</span><h4>스마트컨트랙트 제공자의 수익 모델은 무엇인가?</h4></div>
+  <div class="a">
+    <p>스마트 컨트랙트를 설계·배포·운영하는 사업자는 개발 용역을 넘어 지속 수익(Recurring) 모델을 가질 수 있습니다.</p>
+    <h5>1. 개발·감사 용역</h5>
+    <p>컨트랙트 설계·개발(프로젝트 단위), 보안 감사(Audit) 수수료. 고난도·고위험 영역일수록 단가가 높습니다.</p>
+    <h5>2. 프로토콜 수수료</h5>
+    <p>직접 운영하는 프로토콜(DEX·대출·에스크로)에서 거래·이용 수수료를 받습니다. TVL·거래량에 비례한 지속 수익입니다.</p>
+    <h5>3. 라이선스·구독 (SaaS)</h5>
+    <p>표준화된 컨트랙트 템플릿(에스크로·정산·토큰화)을 라이선스·구독형으로 제공합니다. 기업이 매번 새로 개발하지 않고 검증된 모듈을 쓰게 합니다.</p>
+    <h5>4. 인프라·미들웨어</h5>
+    <p>오라클 연동·계정 추상화·가스비 대납 같은 미들웨어를 API 호출당·구독형으로 제공합니다.</p>
+    <h5>5. 토큰·인센티브</h5>
+    <p>프로토콜 거버넌스 토큰 가치, 스테이킹·수수료 분배 등으로 생태계 성장과 수익을 연계합니다.</p>
+    <h5>시사점</h5>
+    <p>일회성 개발 용역은 확장성이 낮습니다. 검증된 컨트랙트를 '모듈·구독·프로토콜 수수료'로 반복 수익화하고, 보안 감사로 신뢰를 확보하는 것이 지속 가능한 모델입니다.</p>
+  </div>
+  <a class="top-link" href="#part7">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q80">
+  <div class="q"><span class="qmark">Q80</span><h4>경쟁 차별화를 위한 핵심 요소는 무엇인가?</h4></div>
+  <div class="a">
+    <p>스테이블코인·결제 인프라 시장에서 후발 주자가 차별화할 수 있는 5가지 요소입니다.</p>
+    <h5>1. 규제 준수·라이선스</h5>
+    <p>제도권 고객이 가장 먼저 보는 요소입니다. 인가·컴플라이언스를 선제 확보하면 '안전한 파트너'라는 신뢰가 진입 장벽이 됩니다.</p>
+    <h5>2. 유동성·네트워크</h5>
+    <p>결제·FX는 유동성이 깊고 가맹점·은행망이 넓을수록 강합니다. 초기에 핵심 거점(특정 무역 회랑·산업)을 장악하는 전략이 유효합니다.</p>
+    <h5>3. 사용자 경험(UX)</h5>
+    <p>계정 추상화·가스비 대납으로 '코인을 모르는 사람도 쓰는' 경험을 제공하면 대중화 우위를 갖습니다.</p>
+    <h5>4. 비용 구조</h5>
+    <p>온·오프램프·컴플라이언스를 포함한 총비용(TCO)에서 우위를 확보해야 실제 가격 경쟁력이 됩니다.</p>
+    <h5>5. 데이터·오라클</h5>
+    <p>물류·결제 데이터를 신뢰성 있게 온체인으로 가져오는 역량은 자동 결제·공급망 금융의 차별화 핵심입니다.</p>
+    <h5>요약</h5>
+    <p>기술 자체는 빠르게 평준화됩니다. 차별화는 '규제 신뢰 + 유동성 거점 + 쉬운 UX + 낮은 총비용 + 데이터 역량'의 조합에서 나옵니다. 특정 산업·회랑에 집중해 깊게 파는 버티컬 전략이 후발 주자에게 유리합니다.</p>
+  </div>
+  <a class="top-link" href="#part7">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q81">
+  <div class="q"><span class="qmark">Q81</span><h4>금융권의 블록체인 채택 전략은 어떻게 전개되고 있는가?</h4></div>
+  <div class="a">
+    <p>은행·금융사는 탈중앙화보다 '신뢰·규제 준수·효율'을 위해 블록체인을 선택적으로 채택하고 있습니다.</p>
+    <h5>1. 토큰화 예금</h5>
+    <p>예금을 토큰화해 기관 간 정산·결제에 활용합니다. 폐쇄형 고신뢰 환경에서 24시간 정산·프로그래머블 금융을 구현합니다(예: J.P.Morgan Kinexys).</p>
+    <h5>2. 도매형 정산(wholesale)</h5>
+    <p>은행 간 대규모 정산·외환을 DvP/PvP로 처리해 결제 리스크를 줄입니다. 기관용 wCBDC·BIS 실험과 연계됩니다.</p>
+    <h5>3. 무역금융·공급망</h5>
+    <p>전자선하증권·조건부 결제로 무역 서류 처리·자금 지급을 자동화하고 사기·지연을 줄입니다.</p>
+    <h5>4. RWA·토큰화 자산</h5>
+    <p>국채·펀드·채권을 토큰화해 24시간 거래·소액화·정산 효율을 높입니다(예: BlackRock BUIDL).</p>
+    <h5>5. 채택 전략의 특징</h5>
+    <ul>
+      <li><strong>허가형 우선</strong> — 참여자를 통제하는 허가형 체인으로 시작</li>
+      <li><strong>공존 모델</strong> — 토큰화 예금(폐쇄형 고신뢰)과 공개형 토큰화폐(오픈 네트워크)를 경쟁이 아닌 보완 관계로 활용</li>
+      <li><strong>단계적 확장</strong> — PoC → 제한적 상용 → 확장의 점진적 접근</li>
+    </ul>
+    <p>금융권은 '혁명적 대체'가 아니라 기존 인프라의 효율화·신뢰 강화 수단으로 블록체인을 받아들이고 있으며, 규제 명확화와 함께 채택이 가속되고 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part7">↑ 목차로</a>
+</article>
+
+</section>
+
+<section class="part" id="part8">
+  <div class="part-head"><div class="part-num">Ⅷ</div><h2 class="part-title">한국 이용 실무·지갑·생태계</h2></div>
+
+<div class="subsec"><h3 class="subsec-title">Ⅷ-A. 한국 이용 실무</h3></div>
+
+<article class="qa" id="q82">
+  <div class="q"><span class="qmark">Q82</span><h4>한국에서 USD 스테이블코인은 어떻게 구매하는가?</h4></div>
+  <div class="a">
+    <p>한국에서는 주로 원화 거래가 가능한 국내 거래소를 통해 간접적으로 확보합니다.</p>
+    <h5>1. 일반적 경로</h5>
+    <ol>
+      <li><strong>국내 거래소 가입·실명확인</strong> — Upbit·Bithumb 등에서 실명 계좌 연동(은행 계좌 필요)</li>
+      <li><strong>원화 입금·코인 매수</strong> — 원화로 비트코인·이더리움 등 매수</li>
+      <li><strong>USDT/USDC로 교환</strong> — 거래소 내에서 USD 스테이블코인으로 교환하거나, 직접 원화-스테이블코인 마켓이 있으면 매수</li>
+      <li><strong>개인 지갑 출금(선택)</strong> — 트래블룰·화이트리스트 절차에 따라 개인 지갑으로 출금</li>
+    </ol>
+    <h5>2. 유의사항</h5>
+    <ul>
+      <li><strong>마켓 제공 여부</strong> — 거래소별로 원화-스테이블코인 직접 마켓 제공 여부가 다릅니다.</li>
+      <li><strong>트래블룰</strong> — 100만 원 이상 송금 시 송·수신자 정보 확인이 필요합니다.</li>
+      <li><strong>수수료</strong> — 매매·출금·전송(가스비) 수수료를 함께 고려해야 합니다.</li>
+    </ul>
+    <p>요컨대 '원화 입금 → 코인 매수 → 스테이블코인 교환'이 기본 경로이며, 거래소의 실명확인·트래블룰 절차를 거쳐야 합니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q83">
+  <div class="q"><span class="qmark">Q83</span><h4>외국환거래법은 스테이블코인 이용에 어떻게 적용되는가?</h4></div>
+  <div class="a">
+    <p>스테이블코인을 이용한 자금 이동, 특히 국경 간 이동은 외국환거래법의 적용 가능성을 검토해야 합니다.</p>
+    <h5>1. 핵심 쟁점</h5>
+    <ul>
+      <li><strong>지급·수령 신고</strong> — 일정 규모 이상의 국외 지급·수령은 신고 의무가 있을 수 있습니다.</li>
+      <li><strong>자본거래 규제</strong> — 거래 성격(경상·자본)에 따라 신고·보고 요건이 다릅니다.</li>
+      <li><strong>증빙</strong> — 무역 대금 등은 거래 목적·계약·인보이스 등 증빙이 요구됩니다.</li>
+    </ul>
+    <h5>2. 실무 고려</h5>
+    <ul>
+      <li><strong>가상자산의 법적 성격</strong> — 스테이블코인이 외국환거래법상 '지급수단'에 해당하는지 등은 해석·제도 정비가 진행 중인 영역입니다.</li>
+      <li><strong>기업 송금</strong> — 기업의 대금 결제는 개인보다 신고·증빙 요건이 엄격합니다.</li>
+      <li><strong>미신고 위험</strong> — 신고·증빙 누락 시 행정·형사 제재 위험이 있습니다.</li>
+    </ul>
+    <p>제도가 빠르게 변하고 해석 여지가 크므로, 국경 간 스테이블코인 거래는 사전에 외국환·세무 전문가의 자문을 받는 것이 안전합니다. 본 문답은 일반 정보이며 법률 자문이 아닙니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q84">
+  <div class="q"><span class="qmark">Q84</span><h4>스테이블코인으로 해외 송금은 어떻게 이루어지는가?</h4></div>
+  <div class="a">
+    <p>일반적 흐름은 '국내에서 코인 확보 → 해외 수취인에게 전송 → 현지에서 환전'입니다.</p>
+    <h5>1. 기본 절차</h5>
+    <ol>
+      <li><strong>코인 확보</strong> — 국내 거래소에서 USDT/USDC 확보</li>
+      <li><strong>전송</strong> — 수취인의 지갑 또는 현지 거래소 주소로 온체인 전송(네트워크 선택·가스비 고려)</li>
+      <li><strong>현지 환전</strong> — 수취인이 현지 거래소·오프램프로 자국 통화로 환전</li>
+    </ol>
+    <h5>2. 장점</h5>
+    <ul>
+      <li><strong>속도</strong> — SWIFT 대비 빠른 정산(수분~수십분)</li>
+      <li><strong>비용</strong> — 중개 은행 단계 축소로 수수료 절감 가능</li>
+      <li><strong>접근성</strong> — 24시간, 은행 영업시간 무관</li>
+    </ul>
+    <h5>3. 유의사항</h5>
+    <ul>
+      <li><strong>트래블룰·KYC</strong> — 거래소 간 송금 시 정보 일치 필요(이름 불일치 시 반려)</li>
+      <li><strong>외국환 신고</strong> — 규모·목적에 따라 신고 의무 검토</li>
+      <li><strong>네트워크 오류</strong> — 주소·네트워크를 잘못 선택하면 자산을 잃을 수 있습니다.</li>
+      <li><strong>현지 규제</strong> — 수취 국가의 가상자산·환전 규제 확인</li>
+    </ul>
+    <p>개인 소액 송금은 비교적 단순하지만, 기업·고액·반복 송금은 외국환거래법·AML 준수가 전제입니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q85">
+  <div class="q"><span class="qmark">Q85</span><h4>한국에서 스테이블코인으로 직접 결제가 가능한가?</h4></div>
+  <div class="a">
+    <p>현재 한국에서 스테이블코인을 일상 결제 수단으로 '직접' 쓰는 것은 제한적입니다. 제도·인프라가 정비되는 과도기이기 때문입니다.</p>
+    <h5>1. 현황</h5>
+    <ul>
+      <li><strong>제도</strong> — 가상자산을 일반 가맹점 결제 수단으로 직접 쓰는 것은 규제·세제 측면에서 제약이 있습니다.</li>
+      <li><strong>간접 결제</strong> — 가상자산 연동 카드(코인을 즉시 법정화폐로 환전해 결제)를 통한 우회 이용이 일반적입니다.</li>
+      <li><strong>실증·파일럿</strong> — 특정 영역(외국인 관광객 대상 등)에서 디지털 바우처·실증 사업이 진행되고 있습니다.</li>
+    </ul>
+    <h5>2. 향후 전망</h5>
+    <p>원화 스테이블코인 제도화·CBDC·예금 토큰 논의가 진전되면, 가맹점 결제 인프라가 정비되며 직접 결제 사례가 늘어날 수 있습니다. 다만 소비자 보호·세제·가맹점 정산 체계가 함께 마련돼야 합니다.</p>
+    <p>요약하면, 지금은 '카드를 통한 간접 결제'가 현실적이며, 직접 결제는 제도·인프라 정비와 함께 단계적으로 확대될 영역입니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q86">
+  <div class="q"><span class="qmark">Q86</span><h4>해외 가상자산 카드(예: RedotPay, Bybit Card)는 어떻게 작동하는가?</h4></div>
+  <div class="a">
+    <p>가상자산 카드는 지갑·거래소 잔액의 코인을 결제 순간 법정화폐로 환전해, 기존 카드 가맹점망(Visa·Mastercard)에서 쓰게 하는 서비스입니다.</p>
+    <h5>1. 작동 원리</h5>
+    <ol>
+      <li>카드에 연결된 지갑·계정에 스테이블코인 등 잔액 보유</li>
+      <li>가맹점에서 카드로 결제(일반 카드처럼 작동)</li>
+      <li>결제 순간 코인을 법정화폐로 환전해 가맹점에 정산</li>
+    </ol>
+    <h5>2. 대표 사례</h5>
+    <ul>
+      <li><strong>RedotPay</strong> — 스테이블코인 잔액 기반 글로벌 결제 카드(가상·실물)</li>
+      <li><strong>Bybit Card</strong> — 거래소 잔액과 연동된 결제 카드</li>
+    </ul>
+    <h5>3. 유의사항</h5>
+    <ul>
+      <li><strong>환전 수수료·스프레드</strong> — 결제 시 환전 비용이 발생할 수 있습니다.</li>
+      <li><strong>국가·가맹점 제한</strong> — 지역·카드사 정책에 따라 사용이 제한될 수 있습니다.</li>
+      <li><strong>규제·세제</strong> — 한국 거주자의 이용은 외국환·세제·규제 측면을 별도로 검토해야 합니다.</li>
+    </ul>
+    <p>요컨대 '코인 잔액을 즉시 환전해 카드망으로 결제'하는 구조로, 직접 결제의 제약을 우회하는 현실적 수단입니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q87">
+  <div class="q"><span class="qmark">Q87</span><h4>Coinbase Card의 수수료 구조는 어떻게 되어 있는가?</h4></div>
+  <div class="a">
+    <p>Coinbase Card는 Coinbase 계정 잔액으로 결제하는 Visa 직불형 카드입니다. 핵심은 결제에 쓰는 자산에 따라 수수료가 달라진다는 점입니다.</p>
+    <h5>1. 수수료 구조 (일반적 알려진 기준)</h5>
+    <ul>
+      <li><strong>USDC 결제</strong> — 스테이블코인(USDC)으로 결제 시 거래 수수료가 없는(0%) 경우가 일반적입니다.</li>
+      <li><strong>기타 가상자산 결제</strong> — 비트코인 등 다른 자산으로 결제 시 환전 성격의 수수료(예: 약 2.49%)가 부과될 수 있습니다.</li>
+    </ul>
+    <h5>2. 시사점</h5>
+    <p>USDC를 결제 통화로 우대하는 구조는, 가치 변동이 없는 스테이블코인 결제를 장려해 USDC 생태계를 확장하려는 전략과 맞닿아 있습니다. 사용자 입장에서는 USDC로 결제할수록 비용이 낮아집니다.</p>
+    <div class="redpen"><span class="lbl supp">보완</span> 카드 수수료(USDC 0%, 기타 자산 약 2.49%)와 보상 정책은 <b>지역·시점·약관에 따라 변동</b>하며, 한국 거주자는 발급·이용 가능 여부 자체가 제한될 수 있습니다. 이용 전 Coinbase 공식 약관에서 현행 수수료를 확인해야 합니다.</div>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅷ-B. 지갑과 사용자 접점</h3></div>
+
+<article class="qa" id="q88">
+  <div class="q"><span class="qmark">Q88</span><h4>디지털 자산 지갑은 어떻게 분류되는가?</h4></div>
+  <div class="a">
+    <p>지갑은 '개인키를 누가 관리하는가'와 '온라인 연결 여부'에 따라 분류됩니다.</p>
+    <h5>1. 수탁 vs 비수탁</h5>
+    <ul>
+      <li><strong>수탁형(Custodial)</strong> — 거래소·사업자가 키를 보관(예: 거래소 지갑). 편리하지만 사업자 신뢰에 의존</li>
+      <li><strong>비수탁형(Non-custodial)</strong> — 사용자가 키를 직접 관리(예: MetaMask). 통제권이 크지만 분실 시 복구 곤란</li>
+    </ul>
+    <h5>2. 핫월렛 vs 콜드월렛</h5>
+    <ul>
+      <li><strong>핫월렛</strong> — 인터넷 연결(앱·브라우저 확장). 편리하나 해킹 노출 위험</li>
+      <li><strong>콜드월렛</strong> — 오프라인 보관(하드웨어·종이). 보안 강하나 사용이 번거로움</li>
+    </ul>
+    <h5>3. 스마트 컨트랙트 지갑(계정 추상화)</h5>
+    <p>개인키(EOA) 대신 컨트랙트로 작동하는 지갑입니다. 소셜 복구, 가스비 대납, 일괄 거래, 다중 서명 등 유연한 기능을 제공해 사용자 경험을 크게 개선합니다.</p>
+    <h5>4. 선택 가이드</h5>
+    <ul>
+      <li><strong>소액·잦은 거래</strong> — 핫월렛(비수탁형)</li>
+      <li><strong>거액·장기 보관</strong> — 콜드월렛(하드웨어)</li>
+      <li><strong>기관·기업</strong> — MPC·멀티시그 기반 기관용 수탁 솔루션</li>
+    </ul>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q89">
+  <div class="q"><span class="qmark">Q89</span><h4>지갑 유형별 대표 사업자는 어디인가?</h4></div>
+  <div class="a">
+    <table>
+      <thead><tr><th>유형</th><th>대표 사업자</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr><td>핫월렛(EVM)</td><td>MetaMask</td><td>이더리움·EVM 생태계 대표 비수탁 지갑</td></tr>
+        <tr><td>핫월렛(Solana)</td><td>Phantom</td><td>솔라나 중심, 멀티체인 확장</td></tr>
+        <tr><td>하드웨어(콜드)</td><td>Ledger</td><td>대표적 하드웨어 지갑, 오프라인 키 보관</td></tr>
+        <tr><td>국내 지갑</td><td>디센트(D'CENT)</td><td>국내 개발 하드웨어·앱 지갑</td></tr>
+        <tr><td>기관용 수탁</td><td>Fireblocks</td><td>MPC 기반 기관 자산 보관·전송 인프라</td></tr>
+        <tr><td>보안·스마트컨트랙트</td><td>수호아이오(Sooho.io)</td><td>스마트컨트랙트 보안 감사·지갑·결제 인프라</td></tr>
+      </tbody>
+    </table>
+    <h5>시사점</h5>
+    <p>개인용은 MetaMask·Phantom·Ledger·디센트가, 기업·기관용은 Fireblocks 같은 MPC 기반 수탁 인프라가 표준입니다. 국내 사업자(디센트·수호아이오 등)는 규제 대응·현지 지원에 강점이 있어, 한국 사업에서는 글로벌+국내 솔루션을 조합하는 경우가 많습니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q90">
+  <div class="q"><span class="qmark">Q90</span><h4>계정 추상화는 지갑과 사용자 경험을 어떻게 바꾸는가?</h4></div>
+  <div class="a">
+    <p>계정 추상화(Account Abstraction, ERC-4337 등)는 지갑을 개인키 중심에서 스마트 컨트랙트 중심으로 바꿔, 일반 앱처럼 쉬운 경험을 제공합니다.</p>
+    <h5>1. 핵심 변화</h5>
+    <ul>
+      <li><strong>소셜 로그인·복구</strong> — 시드 구문 없이 이메일·소셜 계정으로 시작하고, 키 분실 시 지정 보호자로 복구</li>
+      <li><strong>가스비 대납(Paymaster)</strong> — 사용자가 코인 없이 시작. 서비스가 가스비를 대납하거나 스테이블코인으로 납부</li>
+      <li><strong>일괄 거래</strong> — 승인+전송을 한 번에 처리해 클릭 수를 줄임</li>
+      <li><strong>세션 키</strong> — 게임·앱에서 매번 서명 없이 일정 기간 자동 실행</li>
+    </ul>
+    <h5>2. 사용자 경험</h5>
+    <p>"코인을 사야 시작할 수 있다", "시드 구문을 잃으면 끝이다", "서명 팝업이 너무 많다"는 3대 진입 장벽을 해소합니다. 사용자는 블록체인을 의식하지 않고 앱을 쓰게 됩니다.</p>
+    <h5>3. 사업 기회</h5>
+    <p>스마트 지갑 SDK, Paymaster 인프라, 복구 서비스가 새로운 수익 영역이 됩니다. 특히 스테이블코인 결제와 결합하면 '코인 없이도 결제 시작 → 가스비 자동 처리'라는 대중 친화적 흐름을 만들 수 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q91">
+  <div class="q"><span class="qmark">Q91</span><h4>삼성·애플 등 제조사의 지갑은 어떤 역할을 하는가?</h4></div>
+  <div class="a">
+    <p>스마트폰 제조사의 지갑은 하드웨어 보안과 대규모 사용자 접점을 결합해, 디지털 자산의 대중화 게이트웨이가 될 수 있습니다.</p>
+    <h5>1. 삼성</h5>
+    <ul>
+      <li><strong>삼성 블록체인 월렛</strong> — 갤럭시 기기에서 개인키를 별도 보안 영역에 보관하고 다양한 코인·DApp 연결을 지원</li>
+      <li><strong>하드웨어 보안</strong> — 기기 내 보안 칩(Secure Element)을 활용해 콜드월렛에 준하는 보안을 지향</li>
+    </ul>
+    <h5>2. 애플</h5>
+    <ul>
+      <li><strong>플랫폼 정책</strong> — 자체 지갑보다 앱 생태계 정책·결제 정책을 통한 간접 영향이 큽니다.</li>
+      <li><strong>보안 하드웨어</strong> — Secure Enclave 등 보안 하드웨어가 서드파티 지갑 보안에 활용될 수 있습니다.</li>
+    </ul>
+    <h5>3. 전략적 의미</h5>
+    <p>제조사 지갑의 강점은 ① 수억 대의 기기 기반 사용자 접점 ② 하드웨어 보안 ③ 친숙한 UX입니다. 다만 금산분리·규제로 직접 발행·금융업 진출에는 제약이 있어, '안전한 지갑·전송 레이어' 역할에 집중하는 것이 현실적입니다. 결제·신원·키 관리의 게이트웨이를 장악하면 생태계에서 강력한 위치를 가질 수 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q92">
+  <div class="q"><span class="qmark">Q92</span><h4>삼성 지갑, Ledger, 디센트(D'CENT)는 어떻게 비교되는가?</h4></div>
+  <div class="a">
+    <table>
+      <thead><tr><th>구분</th><th>삼성 블록체인 월렛</th><th>Ledger</th><th>디센트(D'CENT)</th></tr></thead>
+      <tbody>
+        <tr><td>형태</td><td>스마트폰 내장(기기 보안 영역)</td><td>전용 하드웨어 기기</td><td>하드웨어·앱(국내 개발)</td></tr>
+        <tr><td>보안</td><td>기기 보안 칩 기반</td><td>독립 하드웨어, 오프라인 키</td><td>지문 인증 하드웨어 등</td></tr>
+        <tr><td>편의성</td><td>갤럭시 사용자에게 친숙·간편</td><td>별도 기기 휴대 필요</td><td>앱 연동 편의·국내 지원</td></tr>
+        <tr><td>접근성</td><td>대규모 기기 기반 접점</td><td>글로벌 표준, 다양한 코인</td><td>국내 거래소·서비스 연동</td></tr>
+        <tr><td>적합 사용자</td><td>대중 사용자(접근성)</td><td>거액·장기 보관(보안 우선)</td><td>국내 사용자(현지 지원)</td></tr>
+      </tbody>
+    </table>
+    <h5>선택 가이드</h5>
+    <ul>
+      <li><strong>대중·일상</strong> — 삼성 지갑(접근성·UX)</li>
+      <li><strong>거액·장기 보관</strong> — Ledger(독립 하드웨어 보안)</li>
+      <li><strong>국내 서비스 중심</strong> — 디센트(현지 연동·지원)</li>
+    </ul>
+    <p>보안과 편의성은 상충 관계가 있으므로, 보관 금액·사용 빈도·연동 서비스에 맞춰 선택하는 것이 합리적입니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<div class="subsec"><h3 class="subsec-title">Ⅷ-C. 한국 생태계 경쟁 구도</h3></div>
+
+<article class="qa" id="q93">
+  <div class="q"><span class="qmark">Q93</span><h4>한국 블록체인 생태계(카이아, 위믹스, STO 등)는 어떻게 구성되어 있는가?</h4></div>
+  <div class="a">
+    <p>한국 생태계는 토종 L1·게임·STO·결제가 각자 영역에서 발전해 왔습니다.</p>
+    <h5>1. 토종 L1: 카이아(Kaia)</h5>
+    <p>클레이튼(카카오)과 핀시아(라인/네이버 계열)의 합병으로 탄생한 L1입니다. 한국·동남아의 대규모 메신저 사용자 기반과 연계해 결제·DApp 생태계 확장을 노립니다.</p>
+    <h5>2. 게임·콘텐츠</h5>
+    <ul>
+      <li><strong>위믹스(WEMIX, 위메이드)</strong> — 게임 특화 블록체인·토큰 생태계로 P2E·게임 결제를 지향</li>
+      <li><strong>마브렉스(MARBLEX, 넷마블)</strong> 등 게임사 주도 토큰·플랫폼</li>
+    </ul>
+    <h5>3. STO(토큰 증권)</h5>
+    <p>증권사·조각투자 사업자 중심으로 부동산·미술품·콘텐츠 IP 등을 토큰화하는 시장이 형성되고 있습니다(자본시장법·전자증권법 정비와 연동).</p>
+    <h5>4. 인프라·보안</h5>
+    <p>수호아이오·해치랩스 등 스마트컨트랙트 보안·지갑 기업, LG CNS·삼성SDS 등 대기업 SI가 CBDC·기업 블록체인 인프라를 담당합니다.</p>
+    <h5>특징</h5>
+    <p>한국은 메신저·게임이라는 대규모 사용자 기반과, 제도권(증권사·은행) 주도의 STO·CBDC가 동시에 발전하는 구조입니다. 규제 명확화가 진행되면 이 자산들이 결제·정산 인프라로 수렴할 가능성이 있습니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q94">
+  <div class="q"><span class="qmark">Q94</span><h4>한국 원화 스테이블코인 경쟁 구도는 어떻게 형성되어 있는가?</h4></div>
+  <div class="a">
+    <p>원화 스테이블코인 논의는 빅테크·은행·블록체인 기업이 각축하는 구도로 전개되고 있습니다.</p>
+    <h5>1. 빅테크·핀테크</h5>
+    <ul>
+      <li><strong>네이버·두나무 계열</strong> — 대규모 사용자·결제 기반과 거래소 인프라를 결합한 진입 가능성</li>
+      <li><strong>카카오 계열</strong> — 메신저·페이 기반 사용자 접점, 카카오페이의 글로벌 결제 협력</li>
+    </ul>
+    <h5>2. 은행권</h5>
+    <p>은행들은 토큰화 예금·은행 컨소시엄 기반 모델로 '고신뢰 폐쇄형 정산'을 지향합니다. 통화 주권·규제 준수 측면에서 제도권의 신뢰를 강조합니다.</p>
+    <h5>3. 블록체인 기업: 프로젝트 남산</h5>
+    <p>수호아이오가 원화 스테이블코인 생태계를 위한 컨소시엄 '프로젝트 남산'을 출범하고, 체인링크를 기술 파트너로 두었습니다. CCIP(크로스체인)와 Proof of Reserve(준비금 증명)를 활용하며, FX 정산 레이어로 자체 개발한 '이지스(Ezys)'를 적용했습니다.</p>
+    <div class="redpen"><span class="lbl supp">보완</span> '프로젝트 남산'은 공개 발표 기준 <b>수호아이오가 주도하고 체인링크가 기술 파트너</b>로 참여하는 구조입니다. 초기 실증은 <b>외국인 관광객 대상 파일럿</b>으로, USD 스테이블코인 예치 후 원화 디지털 바우처로 결제해 전통 외환 수수료 대비 <b>최소 30% 절감</b>을 입증했다고 밝혔습니다. 특정 빅테크의 '공동 주도' 여부 등 세부 참여 구성은 공식 발표로 재확인이 필요합니다. <span class="src">출처: 뉴스와이어·블로터 등(2025.09–2026.02).</span></div>
+    <h5>경쟁 구도의 핵심 축</h5>
+    <ul>
+      <li><strong>신뢰</strong> — 은행(통화 주권·규제 준수) vs 빅테크(사용자 경험)</li>
+      <li><strong>접점</strong> — 메신저·페이·거래소의 대규모 사용자 기반</li>
+      <li><strong>인프라</strong> — 발행·정산·FX·준비금 증명을 누가 안정적으로 운영하는가</li>
+    </ul>
+    <p>제도(디지털자산기본법 등)와 가상자산위원회 논의의 방향이 발행 주체·요건을 좌우할 핵심 변수입니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+<article class="qa" id="q95">
+  <div class="q"><span class="qmark">Q95</span><h4>한국의 주요 B2B·기관 블록체인 프로젝트에는 어떤 것들이 있는가?</h4></div>
+  <div class="a">
+    <p>한국의 기관·B2B 프로젝트는 국경 간 송금, 원화 스테이블코인 정산, 은행 컨소시엄, CBDC 인프라로 나뉩니다.</p>
+    <h5>1. 국경 간 송금: 프로젝트 팍스(Project Pax)</h5>
+    <p>우리은행 등이 참여하는 한·일 국경 간 스테이블코인 송금 PoC입니다. 일본 측은 메가뱅크 합작사 프로그맷(Progmat), 한국 측은 페어스퀘어랩·한국디지털자산수탁(KDAC)이 주관합니다. (한국은행 CBDC 테스트인 '프로젝트 한강'과는 별개입니다.)</p>
+    <h5>2. 원화 스테이블코인 정산: 프로젝트 남산 · 이지스(Ezys)</h5>
+    <p>수호아이오 주도, 체인링크 기술 파트너. FX·정산 레이어 '이지스(Ezys)'를 통해 스테이블코인 결제를 원화로 실시간 정산하는 구조를 실증합니다. 라이선스를 보유한 금융기관·핀테크가 직접 연결돼 환율을 매칭하는 오픈 네트워크를 지향합니다.</p>
+    <h5>3. 은행 컨소시엄·결제 인프라</h5>
+    <ul>
+      <li><strong>은행권 컨소시엄</strong> — 다수 시중은행이 원화 스테이블코인·토큰화 예금 공동 모델을 검토</li>
+      <li><strong>더즌(Dunamu 계열 등) · 결제 사업자</strong> — 결제·정산 인프라 영역에서 참여</li>
+    </ul>
+    <h5>4. CBDC·기업 인프라</h5>
+    <ul>
+      <li><strong>LG CNS</strong> — 한국은행 CBDC 시스템 구축의 핵심 파트너(모나체인)</li>
+      <li><strong>삼성SDS</strong> — 클라우드·블록체인 결합 기업용 인프라(넥스레저)</li>
+    </ul>
+    <h5>구도 요약</h5>
+    <p>한국은 ① 국경 간 송금(팍스) ② 원화 스테이블코인 정산(남산·이지스) ③ 은행 토큰화 예금 ④ CBDC 인프라가 동시에 진행되는 다층 구조입니다. 금산분리·디지털자산기본법 등 제도 정비가 각 프로젝트의 발행 주체·역할 범위를 결정할 핵심 변수로 작용합니다.</p>
+  </div>
+  <a class="top-link" href="#part8">↑ 목차로</a>
+</article>
+
+</section>
+
+</main>
+</div>
+
+<button id="totop" aria-label="맨 위로" style="position:fixed;right:22px;bottom:24px;width:46px;height:46px;border-radius:50%;border:none;background:#0d1b2e;color:#e7c66a;font-size:1.25rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(13,27,46,.28);display:none;z-index:50;">↑</button>
+
+<footer>
+  <div class="fi">
+    <p style="margin:0 0 8px;font-weight:800;letter-spacing:.04em;color:#e7c66a;">DIGITAL ASSET PRIMER · Q&amp;A REVIEW</p>
+    <p style="margin:0;color:#b9c2d2;line-height:1.7;">원문 기준일 2026-04-22 · 사실 검토·정정 기준일 2026-06-17. 본 자료의 시장 규모·점유율·수익률·절감폭 등 수치와 전망은 인용된 <b>외부 추정</b>이며 시점에 따라 달라질 수 있습니다. 규제·제도는 빠르게 변하므로 인용 시 1차 출처(관보, 금융위·ESMA 공시, 기업 IR 등)를 재확인하시기 바랍니다. 본 문서는 정보 제공용이며 투자·법률 자문이 아닙니다.</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var bt = document.getElementById('totop');
+    if(!bt) return;
+    window.addEventListener('scroll', function(){
+      bt.style.display = (window.scrollY > 500) ? 'block' : 'none';
+    });
+    bt.addEventListener('click', function(){
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+</script>
+
+</body>
+</html>
